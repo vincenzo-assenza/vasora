@@ -17,7 +17,7 @@
       {
         "type": "font_picker",
         "id": "type_primary_font",
-        "default": "work_sans_n4",
+        "default": "inter_n4",
         "label": "t:general.primary"
       }
     ]
@@ -50,6 +50,17 @@
         "unit": "px",
         "label": "t:labels.page_margin",
         "default": 20
+      },
+      {
+        "type": "select",
+        "id": "spacing_scale",
+        "label": "Spacing scale",
+        "options": [
+          { "value": "compact", "label": "Compact" },
+          { "value": "medium", "label": "Medium" },
+          { "value": "airy", "label": "Airy" }
+        ],
+        "default": "medium"
       }
     ]
   },
@@ -65,8 +76,26 @@
       {
         "type": "color",
         "id": "foreground_color",
-        "default": "#333333",
+        "default": "#1F2937",
         "label": "t:labels.foreground"
+      },
+      {
+        "type": "color",
+        "id": "accent_color",
+        "default": "#0F766E",
+        "label": "Accent"
+      },
+      {
+        "type": "color",
+        "id": "muted_color",
+        "default": "#F3F4F6",
+        "label": "Muted"
+      },
+      {
+        "type": "color",
+        "id": "border_color",
+        "default": "#E5E7EB",
+        "label": "Border"
       },
       {
         "type": "range",
@@ -76,7 +105,7 @@
         "step": 1,
         "unit": "px",
         "label": "t:labels.input_corner_radius",
-        "default": 4
+        "default": 6
       }
     ]
   }
