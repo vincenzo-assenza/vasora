@@ -5,14 +5,29 @@
   {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
   {{ settings.type_primary_font | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
 
+  {% liquid
+    assign spacing_multiplier = 1
+    case settings.spacing_scale
+      when 'compact'
+        assign spacing_multiplier = 0.875
+      when 'airy'
+        assign spacing_multiplier = 1.125
+    endcase
+  %}
+
   :root {
-    --font-primary--family: {{ settings.type_primary_font.family }}, {{ settings.type_primary_font.fallback_families }};
+    --font-system-fallback: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --font-primary--family: {{ settings.type_primary_font.family }}, var(--font-system-fallback);
     --font-primary--style: {{ settings.type_primary_font.style }};
     --font-primary--weight: {{ settings.type_primary_font.weight }};
     --page-width: {{ settings.max_page_width }};
     --page-margin: {{ settings.min_page_margin }}px;
     --color-background: {{ settings.background_color }};
     --color-foreground: {{ settings.foreground_color }};
+    --color-accent: {{ settings.accent_color }};
+    --color-muted: {{ settings.muted_color }};
+    --color-border: {{ settings.border_color }};
     --style-border-radius-inputs: {{ settings.input_corner_radius }}px;
+    --spacing-multiplier: {{ spacing_multiplier }};
   }
 {% endstyle %}
