@@ -4,6 +4,7 @@
   {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
   {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
   {{ settings.type_primary_font | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
+  {{ settings.type_accent_font | font_face: font_display: 'swap' }}
 
   {% liquid
     assign spacing_multiplier = 1
@@ -20,14 +21,34 @@
     --font-primary--family: {{ settings.type_primary_font.family }}, var(--font-system-fallback);
     --font-primary--style: {{ settings.type_primary_font.style }};
     --font-primary--weight: {{ settings.type_primary_font.weight }};
+    --font-accent--family: {{ settings.type_accent_font.family }}, cursive;
+
     --page-width: {{ settings.max_page_width }};
     --page-margin: {{ settings.min_page_margin }}px;
+    --style-border-radius-inputs: {{ settings.input_corner_radius }}px;
+    --spacing-multiplier: {{ spacing_multiplier }};
+
     --color-background: {{ settings.background_color }};
     --color-foreground: {{ settings.foreground_color }};
     --color-accent: {{ settings.accent_color }};
     --color-muted: {{ settings.muted_color }};
     --color-border: {{ settings.border_color }};
-    --style-border-radius-inputs: {{ settings.input_corner_radius }}px;
-    --spacing-multiplier: {{ spacing_multiplier }};
+
+    --body-background: {{ settings.background_color }};
+    --theme-color: {{ settings.foreground_color }};
+    --gray: {{ settings.muted_color }};
+    --dark-gray: {{ settings.dark_gray_color }};
+    --green: {{ settings.green_color }};
+    --red: {{ settings.red_color }};
+    --colorTextBody: {{ settings.foreground_color }};
+    --colorLightTextBody: {{ settings.light_text_color }};
+    --colorBtnPrimary: {{ settings.button_primary_color }};
+    --colorBtnPrimaryText: {{ settings.button_primary_text_color }};
+    --colorBtnPrimaryBorder: {{ settings.button_primary_border_color }};
+    --colorBtnSecondary: {{ settings.button_secondary_color }};
+    --colorBtnSecondaryText: {{ settings.button_secondary_text_color }};
+    --colorBtnSecondaryBorder: {{ settings.button_secondary_border_color }};
+    --cartDotColor: {{ settings.cart_dot_color }};
+    --cartDotColorLight: {{ settings.cart_dot_color_light }};
   }
 {% endstyle %}

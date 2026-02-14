@@ -17,8 +17,14 @@
       {
         "type": "font_picker",
         "id": "type_primary_font",
-        "default": "inter_n4",
+        "default": "poppins_n4",
         "label": "t:general.primary"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_accent_font",
+        "default": "pinyon_script_n4",
+        "label": "Accent font"
       }
     ]
   },
@@ -76,26 +82,98 @@
       {
         "type": "color",
         "id": "foreground_color",
-        "default": "#1F2937",
+        "default": "#181818",
         "label": "t:labels.foreground"
       },
       {
         "type": "color",
         "id": "accent_color",
-        "default": "#0F766E",
+        "default": "#9D6348",
         "label": "Accent"
       },
       {
         "type": "color",
         "id": "muted_color",
-        "default": "#F3F4F6",
+        "default": "#CFCBCB",
         "label": "Muted"
       },
       {
         "type": "color",
         "id": "border_color",
-        "default": "#E5E7EB",
+        "default": "#CFCBCB",
         "label": "Border"
+      },
+      {
+        "type": "color",
+        "id": "dark_gray_color",
+        "default": "#747474",
+        "label": "Dark gray"
+      },
+      {
+        "type": "color",
+        "id": "green_color",
+        "default": "#6CAD61",
+        "label": "Green"
+      },
+      {
+        "type": "color",
+        "id": "red_color",
+        "default": "#EC7C7C",
+        "label": "Red"
+      },
+      {
+        "type": "color",
+        "id": "light_text_color",
+        "default": "rgba(24,24,24,0.5)",
+        "label": "Light text"
+      },
+      {
+        "type": "color",
+        "id": "button_primary_color",
+        "default": "#000000",
+        "label": "Primary button background"
+      },
+      {
+        "type": "color",
+        "id": "button_primary_text_color",
+        "default": "#FFFFFF",
+        "label": "Primary button text"
+      },
+      {
+        "type": "color",
+        "id": "button_primary_border_color",
+        "default": "#000000",
+        "label": "Primary button border"
+      },
+      {
+        "type": "color",
+        "id": "button_secondary_color",
+        "default": "#454545",
+        "label": "Secondary button background"
+      },
+      {
+        "type": "color",
+        "id": "button_secondary_text_color",
+        "default": "#FFFFFF",
+        "label": "Secondary button text"
+      },
+      {
+        "type": "color",
+        "id": "button_secondary_border_color",
+        "default": "#454545",
+        "label": "Secondary button border"
+      },
+      {
+        "type": "color",
+        "id": "cart_dot_color",
+        "default": "#9D6348",
+        "label": "Cart dot"
+      },
+      {
+        "type": "color",
+        "id": "cart_dot_color_light",
+        "default": "rgba(157,99,72,0.3)",
+        "label": "Cart dot light"
       },
       {
         "type": "range",
