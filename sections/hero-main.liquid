@@ -1,0 +1,183 @@
+<section class="hero-main full-width"{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | escape }}"{% endif %}>
+  {% if section.settings.background_image != blank %}
+    <div class="hero-main__media" aria-hidden="true">
+      {{
+        section.settings.background_image
+        | image_url: width: 2200
+        | image_tag: loading: 'eager', widths: '800, 1200, 1600, 2000', alt: ''
+      }}
+    </div>
+  {% endif %}
+
+  <div class="hero-main__overlay"></div>
+
+  <div class="hero-main__content">
+    <div class="hero-main__copy u-flow">
+      {% if section.settings.eyebrow != blank %}
+        <p class="hero-main__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+      {% if section.settings.heading != blank %}
+        <h1>{{ section.settings.heading }}</h1>
+      {% endif %}
+      {% if section.settings.subheading != blank %}
+        <p class="hero-main__subheading">{{ section.settings.subheading }}</p>
+      {% endif %}
+      <div class="hero-main__actions">
+        {% if section.settings.primary_cta_label != blank %}
+          <a class="hero-main__cta hero-main__cta--primary" href="{{ section.settings.primary_cta_link }}" data-analytics="hero-cta-primary">
+            {{ section.settings.primary_cta_label }}
+          </a>
+        {% endif %}
+        {% if section.settings.secondary_cta_label != blank %}
+          <a class="hero-main__cta hero-main__cta--secondary" href="{{ section.settings.secondary_cta_link }}" data-analytics="hero-cta-secondary">
+            {{ section.settings.secondary_cta_label }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .hero-main {
+    position: relative;
+    min-height: clamp(420px, 70vh, 720px);
+    display: grid;
+    place-items: center;
+    color: var(--color-background);
+    overflow: hidden;
+  }
+  .hero-main__media,
+  .hero-main__media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero-main__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.1));
+  }
+  .hero-main__content {
+    position: relative;
+    width: min(100% - 2 * var(--container-padding-inline), var(--container-max));
+  }
+  .hero-main__copy {
+    max-width: 560px;
+  }
+  .hero-main__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.75rem;
+  }
+  .hero-main__subheading {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .hero-main__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-5);
+  }
+  .hero-main__cta {
+    text-decoration: none;
+    padding: 0.85rem 1.6rem;
+    border-radius: 999px;
+    font-weight: 600;
+    transition: transform 150ms ease, box-shadow 150ms ease;
+  }
+  .hero-main__cta--primary {
+    background: var(--color-accent);
+    color: var(--color-background);
+  }
+  .hero-main__cta--secondary {
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    color: var(--color-background);
+  }
+  .hero-main__cta:hover,
+  .hero-main__cta:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  @media (max-width: 768px) {
+    .hero-main {
+      min-height: 70svh;
+      text-align: center;
+    }
+    .hero-main__copy {
+      margin: 0 auto;
+    }
+    .hero-main__actions {
+      justify-content: center;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Hero main",
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Anchor ID",
+      "default": "hero"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "New Collection"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Aurum — Essentials quotidiani"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Linee pulite, materiali premium e una palette senza tempo."
+    },
+    {
+      "type": "text",
+      "id": "primary_cta_label",
+      "label": "Primary CTA label",
+      "default": "Acquista ora"
+    },
+    {
+      "type": "url",
+      "id": "primary_cta_link",
+      "label": "Primary CTA link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_label",
+      "label": "Secondary CTA label",
+      "default": "Esplora collezione"
+    },
+    {
+      "type": "url",
+      "id": "secondary_cta_link",
+      "label": "Secondary CTA link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero main",
+      "category": "Aurum"
+    }
+  ]
+}
+{% endschema %}

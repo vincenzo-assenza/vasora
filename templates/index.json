@@ -9,28 +9,14 @@
  */
 {
   "sections": {
-    "hero": {
-      "type": "custom-section",
-      "blocks": {
-        "hero_title": {
-          "type": "text",
-          "settings": {
-            "text": "Vasora Essentials",
-            "text_style": "text--title",
-            "alignment": "left"
-          }
-        },
-        "hero_subtitle": {
-          "type": "text",
-          "settings": {
-            "text": "Design minimale, qualità premium, spedizione rapida.",
-            "text_style": "text--subtitle",
-            "alignment": "left"
-          }
-        }
-      },
-      "block_order": ["hero_title", "hero_subtitle"],
-      "settings": { "anchor_id": "hero" }
+    "hero_main": {
+      "type": "hero-main",
+      "settings": {
+        "anchor_id": "hero",
+        "eyebrow": "New Collection",
+        "heading": "Aurum — Essentials quotidiani",
+        "subheading": "Linee pulite, materiali premium e una palette senza tempo."
+      }
     },
     "value_props": {
       "type": "custom-section",
@@ -125,5 +111,5 @@
       "settings": { "anchor_id": "newsletter" }
     }
   },
-  "order": ["hero", "value_props", "featured_collection_teaser", "brand_story", "newsletter_cta"]
+  "order": ["hero_main", "value_props", "featured_collection_teaser", "brand_story", "newsletter_cta"]
 }
