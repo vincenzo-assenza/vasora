@@ -21,6 +21,18 @@
         "primary_cta_link": ""
       }
     },
+    "countdown_banner": {
+      "type": "countdown-banner",
+      "settings": {
+        "anchor_id": "countdown",
+        "eyebrow": "Limited time only",
+        "heading": "Super sale up to 40% off",
+        "subheading": "Shop our selection of exclusive handbags and backpacks at reduced price during the Super Sale. Hurry up!",
+        "cta_label": "Shop now",
+        "cta_link": "",
+        "end_date": "2026-12-31T23:59:59Z"
+      }
+    },
     "best_sellers": {
       "type": "best-sellers",
       "blocks": {
@@ -313,6 +325,7 @@
   },
   "order": [
     "hero_main",
+    "countdown_banner",
     "best_sellers",
     "value_props",
     "featured_categories",
