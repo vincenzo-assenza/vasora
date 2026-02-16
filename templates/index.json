@@ -134,6 +134,7 @@
         "cat_1": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/pexels-ionela-mat-268382825-27039414.jpg",
             "aspect_ratio": 1.2,
             "title": "Dailywear",
             "copy": "Layering essenziale e linee pulite.",
@@ -143,6 +144,7 @@
         "cat_2": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/pexels-ionela-mat-268382825-30123011.jpg",
             "aspect_ratio": 1.3,
             "title": "Weekend",
             "copy": "Comfort premium per la città.",
@@ -152,6 +154,7 @@
         "cat_3": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/pexels-ekaterina-bolovtsova-6311987.jpg",
             "aspect_ratio": 1.1,
             "title": "Travel",
             "copy": "Capispalla leggeri e dettagli tecnici.",
@@ -175,6 +178,7 @@
       "type": "hero-split",
       "settings": {
         "anchor_id": "story",
+        "image": "shopify://shop_images/ChatGPTImageFeb2_2026_11_08_00AM.png",
         "image_position": "right",
         "eyebrow": "La nostra storia",
         "heading": "Minimalismo contemporaneo",
