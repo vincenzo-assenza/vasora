@@ -23,13 +23,21 @@
     {% # Social, title, etc. %}
     {% render 'meta-tags' %}
 
+    <script src="{{ 'utils.js' | asset_url }}" defer></script>
+
     {{ content_for_header }}
   </head>
 
   <body>
+    <a class="u-sr-only focus-visible" href="#MainContent">
+      {{ 'general.skip_to_content' | t }}
+    </a>
+
     {% sections 'header-group' %}
 
-    {{ content_for_layout }}
+    <main id="MainContent" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
 
     {% sections 'footer-group' %}
   </body>

@@ -398,12 +398,15 @@
     if (!mobilePanel || !mobileToggle) return;
     mobilePanel.hidden = true;
     mobileToggle.setAttribute('aria-expanded', 'false');
+    window.Vasora?.utils?.unlockScroll();
   };
 
   const openMobile = () => {
     if (!mobilePanel || !mobileToggle) return;
     mobilePanel.hidden = false;
     mobileToggle.setAttribute('aria-expanded', 'true');
+    window.Vasora?.utils?.lockScroll();
+    window.Vasora?.utils?.trapFocus(mobilePanel);
   };
 
   if (mobileToggle && mobilePanel) {
