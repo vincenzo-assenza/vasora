@@ -18,24 +18,61 @@
         "heading": "Aurum — Essentials quotidiani",
         "subheading": "Linee pulite, materiali premium e una palette senza tempo.",
         "primary_cta_label": "Acquista ora",
-        "primary_cta_link": "",
-        "secondary_cta_label": "Esplora collezione",
-        "secondary_cta_link": ""
+        "primary_cta_link": ""
       }
     },
     "best_sellers": {
       "type": "best-sellers",
+      "blocks": {
+        "tab_nL8fan": {
+          "type": "tab",
+          "settings": {
+            "label": "Women",
+            "tab_key": "tab_1",
+            "collection": "candele-bio"
+          }
+        },
+        "tab_RYMEJi": {
+          "type": "tab",
+          "settings": {
+            "label": "Man",
+            "tab_key": "tab_2",
+            "collection": "frontpage"
+          }
+        },
+        "tab_8pALnz": {
+          "type": "tab",
+          "settings": {
+            "label": "Home",
+            "tab_key": "tab_3",
+            "collection": "hydrogen"
+          }
+        },
+        "product_card_HzPaDK": {
+          "type": "product_card",
+          "settings": {
+            "tab_id": "tab_1",
+            "product": "",
+            "badge": "New",
+            "title": "",
+            "price": ""
+          }
+        }
+      },
+      "block_order": [
+        "tab_nL8fan",
+        "tab_RYMEJi",
+        "tab_8pALnz",
+        "product_card_HzPaDK"
+      ],
       "settings": {
         "anchor_id": "best-sellers",
         "eyebrow": "Our best sellers",
-        "heading": "Women    Men",
-        "tab_label_1": "Women",
-        "tab_label_2": "Men",
-        "cta_label": "All women's bags",
-        "cta_link": ""
-      },
-      "blocks": {},
-      "block_order": []
+        "heading": "",
+        "products_source": "manual",
+        "products_limit": 4,
+        "cta_label": "All women's bags"
+      }
     },
     "value_props": {
       "type": "usp-strip",
@@ -252,21 +289,24 @@
           "type": "product_card",
           "settings": {
             "title": "Trench Aurum",
-            "price": "€ 249"
+            "price": "€ 249",
+            "link": ""
           }
         },
         "product_2": {
           "type": "product_card",
           "settings": {
             "title": "Maglia Essential",
-            "price": "€ 129"
+            "price": "€ 129",
+            "link": ""
           }
         },
         "product_3": {
           "type": "product_card",
           "settings": {
             "title": "Pantalone Tailor",
-            "price": "€ 159"
+            "price": "€ 159",
+            "link": ""
           }
         }
       },
