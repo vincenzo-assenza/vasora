@@ -115,3 +115,45 @@ body {
 .shopify-section > .full-width {
   grid-column: 1 / -1;
 }
+
+/** Foundation utilities */
+.u-container {
+  width: min(
+    calc(var(--container-max) - var(--container-padding-inline) * 2),
+    calc(100% - var(--container-padding-inline) * 2)
+  );
+  margin-inline: auto;
+}
+
+.u-section {
+  padding-block: var(--space-8);
+}
+
+.u-flow > * + * {
+  margin-block-start: var(--space-4);
+}
+
+.u-muted {
+  color: var(--dark-gray, var(--color-foreground));
+}
+
+.u-card {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xs);
+}
+
+.u-hide-mobile {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .u-hide-mobile {
+    display: initial;
+  }
+
+  .u-hide-desktop {
+    display: none;
+  }
+}
