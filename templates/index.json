@@ -328,9 +328,7 @@
         "anchor_id": "instagram",
         "eyebrow": "Join us",
         "handle": "@leoetviolette"
-      },
-      "blocks": {},
-      "block_order": []
+      }
     },
     "newsletter_hero": {
       "type": "newsletter-hero",
