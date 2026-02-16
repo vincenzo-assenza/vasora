@@ -68,7 +68,10 @@
       "settings": {
         "anchor_id": "value-props",
         "eyebrow": "Perché Vasora",
-        "heading": "Valore percepito, qualità reale"
+        "heading": "Valore percepito, qualità reale",
+        "background_color": "#f7f5f2",
+        "text_color": "#151515",
+        "muted_text_color": "#5b5b5b"
       }
     },
     "featured_categories": {
@@ -79,7 +82,8 @@
           "settings": {
             "aspect_ratio": 1.2,
             "title": "Dailywear",
-            "copy": "Layering essenziale e linee pulite."
+            "copy": "Layering essenziale e linee pulite.",
+            "link": ""
           }
         },
         "cat_2": {
@@ -87,7 +91,8 @@
           "settings": {
             "aspect_ratio": 1.3,
             "title": "Weekend",
-            "copy": "Comfort premium per la città."
+            "copy": "Comfort premium per la città.",
+            "link": ""
           }
         },
         "cat_3": {
@@ -95,7 +100,8 @@
           "settings": {
             "aspect_ratio": 1.1,
             "title": "Travel",
-            "copy": "Capispalla leggeri e dettagli tecnici."
+            "copy": "Capispalla leggeri e dettagli tecnici.",
+            "link": ""
           }
         }
       },
@@ -120,7 +126,9 @@
         "heading": "Minimalismo contemporaneo",
         "body": "Un racconto di tessuti naturali, artigianalità italiana e linee essenziali.",
         "primary_cta_label": "Scopri la visione",
-        "secondary_cta_label": "Leggi il manifesto"
+        "primary_cta_link": "",
+        "secondary_cta_label": "Leggi il manifesto",
+        "secondary_cta_link": ""
       }
     },
     "product_spotlight": {
@@ -130,34 +138,38 @@
           "type": "feature",
           "settings": {
             "text": "Tessuto traspirante"
-          },
-          "blocks": {}
+          }
         },
         "feature_2": {
           "type": "feature",
           "settings": {
             "text": "Zip waterproof"
-          },
-          "blocks": {}
+          }
         },
         "feature_3": {
           "type": "feature",
           "settings": {
             "text": "Vestibilità regular"
-          },
-          "blocks": {}
+          }
         }
       },
-      "block_order": ["feature_1", "feature_2", "feature_3"],
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3"
+      ],
       "settings": {
         "anchor_id": "product-spotlight",
+        "image": "shopify://shop_images/ChatGPTImageApr12_2025_03_39_45PM.png",
         "badge": "Nuovo arrivo",
         "eyebrow": "In evidenza",
         "heading": "Giacca Modular",
         "body": "Tecnica, leggera e pronta per la città.",
         "price": "€ 189",
         "primary_cta_label": "Acquista ora",
-        "secondary_cta_label": "Dettagli prodotto"
+        "primary_cta_link": "",
+        "secondary_cta_label": "Dettagli prodotto",
+        "secondary_cta_link": ""
       }
     },
     "hero_testimonials": {
@@ -170,8 +182,7 @@
             "author": "Giulia R.",
             "role": "Creative director",
             "rating": 5
-          },
-          "blocks": {}
+          }
         },
         "testimonial_2": {
           "type": "testimonial",
@@ -180,8 +191,7 @@
             "author": "Marco L.",
             "role": "Product manager",
             "rating": 5
-          },
-          "blocks": {}
+          }
         },
         "testimonial_3": {
           "type": "testimonial",
@@ -190,17 +200,20 @@
             "author": "Chiara S.",
             "role": "Stylist",
             "rating": 4
-          },
-          "blocks": {}
+          }
         }
       },
-      "block_order": ["testimonial_1", "testimonial_2", "testimonial_3"],
+      "block_order": [
+        "testimonial_1",
+        "testimonial_2",
+        "testimonial_3"
+      ],
       "settings": {
         "anchor_id": "testimonials",
         "eyebrow": "Social proof",
         "heading": "Amato da chi lo indossa",
         "subheading": "Recensioni reali su comfort e qualità percepita.",
-        "background_color": "#F7F5F2"
+        "background_color": "#f7f5f2"
       }
     },
     "hero_final_cta": {
@@ -210,10 +223,12 @@
         "eyebrow": "Pronto a partire?",
         "heading": "Scopri la collezione Aurum",
         "subheading": "Scegli il tuo prossimo essenziale.",
-        "background_color": "#1A1A1A",
-        "text_color": "#FFFFFF",
+        "background_color": "#1a1a1a",
+        "text_color": "#ffffff",
         "primary_cta_label": "Acquista ora",
-        "secondary_cta_label": "Esplora lookbook"
+        "primary_cta_link": "",
+        "secondary_cta_label": "Esplora lookbook",
+        "secondary_cta_link": ""
       }
     },
     "featured_collection_teaser": {
