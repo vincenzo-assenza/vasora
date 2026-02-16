@@ -57,33 +57,42 @@
     {% else %}
       <div class="best-sellers__grid" data-grid>
         {% assign product_blocks = section.blocks | where: 'type', 'product_card' %}
-        {% for block in product_blocks %}
-          {% assign product = block.settings.product %}
-          <article class="best-sellers__card" data-tab="{{ block.settings.tab_id }}" {{ block.shopify_attributes }}>
-            {% if block.settings.badge != blank %}
-              <span class="best-sellers__badge">{{ block.settings.badge }}</span>
+        {% for tab in tab_blocks %}
+          {% assign tab_key = tab.settings.tab_key | default: tab.id %}
+          {% assign count = 0 %}
+          {% for block in product_blocks %}
+            {% if block.settings.tab_id == tab_key %}
+              {% if count < section.settings.products_limit %}
+                {% assign product = block.settings.product %}
+                <article class="best-sellers__card" data-tab="{{ tab_key }}" {{ block.shopify_attributes }}>
+                  {% if block.settings.badge != blank %}
+                    <span class="best-sellers__badge">{{ block.settings.badge }}</span>
+                  {% endif %}
+                  <div class="best-sellers__media">
+                    {% if product != blank %}
+                      {{
+                        product.featured_image
+                        | image_url: width: 900
+                        | image_tag: loading: 'lazy', widths: '360, 540, 720, 900', alt: product.title
+                      }}
+                    {% else %}
+                      {{ 'product-1' | placeholder_svg_tag: 'placeholder' }}
+                    {% endif %}
+                  </div>
+                  <div class="best-sellers__info">
+                    {% if product != blank %}
+                      <h3>{{ product.title }}</h3>
+                      <p class="best-sellers__price">{{ product.price | money }}</p>
+                    {% else %}
+                      <h3>{{ block.settings.title }}</h3>
+                      <p class="best-sellers__price">{{ block.settings.price }}</p>
+                    {% endif %}
+                  </div>
+                </article>
+                {% assign count = count | plus: 1 %}
+              {% endif %}
             {% endif %}
-            <div class="best-sellers__media">
-              {% if product != blank %}
-                {{
-                  product.featured_image
-                  | image_url: width: 900
-                  | image_tag: loading: 'lazy', widths: '360, 540, 720, 900', alt: product.title
-                }}
-              {% else %}
-                {{ 'product-1' | placeholder_svg_tag: 'placeholder' }}
-              {% endif %}
-            </div>
-            <div class="best-sellers__info">
-              {% if product != blank %}
-                <h3>{{ product.title }}</h3>
-                <p class="best-sellers__price">{{ product.price | money }}</p>
-              {% else %}
-                <h3>{{ block.settings.title }}</h3>
-                <p class="best-sellers__price">{{ block.settings.price }}</p>
-              {% endif %}
-            </div>
-          </article>
+          {% endfor %}
         {% endfor %}
       </div>
     {% endif %}
