@@ -33,7 +33,7 @@
         "topbar_countdown": "10.10.10",
         "logo_image": "shopify://shop_images/Progetto-senza-titolo.svg",
         "logo_width": 120,
-        "enable_sticky": true,
+        "enable_sticky": false,
         "full_width": true,
         "topbar_text": "Free Shipping",
         "topbar_link": "shopify://pages/contact"
