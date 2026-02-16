@@ -9,22 +9,121 @@
  */
 {
   "sections": {
-    "collections_B9cart": {
-      "type": "collections",
-      "name": "t:general.collections_grid",
-      "settings": {
-        "grid_item_width": "collections--full",
-        "grid_gap": 10
-      }
-    },
-    "custom_section_mFbdry": {
+    "hero": {
       "type": "custom-section",
-      "name": "t:general.custom_section",
-      "settings": {}
+      "blocks": {
+        "hero_title": {
+          "type": "text",
+          "settings": {
+            "text": "Vasora Essentials",
+            "text_style": "text--title",
+            "alignment": "left"
+          }
+        },
+        "hero_subtitle": {
+          "type": "text",
+          "settings": {
+            "text": "Design minimale, qualità premium, spedizione rapida.",
+            "text_style": "text--subtitle",
+            "alignment": "left"
+          }
+        }
+      },
+      "block_order": ["hero_title", "hero_subtitle"],
+      "settings": { "anchor_id": "hero" }
+    },
+    "value_props": {
+      "type": "custom-section",
+      "blocks": {
+        "vp_title": {
+          "type": "text",
+          "settings": {
+            "text": "Perché Vasora",
+            "text_style": "text--subtitle",
+            "alignment": "left"
+          }
+        },
+        "vp_copy": {
+          "type": "text",
+          "settings": {
+            "text": "Materiali curati, palette neutra, comfort quotidiano.",
+            "text_style": "text--normal",
+            "alignment": "left"
+          }
+        }
+      },
+      "block_order": ["vp_title", "vp_copy"],
+      "settings": { "anchor_id": "value-props" }
+    },
+    "featured_collection_teaser": {
+      "type": "custom-section",
+      "blocks": {
+        "fc_title": {
+          "type": "text",
+          "settings": {
+            "text": "Best seller",
+            "text_style": "text--subtitle",
+            "alignment": "left"
+          }
+        },
+        "fc_copy": {
+          "type": "text",
+          "settings": {
+            "text": "I prodotti più amati dalla community Vasora.",
+            "text_style": "text--normal",
+            "alignment": "left"
+          }
+        }
+      },
+      "block_order": ["fc_title", "fc_copy"],
+      "settings": { "anchor_id": "best-seller" }
+    },
+    "brand_story": {
+      "type": "custom-section",
+      "blocks": {
+        "story_title": {
+          "type": "text",
+          "settings": {
+            "text": "La nostra visione",
+            "text_style": "text--subtitle",
+            "alignment": "left"
+          }
+        },
+        "story_copy": {
+          "type": "text",
+          "settings": {
+            "text": "Un brand essenziale, sobrio e contemporaneo.",
+            "text_style": "text--normal",
+            "alignment": "left"
+          }
+        }
+      },
+      "block_order": ["story_title", "story_copy"],
+      "settings": { "anchor_id": "brand-story" }
+    },
+    "newsletter_cta": {
+      "type": "custom-section",
+      "blocks": {
+        "nl_title": {
+          "type": "text",
+          "settings": {
+            "text": "Resta aggiornato",
+            "text_style": "text--subtitle",
+            "alignment": "left"
+          }
+        },
+        "nl_copy": {
+          "type": "text",
+          "settings": {
+            "text": "Novità, drop esclusivi e promozioni private.",
+            "text_style": "text--normal",
+            "alignment": "left"
+          }
+        }
+      },
+      "block_order": ["nl_title", "nl_copy"],
+      "settings": { "anchor_id": "newsletter" }
     }
   },
-  "order": [
-    "collections_B9cart",
-    "custom_section_mFbdry"
-  ]
+  "order": ["hero", "value_props", "featured_collection_teaser", "brand_story", "newsletter_cta"]
 }
