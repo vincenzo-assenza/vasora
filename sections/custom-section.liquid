@@ -1,4 +1,4 @@
-<div class="custom-section full-width">
+<div class="custom-section full-width"{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | escape }}"{% endif %}>
   {% if section.settings.background_image %}
     <div class="custom-section__background">
       {{ section.settings.background_image | image_url: width: 2000 | image_tag }}
@@ -45,6 +45,12 @@
   "name": "t:general.custom_section",
   "blocks": [{ "type": "@theme" }],
   "settings": [
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Anchor ID",
+      "info": "Usa un identificatore unico (es. hero, value-props)."
+    },
     {
       "type": "image_picker",
       "id": "background_image",
