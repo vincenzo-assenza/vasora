@@ -32,8 +32,7 @@
             "icon": "shipping",
             "title": "Spedizione rapida",
             "copy": "Consegna 24/48h con tracking in tempo reale."
-          },
-          "blocks": {}
+          }
         },
         "usp_item_2": {
           "type": "usp_item",
@@ -41,8 +40,7 @@
             "icon": "returns",
             "title": "Reso facile",
             "copy": "14 giorni per cambiare idea, ritiro incluso."
-          },
-          "blocks": {}
+          }
         },
         "usp_item_3": {
           "type": "usp_item",
@@ -50,8 +48,7 @@
             "icon": "quality",
             "title": "Qualità premium",
             "copy": "Materiali selezionati e finiture curate."
-          },
-          "blocks": {}
+          }
         },
         "usp_item_4": {
           "type": "usp_item",
@@ -59,11 +56,15 @@
             "icon": "support",
             "title": "Supporto dedicato",
             "copy": "Assistenza in chat entro 24h lavorative."
-          },
-          "blocks": {}
+          }
         }
       },
-      "block_order": ["usp_item_1", "usp_item_2", "usp_item_3", "usp_item_4"],
+      "block_order": [
+        "usp_item_1",
+        "usp_item_2",
+        "usp_item_3",
+        "usp_item_4"
+      ],
       "settings": {
         "anchor_id": "value-props",
         "eyebrow": "Perché Vasora",
@@ -76,32 +77,33 @@
         "cat_1": {
           "type": "category",
           "settings": {
+            "aspect_ratio": 1.2,
             "title": "Dailywear",
-            "copy": "Layering essenziale e linee pulite.",
-            "aspect_ratio": 1.2
-          },
-          "blocks": {}
+            "copy": "Layering essenziale e linee pulite."
+          }
         },
         "cat_2": {
           "type": "category",
           "settings": {
+            "aspect_ratio": 1.3,
             "title": "Weekend",
-            "copy": "Comfort premium per la città.",
-            "aspect_ratio": 1.3
-          },
-          "blocks": {}
+            "copy": "Comfort premium per la città."
+          }
         },
         "cat_3": {
           "type": "category",
           "settings": {
+            "aspect_ratio": 1.1,
             "title": "Travel",
-            "copy": "Capispalla leggeri e dettagli tecnici.",
-            "aspect_ratio": 1.1
-          },
-          "blocks": {}
+            "copy": "Capispalla leggeri e dettagli tecnici."
+          }
         }
       },
-      "block_order": ["cat_1", "cat_2", "cat_3"],
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3"
+      ],
       "settings": {
         "anchor_id": "featured-categories",
         "eyebrow": "Shop per mood",

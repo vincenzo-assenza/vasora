@@ -14,7 +14,12 @@
     "header": {
       "type": "header",
       "settings": {
-        "menu": "main-menu"
+        "menu": "main-menu",
+        "logo_image": "shopify://shop_images/Progetto-senza-titolo.svg",
+        "logo_width": 120,
+        "enable_sticky": true,
+        "topbar_text": "",
+        "topbar_link": ""
       }
     }
   },
