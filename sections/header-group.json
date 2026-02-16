@@ -13,6 +13,20 @@
   "sections": {
     "header": {
       "type": "header",
+      "blocks": {
+        "mega_feature_HkzD7x": {
+          "type": "mega_feature",
+          "settings": {
+            "parent_link": "Catalog",
+            "title": "fsdfsd",
+            "copy": "fdsfsf",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "mega_feature_HkzD7x"
+      ],
       "settings": {
         "menu": "main-menu",
         "logo_image": "shopify://shop_images/Progetto-senza-titolo.svg",
