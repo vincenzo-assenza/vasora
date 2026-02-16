@@ -203,6 +203,19 @@
         "background_color": "#F7F5F2"
       }
     },
+    "hero_final_cta": {
+      "type": "hero-final-cta",
+      "settings": {
+        "anchor_id": "final-cta",
+        "eyebrow": "Pronto a partire?",
+        "heading": "Scopri la collezione Aurum",
+        "subheading": "Scegli il tuo prossimo essenziale.",
+        "background_color": "#1A1A1A",
+        "text_color": "#FFFFFF",
+        "primary_cta_label": "Acquista ora",
+        "secondary_cta_label": "Esplora lookbook"
+      }
+    },
     "featured_collection_teaser": {
       "type": "custom-section",
       "blocks": {
@@ -301,6 +314,7 @@
     "hero_split",
     "product_spotlight",
     "hero_testimonials",
+    "hero_final_cta",
     "featured_collection_teaser",
     "brand_story",
     "newsletter_cta"

@@ -1,0 +1,167 @@
+<section class="hero-final-cta"{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | escape }}"{% endif %} style="--cta-bg: {{ section.settings.background_color | default: 'var(--color-accent)' }}; --cta-fg: {{ section.settings.text_color | default: 'var(--color-background)' }};">
+  <div class="hero-final-cta__inner">
+    {% if section.settings.eyebrow != blank %}
+      <p class="hero-final-cta__eyebrow">{{ section.settings.eyebrow }}</p>
+    {% endif %}
+    {% if section.settings.heading != blank %}
+      <h2>{{ section.settings.heading }}</h2>
+    {% endif %}
+    {% if section.settings.subheading != blank %}
+      <p class="hero-final-cta__subheading">{{ section.settings.subheading }}</p>
+    {% endif %}
+    <div class="hero-final-cta__actions">
+      {% if section.settings.primary_cta_label != blank %}
+        <a class="hero-final-cta__button hero-final-cta__button--primary" href="{{ section.settings.primary_cta_link }}">
+          {{ section.settings.primary_cta_label }}
+        </a>
+      {% endif %}
+      {% if section.settings.secondary_cta_label != blank %}
+        <a class="hero-final-cta__button hero-final-cta__button--secondary" href="{{ section.settings.secondary_cta_link }}">
+          {{ section.settings.secondary_cta_label }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .hero-final-cta {
+    background: var(--cta-bg);
+    color: var(--cta-fg);
+    padding: var(--space-6) 0;
+  }
+  .hero-final-cta__inner {
+    width: min(100% - 2 * var(--container-padding-inline), var(--container-max));
+    margin: 0 auto;
+    text-align: center;
+    display: grid;
+    gap: var(--space-3);
+    justify-items: center;
+  }
+  .hero-final-cta__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.72rem;
+    margin: 0;
+    opacity: 0.8;
+  }
+  .hero-final-cta__subheading {
+    margin: 0;
+    opacity: 0.85;
+  }
+  .hero-final-cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    justify-content: center;
+    margin-top: var(--space-2);
+  }
+  .hero-final-cta__button {
+    text-decoration: none;
+    padding: 0.85rem 1.7rem;
+    border-radius: 999px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 150ms ease, box-shadow 150ms ease;
+  }
+  .hero-final-cta__button--primary {
+    background: var(--cta-fg);
+    color: var(--cta-bg);
+  }
+  .hero-final-cta__button--secondary {
+    border: 1px solid color-mix(in srgb, var(--cta-fg) 70%, transparent);
+    color: var(--cta-fg);
+  }
+  .hero-final-cta__button:hover,
+  .hero-final-cta__button:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  @media (max-width: 640px) {
+    .hero-final-cta {
+      padding: var(--space-5) 0;
+    }
+    .hero-final-cta__actions {
+      flex-direction: column;
+      width: 100%;
+    }
+    .hero-final-cta__button {
+      width: 100%;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Hero final CTA",
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Anchor ID",
+      "default": "final-cta"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Pronto a partire?"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Scopri la collezione Aurum"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Scegli il tuo prossimo essenziale."
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "text",
+      "id": "primary_cta_label",
+      "label": "Primary CTA label",
+      "default": "Acquista ora"
+    },
+    {
+      "type": "url",
+      "id": "primary_cta_link",
+      "label": "Primary CTA link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_label",
+      "label": "Secondary CTA label",
+      "default": "Esplora lookbook"
+    },
+    {
+      "type": "url",
+      "id": "secondary_cta_link",
+      "label": "Secondary CTA link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero final CTA",
+      "category": "Aurum"
+    }
+  ]
+}
+{% endschema %}
