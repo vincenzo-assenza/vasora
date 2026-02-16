@@ -30,6 +30,7 @@
       ],
       "settings": {
         "menu": "main-menu",
+        "topbar_countdown": "10.10.10",
         "logo_image": "shopify://shop_images/Progetto-senza-titolo.svg",
         "logo_width": 120,
         "enable_sticky": true,
