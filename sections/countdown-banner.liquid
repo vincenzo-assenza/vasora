@@ -126,48 +126,50 @@
   }
 {% endstylesheet %}
 
-{% javascript %}
-  const sectionEl = document.getElementById('shopify-section-{{ section.id }}');
-  const countdown = sectionEl?.querySelector('[data-countdown]');
-  if (countdown) {
-    const endDate = countdown.dataset.endDate;
-    const endTime = countdown.dataset.endTime || '00:00';
-    let target = null;
-    if (endDate) {
-      let datePart = endDate;
-      let timePart = endTime;
-      if (endDate.includes(' ')) {
-        const parts = endDate.split(' ');
-        datePart = parts[0];
-        timePart = parts[1] || endTime;
+<script>
+  (function() {
+    const sectionEl = document.getElementById('shopify-section-{{ section.id }}');
+    const countdown = sectionEl?.querySelector('[data-countdown]');
+    if (countdown) {
+      const endDate = countdown.dataset.endDate;
+      const endTime = countdown.dataset.endTime || '00:00';
+      let target = null;
+      if (endDate) {
+        let datePart = endDate;
+        let timePart = endTime;
+        if (endDate.includes(' ')) {
+          const parts = endDate.split(' ');
+          datePart = parts[0];
+          timePart = parts[1] || endTime;
+        }
+        const [y, m, d] = datePart.split('-').map(Number);
+        const [hh, mm] = (timePart || '00:00').split(':').map(Number);
+        target = Date.UTC(y, (m || 1) - 1, d || 1, hh || 0, mm || 0, 0);
       }
-      const [y, m, d] = datePart.split('-').map(Number);
-      const [hh, mm] = (timePart || '00:00').split(':').map(Number);
-      target = Date.UTC(y, (m || 1) - 1, d || 1, hh || 0, mm || 0, 0);
+      const els = {
+        days: countdown.querySelector('[data-days]'),
+        hours: countdown.querySelector('[data-hours]'),
+        minutes: countdown.querySelector('[data-minutes]'),
+        seconds: countdown.querySelector('[data-seconds]')
+      };
+      const update = () => {
+        if (!target || Number.isNaN(target)) return;
+        const now = Date.now();
+        const diff = Math.max(0, target - now);
+        const d = Math.floor(diff / 86400000);
+        const h = Math.floor((diff % 86400000) / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        els.days.textContent = String(d).padStart(2, '0');
+        els.hours.textContent = String(h).padStart(2, '0');
+        els.minutes.textContent = String(m).padStart(2, '0');
+        els.seconds.textContent = String(s).padStart(2, '0');
+      };
+      update();
+      setInterval(update, 1000);
     }
-    const els = {
-      days: countdown.querySelector('[data-days]'),
-      hours: countdown.querySelector('[data-hours]'),
-      minutes: countdown.querySelector('[data-minutes]'),
-      seconds: countdown.querySelector('[data-seconds]')
-    };
-    const update = () => {
-      if (!target || Number.isNaN(target)) return;
-      const now = Date.now();
-      const diff = Math.max(0, target - now);
-      const d = Math.floor(diff / 86400000);
-      const h = Math.floor((diff % 86400000) / 3600000);
-      const m = Math.floor((diff % 3600000) / 60000);
-      const s = Math.floor((diff % 60000) / 1000);
-      els.days.textContent = String(d).padStart(2, '0');
-      els.hours.textContent = String(h).padStart(2, '0');
-      els.minutes.textContent = String(m).padStart(2, '0');
-      els.seconds.textContent = String(s).padStart(2, '0');
-    };
-    update();
-    setInterval(update, 1000);
-  }
-{% endjavascript %}
+  })();
+</script>
 
 {% schema %}
 {
