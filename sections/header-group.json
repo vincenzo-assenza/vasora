@@ -18,9 +18,10 @@
           "type": "mega_feature",
           "settings": {
             "parent_link": "Catalog",
+            "image": "shopify://shop_images/ChatGPTImageFeb2_2026_11_08_00AM_66fe3667-0533-4635-8f3c-3ecf80c656d6.png",
             "title": "fsdfsd",
             "copy": "fdsfsf",
-            "link": ""
+            "link": "shopify://pages/contact"
           }
         }
       },
