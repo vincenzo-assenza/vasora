@@ -61,7 +61,9 @@
                   {% assign featured_blocks = section.blocks | where: 'type', 'mega_feature' %}
                   {% capture featured_markup %}
                     {% for block in featured_blocks %}
-                      {% if block.settings.parent_link | handle == link.title | handle %}
+                      {% assign parent_handle = block.settings.parent_link | handle %}
+                      {% assign link_handle = link.title | handle %}
+                      {% if parent_handle == link_handle %}
                         <article class="site-header__mega-card" {{ block.shopify_attributes }}>
                           {% if block.settings.image != blank %}
                             {{
