@@ -47,29 +47,18 @@
             "tab_key": "tab_3",
             "collection": "hydrogen"
           }
-        },
-        "product_card_HzPaDK": {
-          "type": "product_card",
-          "settings": {
-            "tab_id": "tab_1",
-            "product": "",
-            "badge": "New",
-            "title": "",
-            "price": ""
-          }
         }
       },
       "block_order": [
         "tab_nL8fan",
         "tab_RYMEJi",
-        "tab_8pALnz",
-        "product_card_HzPaDK"
+        "tab_8pALnz"
       ],
       "settings": {
         "anchor_id": "best-sellers",
         "eyebrow": "Our best sellers",
         "heading": "",
-        "products_source": "manual",
+        "products_source": "collection",
         "products_limit": 4,
         "cta_label": "All women's bags"
       }
