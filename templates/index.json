@@ -30,7 +30,8 @@
         "subheading": "Shop our selection of exclusive handbags and backpacks at reduced price during the Super Sale. Hurry up!",
         "cta_label": "Shop now",
         "cta_link": "",
-        "end_date": "2026-12-31T23:59:59Z"
+        "end_date": "2026-12-31",
+        "end_time": "23:59"
       }
     },
     "best_sellers": {
