@@ -321,6 +321,16 @@
         "heading": "I più amati",
         "subheading": "I bestseller Vasora selezionati dalla community."
       }
+    },
+    "instagram_gallery": {
+      "type": "instagram-gallery",
+      "settings": {
+        "anchor_id": "instagram",
+        "eyebrow": "Join us",
+        "handle": "@leoetviolette"
+      },
+      "blocks": {},
+      "block_order": []
     }
   },
   "order": [
@@ -333,6 +343,7 @@
     "product_spotlight",
     "hero_testimonials",
     "hero_final_cta",
-    "featured_collection_teaser"
+    "featured_collection_teaser",
+    "instagram_gallery"
   ]
 }

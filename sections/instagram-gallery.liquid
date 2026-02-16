@@ -1,0 +1,102 @@
+<section class="instagram-gallery"{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | escape }}"{% endif %}>
+  <div class="instagram-gallery__inner">
+    <p class="instagram-gallery__eyebrow">{{ section.settings.eyebrow }}</p>
+    <h2 class="instagram-gallery__handle">{{ section.settings.handle }}</h2>
+  </div>
+  <div class="instagram-gallery__grid">
+    {% for block in section.blocks %}
+      <a class="instagram-gallery__item" href="{{ block.settings.link }}" aria-label="Instagram post" {{ block.shopify_attributes }}>
+        {% if block.settings.image != blank %}
+          {{
+            block.settings.image
+            | image_url: width: 900
+            | image_tag: loading: 'lazy', widths: '360, 540, 720, 900', alt: block.settings.alt
+          }}
+        {% else %}
+          {{ 'image' | placeholder_svg_tag: 'placeholder' }}
+        {% endif %}
+      </a>
+    {% endfor %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .instagram-gallery {
+    padding: var(--space-6) 0;
+    background: #f4f4f2;
+  }
+  .instagram-gallery__inner {
+    width: min(100% - 2 * var(--container-padding-inline), var(--container-max));
+    margin: 0 auto var(--space-5);
+    text-align: center;
+  }
+  .instagram-gallery__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    font-size: 0.65rem;
+    color: var(--color-muted);
+    margin-bottom: var(--space-2);
+  }
+  .instagram-gallery__handle {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .instagram-gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--space-4);
+    width: min(100% - 2 * var(--container-padding-inline), var(--container-max));
+    margin: 0 auto;
+  }
+  .instagram-gallery__item {
+    position: relative;
+    display: block;
+    overflow: hidden;
+  }
+  .instagram-gallery__item img,
+  .instagram-gallery__item svg {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+  }
+
+  @media (max-width: 1100px) {
+    .instagram-gallery__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 640px) {
+    .instagram-gallery__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Instagram gallery",
+  "settings": [
+    {"type": "text", "id": "anchor_id", "label": "Anchor ID", "default": "instagram"},
+    {"type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Join us"},
+    {"type": "text", "id": "handle", "label": "Handle", "default": "@leoetviolette"}
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {"type": "image_picker", "id": "image", "label": "Image"},
+        {"type": "url", "id": "link", "label": "Link"},
+        {"type": "text", "id": "alt", "label": "Alt text"}
+      ]
+    }
+  ],
+  "presets": [
+    {"name": "Instagram gallery", "category": "Aurum", "blocks": [{"type": "image"}, {"type": "image"}, {"type": "image"}, {"type": "image"}, {"type": "image"}]}
+  ]
+}
+{% endschema %}
