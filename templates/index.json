@@ -230,124 +230,6 @@
         "secondary_cta_label": "Esplora lookbook",
         "secondary_cta_link": ""
       }
-    },
-    "featured_collection_teaser": {
-      "type": "custom-section",
-      "blocks": {
-        "fc_title": {
-          "type": "text",
-          "settings": {
-            "text": "Best seller",
-            "text_style": "text--subtitle",
-            "alignment": "left"
-          },
-          "blocks": {}
-        },
-        "fc_copy": {
-          "type": "text",
-          "settings": {
-            "text": "I prodotti più amati dalla community Vasora.",
-            "text_style": "text--normal",
-            "alignment": "left"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "fc_title",
-        "fc_copy"
-      ],
-      "settings": {
-        "anchor_id": "best-seller"
-      }
-    },
-    "brand_story": {
-      "type": "custom-section",
-      "blocks": {
-        "story_title": {
-          "type": "text",
-          "settings": {
-            "text": "La nostra visione",
-            "text_style": "text--subtitle",
-            "alignment": "left"
-          },
-          "blocks": {}
-        },
-        "story_copy": {
-          "type": "text",
-          "settings": {
-            "text": "Un brand essenziale, sobrio e contemporaneo.",
-            "text_style": "text--normal",
-            "alignment": "left"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "story_title",
-        "story_copy"
-      ],
-      "settings": {
-        "anchor_id": "brand-story"
-      }
-    },
-    "newsletter_cta": {
-      "type": "custom-section",
-      "blocks": {
-        "nl_title": {
-          "type": "text",
-          "settings": {
-            "text": "Resta aggiornato",
-            "text_style": "text--subtitle",
-            "alignment": "left"
-          },
-          "blocks": {}
-        },
-        "nl_copy": {
-          "type": "text",
-          "settings": {
-            "text": "Novità, drop esclusivi e promozioni private.",
-            "text_style": "text--normal",
-            "alignment": "left"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "nl_title",
-        "nl_copy"
-      ],
-      "settings": {
-        "anchor_id": "newsletter"
-      }
-    },
-    "footer": {
-      "type": "footer",
-      "blocks": {
-        "trust_1": {
-          "type": "trust_badge",
-          "settings": {
-            "label": "Pagamento sicuro"
-          },
-          "blocks": {}
-        },
-        "trust_2": {
-          "type": "trust_badge",
-          "settings": {
-            "label": "Spedizione rapida"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": ["trust_1", "trust_2"],
-      "settings": {
-        "newsletter_heading": "Resta in contatto",
-        "newsletter_copy": "Iscriviti per ricevere novità e promozioni.",
-        "newsletter_cta": "Iscriviti",
-        "social_heading": "Seguici",
-        "legal_text": "Tutti i diritti riservati.",
-        "show_payment_icons": true
-      }
     }
   },
   "order": [
@@ -357,10 +239,6 @@
     "hero_split",
     "product_spotlight",
     "hero_testimonials",
-    "hero_final_cta",
-    "featured_collection_teaser",
-    "brand_story",
-    "newsletter_cta",
-    "footer"
+    "hero_final_cta"
   ]
 }
