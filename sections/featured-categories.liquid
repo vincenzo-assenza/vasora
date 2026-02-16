@@ -1,0 +1,241 @@
+<section class="featured-categories"{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | escape }}"{% endif %}>
+  <div class="featured-categories__inner">
+    <div class="featured-categories__heading">
+      {% if section.settings.eyebrow != blank %}
+        <p class="featured-categories__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+      {% if section.settings.heading != blank %}
+        <h2>{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.subheading != blank %}
+        <p class="featured-categories__subheading">{{ section.settings.subheading }}</p>
+      {% endif %}
+    </div>
+
+    <div class="featured-categories__grid" role="list">
+      {% for block in section.blocks %}
+        <a class="featured-categories__card" href="{{ block.settings.link }}" role="listitem" {{ block.shopify_attributes }}>
+          <div class="featured-categories__media" style="--ratio: {{ block.settings.aspect_ratio | default: 1.25 }};">
+            {% if block.settings.image != blank %}
+              {{
+                block.settings.image
+                | image_url: width: 1200
+                | image_tag: loading: 'lazy', widths: '480, 720, 960, 1200', alt: block.settings.title
+              }}
+            {% else %}
+              {{ 'collection-1' | placeholder_svg_tag: 'placeholder' }}
+            {% endif %}
+          </div>
+          <div class="featured-categories__content">
+            {% if block.settings.title != blank %}
+              <h3 class="featured-categories__title">{{ block.settings.title }}</h3>
+            {% endif %}
+            {% if block.settings.copy != blank %}
+              <p class="featured-categories__copy">{{ block.settings.copy }}</p>
+            {% endif %}
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .featured-categories {
+    padding: var(--space-6) 0;
+  }
+  .featured-categories__inner {
+    width: min(100% - 2 * var(--container-padding-inline), var(--container-max));
+    margin: 0 auto;
+    display: grid;
+    gap: var(--space-5);
+  }
+  .featured-categories__heading {
+    max-width: 560px;
+    display: grid;
+    gap: var(--space-2);
+  }
+  .featured-categories__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.72rem;
+    color: var(--color-muted);
+    margin: 0;
+  }
+  .featured-categories__subheading {
+    margin: 0;
+    color: var(--color-muted);
+  }
+  .featured-categories__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+  .featured-categories__card {
+    display: grid;
+    gap: var(--space-3);
+    text-decoration: none;
+    color: inherit;
+  }
+  .featured-categories__media {
+    position: relative;
+    width: 100%;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: color-mix(in srgb, var(--color-muted) 10%, transparent);
+  }
+  .featured-categories__media::before {
+    content: "";
+    display: block;
+    padding-top: calc(100% / var(--ratio));
+  }
+  .featured-categories__media img,
+  .featured-categories__media svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .featured-categories__content {
+    display: grid;
+    gap: var(--space-1);
+  }
+  .featured-categories__title {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+  .featured-categories__copy {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 1024px) {
+    .featured-categories__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 768px) {
+    .featured-categories__grid {
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(75%, 1fr);
+      grid-template-columns: unset;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: var(--space-2);
+      gap: var(--space-3);
+    }
+    .featured-categories__card {
+      scroll-snap-align: start;
+    }
+  }
+  @media (max-width: 520px) {
+    .featured-categories__grid {
+      grid-auto-columns: minmax(85%, 1fr);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Featured categories",
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Anchor ID",
+      "default": "featured-categories"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Shop per mood"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Categorie in evidenza"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Collezioni pensate per ogni momento della giornata."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "range",
+          "id": "aspect_ratio",
+          "label": "Aspect ratio",
+          "min": 0.8,
+          "max": 1.8,
+          "step": 0.1,
+          "default": 1.25
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Everyday essentials"
+        },
+        {
+          "type": "text",
+          "id": "copy",
+          "label": "Copy",
+          "default": "Texture leggere, palette neutra e comfort totale."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured categories",
+      "category": "Aurum",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "title": "Dailywear",
+            "copy": "Layering essenziale e linee pulite.",
+            "aspect_ratio": 1.2
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Weekend",
+            "copy": "Comfort premium per la città.",
+            "aspect_ratio": 1.35
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Travel",
+            "copy": "Capispalla leggeri e dettagli tecnici.",
+            "aspect_ratio": 1.1
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

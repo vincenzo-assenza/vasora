@@ -70,6 +70,45 @@
         "heading": "Valore percepito, qualità reale"
       }
     },
+    "featured_categories": {
+      "type": "featured-categories",
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "title": "Dailywear",
+            "copy": "Layering essenziale e linee pulite.",
+            "aspect_ratio": 1.2
+          },
+          "blocks": {}
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "title": "Weekend",
+            "copy": "Comfort premium per la città.",
+            "aspect_ratio": 1.35
+          },
+          "blocks": {}
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "title": "Travel",
+            "copy": "Capispalla leggeri e dettagli tecnici.",
+            "aspect_ratio": 1.1
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": ["cat_1", "cat_2", "cat_3"],
+      "settings": {
+        "anchor_id": "featured-categories",
+        "eyebrow": "Shop per mood",
+        "heading": "Categorie in evidenza",
+        "subheading": "Collezioni pensate per ogni momento della giornata."
+      }
+    },
     "featured_collection_teaser": {
       "type": "custom-section",
       "blocks": {
@@ -164,6 +203,7 @@
   "order": [
     "hero_main",
     "value_props",
+    "featured_categories",
     "featured_collection_teaser",
     "brand_story",
     "newsletter_cta"
