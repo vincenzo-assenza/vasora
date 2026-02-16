@@ -13,9 +13,14 @@
       "type": "hero-main",
       "settings": {
         "anchor_id": "hero",
+        "background_image": "shopify://shop_images/pexels-yuliya-galceva-373676135-14584376.jpg",
         "eyebrow": "New Collection",
         "heading": "Aurum — Essentials quotidiani",
-        "subheading": "Linee pulite, materiali premium e una palette senza tempo."
+        "subheading": "Linee pulite, materiali premium e una palette senza tempo.",
+        "primary_cta_label": "Acquista ora",
+        "primary_cta_link": "",
+        "secondary_cta_label": "Esplora collezione",
+        "secondary_cta_link": ""
       }
     },
     "value_props": {
@@ -27,7 +32,8 @@
             "text": "Perché Vasora",
             "text_style": "text--subtitle",
             "alignment": "left"
-          }
+          },
+          "blocks": {}
         },
         "vp_copy": {
           "type": "text",
@@ -35,11 +41,17 @@
             "text": "Materiali curati, palette neutra, comfort quotidiano.",
             "text_style": "text--normal",
             "alignment": "left"
-          }
+          },
+          "blocks": {}
         }
       },
-      "block_order": ["vp_title", "vp_copy"],
-      "settings": { "anchor_id": "value-props" }
+      "block_order": [
+        "vp_title",
+        "vp_copy"
+      ],
+      "settings": {
+        "anchor_id": "value-props"
+      }
     },
     "featured_collection_teaser": {
       "type": "custom-section",
@@ -50,7 +62,8 @@
             "text": "Best seller",
             "text_style": "text--subtitle",
             "alignment": "left"
-          }
+          },
+          "blocks": {}
         },
         "fc_copy": {
           "type": "text",
@@ -58,11 +71,17 @@
             "text": "I prodotti più amati dalla community Vasora.",
             "text_style": "text--normal",
             "alignment": "left"
-          }
+          },
+          "blocks": {}
         }
       },
-      "block_order": ["fc_title", "fc_copy"],
-      "settings": { "anchor_id": "best-seller" }
+      "block_order": [
+        "fc_title",
+        "fc_copy"
+      ],
+      "settings": {
+        "anchor_id": "best-seller"
+      }
     },
     "brand_story": {
       "type": "custom-section",
@@ -73,7 +92,8 @@
             "text": "La nostra visione",
             "text_style": "text--subtitle",
             "alignment": "left"
-          }
+          },
+          "blocks": {}
         },
         "story_copy": {
           "type": "text",
@@ -81,11 +101,17 @@
             "text": "Un brand essenziale, sobrio e contemporaneo.",
             "text_style": "text--normal",
             "alignment": "left"
-          }
+          },
+          "blocks": {}
         }
       },
-      "block_order": ["story_title", "story_copy"],
-      "settings": { "anchor_id": "brand-story" }
+      "block_order": [
+        "story_title",
+        "story_copy"
+      ],
+      "settings": {
+        "anchor_id": "brand-story"
+      }
     },
     "newsletter_cta": {
       "type": "custom-section",
@@ -96,7 +122,8 @@
             "text": "Resta aggiornato",
             "text_style": "text--subtitle",
             "alignment": "left"
-          }
+          },
+          "blocks": {}
         },
         "nl_copy": {
           "type": "text",
@@ -104,12 +131,24 @@
             "text": "Novità, drop esclusivi e promozioni private.",
             "text_style": "text--normal",
             "alignment": "left"
-          }
+          },
+          "blocks": {}
         }
       },
-      "block_order": ["nl_title", "nl_copy"],
-      "settings": { "anchor_id": "newsletter" }
+      "block_order": [
+        "nl_title",
+        "nl_copy"
+      ],
+      "settings": {
+        "anchor_id": "newsletter"
+      }
     }
   },
-  "order": ["hero_main", "value_props", "featured_collection_teaser", "brand_story", "newsletter_cta"]
+  "order": [
+    "hero_main",
+    "value_props",
+    "featured_collection_teaser",
+    "brand_story",
+    "newsletter_cta"
+  ]
 }
