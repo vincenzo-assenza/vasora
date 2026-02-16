@@ -1,0 +1,205 @@
+<section class="hero-testimonials"{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | escape }}"{% endif %} style="--testimonials-bg: {{ section.settings.background_color | default: 'var(--color-background)' }};">
+  <div class="hero-testimonials__inner">
+    <div class="hero-testimonials__heading">
+      {% if section.settings.eyebrow != blank %}
+        <p class="hero-testimonials__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+      {% if section.settings.heading != blank %}
+        <h2>{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.subheading != blank %}
+        <p class="hero-testimonials__subheading">{{ section.settings.subheading }}</p>
+      {% endif %}
+    </div>
+
+    <div class="hero-testimonials__grid" role="list">
+      {% for block in section.blocks %}
+        <div class="hero-testimonials__card" role="listitem" {{ block.shopify_attributes }}>
+          <div class="hero-testimonials__rating" aria-label="Rating {{ block.settings.rating }} su 5">
+            {% for i in (1..5) %}
+              <span class="hero-testimonials__star{% if i <= block.settings.rating %} is-active{% endif %}" aria-hidden="true">★</span>
+            {% endfor %}
+          </div>
+          {% if block.settings.quote != blank %}
+            <p class="hero-testimonials__quote">“{{ block.settings.quote }}”</p>
+          {% endif %}
+          <div class="hero-testimonials__author">
+            {% if block.settings.author != blank %}
+              <p class="hero-testimonials__name">{{ block.settings.author }}</p>
+            {% endif %}
+            {% if block.settings.role != blank %}
+              <p class="hero-testimonials__role">{{ block.settings.role }}</p>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .hero-testimonials {
+    background: var(--testimonials-bg);
+    padding: var(--space-6) 0;
+  }
+  .hero-testimonials__inner {
+    width: min(100% - 2 * var(--container-padding-inline), var(--container-max));
+    margin: 0 auto;
+    display: grid;
+    gap: var(--space-5);
+  }
+  .hero-testimonials__heading {
+    max-width: 560px;
+    display: grid;
+    gap: var(--space-2);
+  }
+  .hero-testimonials__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.72rem;
+    color: var(--color-muted);
+    margin: 0;
+  }
+  .hero-testimonials__subheading {
+    margin: 0;
+    color: var(--color-muted);
+  }
+  .hero-testimonials__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+  .hero-testimonials__card {
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    border: 1px solid color-mix(in srgb, var(--color-foreground) 10%, transparent);
+    background: color-mix(in srgb, var(--testimonials-bg) 90%, white);
+    display: grid;
+    gap: var(--space-3);
+  }
+  .hero-testimonials__rating {
+    display: flex;
+    gap: 4px;
+    color: var(--color-accent);
+    font-size: 0.9rem;
+  }
+  .hero-testimonials__star {
+    opacity: 0.35;
+  }
+  .hero-testimonials__star.is-active {
+    opacity: 1;
+  }
+  .hero-testimonials__quote {
+    margin: 0;
+    font-size: 1rem;
+  }
+  .hero-testimonials__author {
+    display: grid;
+    gap: 2px;
+  }
+  .hero-testimonials__name {
+    margin: 0;
+    font-weight: 600;
+  }
+  .hero-testimonials__role {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 1024px) {
+    .hero-testimonials__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 768px) {
+    .hero-testimonials__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Hero testimonials",
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Anchor ID",
+      "default": "testimonials"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Social proof"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Amato da chi lo indossa"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Recensioni reali su comfort e qualità percepita."
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#F7F5F2"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "default": "Capi essenziali e fit impeccabile."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author",
+          "default": "Giulia R."
+        },
+        {
+          "type": "text",
+          "id": "role",
+          "label": "Role",
+          "default": "Creative director"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "Hero testimonials",
+      "category": "Aurum",
+      "blocks": [
+        { "type": "testimonial" },
+        { "type": "testimonial", "settings": { "author": "Marco L.", "role": "Product manager", "quote": "Materiali premium e design pulito.", "rating": 5 } },
+        { "type": "testimonial", "settings": { "author": "Chiara S.", "role": "Stylist", "quote": "Vestibilità ottima, spedizione rapidissima.", "rating": 4 } }
+      ]
+    }
+  ]
+}
+{% endschema %}

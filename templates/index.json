@@ -160,6 +160,49 @@
         "secondary_cta_label": "Dettagli prodotto"
       }
     },
+    "hero_testimonials": {
+      "type": "hero-testimonials",
+      "blocks": {
+        "testimonial_1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Capi essenziali e fit impeccabile.",
+            "author": "Giulia R.",
+            "role": "Creative director",
+            "rating": 5
+          },
+          "blocks": {}
+        },
+        "testimonial_2": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Materiali premium e design pulito.",
+            "author": "Marco L.",
+            "role": "Product manager",
+            "rating": 5
+          },
+          "blocks": {}
+        },
+        "testimonial_3": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Vestibilità ottima, spedizione rapidissima.",
+            "author": "Chiara S.",
+            "role": "Stylist",
+            "rating": 4
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": ["testimonial_1", "testimonial_2", "testimonial_3"],
+      "settings": {
+        "anchor_id": "testimonials",
+        "eyebrow": "Social proof",
+        "heading": "Amato da chi lo indossa",
+        "subheading": "Recensioni reali su comfort e qualità percepita.",
+        "background_color": "#F7F5F2"
+      }
+    },
     "featured_collection_teaser": {
       "type": "custom-section",
       "blocks": {
@@ -257,6 +300,7 @@
     "featured_categories",
     "hero_split",
     "product_spotlight",
+    "hero_testimonials",
     "featured_collection_teaser",
     "brand_story",
     "newsletter_cta"
