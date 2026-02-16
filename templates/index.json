@@ -123,6 +123,43 @@
         "secondary_cta_label": "Leggi il manifesto"
       }
     },
+    "product_spotlight": {
+      "type": "product-spotlight",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "text": "Tessuto traspirante"
+          },
+          "blocks": {}
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "text": "Zip waterproof"
+          },
+          "blocks": {}
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "text": "Vestibilità regular"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": ["feature_1", "feature_2", "feature_3"],
+      "settings": {
+        "anchor_id": "product-spotlight",
+        "badge": "Nuovo arrivo",
+        "eyebrow": "In evidenza",
+        "heading": "Giacca Modular",
+        "body": "Tecnica, leggera e pronta per la città.",
+        "price": "€ 189",
+        "primary_cta_label": "Acquista ora",
+        "secondary_cta_label": "Dettagli prodotto"
+      }
+    },
     "featured_collection_teaser": {
       "type": "custom-section",
       "blocks": {
@@ -219,6 +256,7 @@
     "value_props",
     "featured_categories",
     "hero_split",
+    "product_spotlight",
     "featured_collection_teaser",
     "brand_story",
     "newsletter_cta"
