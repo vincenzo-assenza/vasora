@@ -134,6 +134,9 @@
     border-bottom: 1px solid color-mix(in srgb, var(--color-foreground) 12%, transparent);
     padding-bottom: var(--space-2);
     margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    pointer-events: auto;
   }
   .best-sellers__tab {
     background: none;
@@ -226,38 +229,38 @@
 {% endstylesheet %}
 
 {% javascript %}
-  const bestSellers = document.currentScript.closest('.shopify-section');
-  if (bestSellers) {
-    const tabs = bestSellers.querySelectorAll('.best-sellers__card');
-    const tabButtons = bestSellers.querySelectorAll('.best-sellers__tab');
-    const cta = bestSellers.querySelector('[data-cta]');
+  const scope = document.currentScript?.closest('.shopify-section') || document;
+  const tabs = scope.querySelectorAll('.best-sellers__card');
+  const tabButtons = scope.querySelectorAll('.best-sellers__tab');
+  const cta = scope.querySelector('[data-cta]');
 
-    const applyTab = (tab, link, label) => {
-      tabButtons.forEach((btn) => {
-        const active = btn.dataset.tab === tab;
-        btn.classList.toggle('is-active', active);
-        btn.setAttribute('aria-selected', active ? 'true' : 'false');
-      });
-      tabs.forEach((card) => {
-        const show = card.dataset.tab === tab;
-        card.style.display = show ? '' : 'none';
-      });
-      if (cta) {
-        cta.href = link || '#';
-        if (!cta.dataset.locked) {
-          cta.textContent = label ? `All ${label}` : cta.textContent;
-        }
-      }
-    };
-
+  const applyTab = (tab, link, label) => {
     tabButtons.forEach((btn) => {
-      btn.addEventListener('click', () => applyTab(btn.dataset.tab, btn.dataset.link, btn.textContent.trim()));
+      const active = btn.dataset.tab === tab;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-selected', active ? 'true' : 'false');
     });
-
-    if (tabButtons.length) {
-      const first = tabButtons[0];
-      applyTab(first.dataset.tab, first.dataset.link, first.textContent.trim());
+    tabs.forEach((card) => {
+      const show = card.dataset.tab === tab;
+      card.style.display = show ? '' : 'none';
+    });
+    if (cta) {
+      cta.href = link || '#';
+      if (!cta.dataset.locked) {
+        cta.textContent = label ? `All ${label}` : cta.textContent;
+      }
     }
+  };
+
+  if (tabButtons.length) {
+    tabButtons.forEach((btn) => {
+      btn.addEventListener('click', (event) => {
+        event.preventDefault();
+        applyTab(btn.dataset.tab, btn.dataset.link, btn.textContent.trim());
+      });
+    });
+    const first = tabButtons[0];
+    applyTab(first.dataset.tab, first.dataset.link, first.textContent.trim());
   }
 {% endjavascript %}
 
