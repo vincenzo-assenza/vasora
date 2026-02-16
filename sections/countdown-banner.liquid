@@ -131,9 +131,13 @@
   const countdown = sectionEl?.querySelector('[data-countdown]');
   if (countdown) {
     const endDate = countdown.dataset.endDate;
-    let endTime = countdown.dataset.endTime || '00:00';
-    if (endTime && endTime.length === 5) endTime = `${endTime}:00`;
-    const target = endDate ? new Date(`${endDate}T${endTime}`).getTime() : null;
+    const endTime = countdown.dataset.endTime || '00:00';
+    let target = null;
+    if (endDate) {
+      const [y, m, d] = endDate.split('-').map(Number);
+      const [hh, mm] = endTime.split(':').map(Number);
+      target = Date.UTC(y, (m || 1) - 1, d || 1, hh || 0, mm || 0, 0);
+    }
     const els = {
       days: countdown.querySelector('[data-days]'),
       hours: countdown.querySelector('[data-hours]'),
@@ -141,7 +145,7 @@
       seconds: countdown.querySelector('[data-seconds]')
     };
     const update = () => {
-      if (!target) return;
+      if (!target || Number.isNaN(target)) return;
       const now = Date.now();
       const diff = Math.max(0, target - now);
       const d = Math.floor(diff / 86400000);
