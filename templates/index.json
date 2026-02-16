@@ -331,6 +331,16 @@
       },
       "blocks": {},
       "block_order": []
+    },
+    "newsletter_hero": {
+      "type": "newsletter-hero",
+      "settings": {
+        "anchor_id": "newsletter",
+        "eyebrow": "Keep me updated",
+        "heading": "Newsletter",
+        "subheading": "Subscribe to get notified about product launches, special offers and company news.",
+        "cta_label": "Subscribe"
+      }
     }
   },
   "order": [
@@ -344,6 +354,7 @@
     "hero_testimonials",
     "hero_final_cta",
     "featured_collection_teaser",
-    "instagram_gallery"
+    "instagram_gallery",
+    "newsletter_hero"
   ]
 }
