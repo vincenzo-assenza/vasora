@@ -8,49 +8,87 @@
         <h2 class="best-sellers__title">{{ section.settings.heading }}</h2>
       {% endif %}
       <div class="best-sellers__tabs" role="tablist" aria-label="Best sellers tabs">
-        <button class="best-sellers__tab is-active" type="button" data-tab="women" role="tab" aria-selected="true">
-          {{ section.settings.tab_label_1 }}
-        </button>
-        <button class="best-sellers__tab" type="button" data-tab="men" role="tab" aria-selected="false">
-          {{ section.settings.tab_label_2 }}
-        </button>
+        {% assign tab_blocks = section.blocks | where: 'type', 'tab' %}
+        {% for block in tab_blocks %}
+          <button
+            class="best-sellers__tab{% if forloop.first %} is-active{% endif %}"
+            type="button"
+            data-tab="{{ block.id }}"
+            data-link="{{ block.settings.collection.url }}"
+            role="tab"
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+          >
+            {{ block.settings.label }}
+          </button>
+        {% endfor %}
       </div>
     </div>
 
-    <div class="best-sellers__grid" data-grid>
-      {% for block in section.blocks %}
-        <article class="best-sellers__card" data-tab="{{ block.settings.tab }}" {{ block.shopify_attributes }}>
-          {% if block.settings.badge != blank %}
-            <span class="best-sellers__badge">{{ block.settings.badge }}</span>
+    {% if section.settings.products_source == 'collection' %}
+      <div class="best-sellers__grid" data-grid>
+        {% for block in tab_blocks %}
+          {% assign col = block.settings.collection %}
+          {% if col != blank %}
+            {% for product in col.products limit: section.settings.products_limit %}
+              <article class="best-sellers__card" data-tab="{{ block.id }}">
+                {% if product.tags contains 'best seller' %}
+                  <span class="best-sellers__badge">Best seller</span>
+                {% else %}
+                  <span class="best-sellers__badge">New</span>
+                {% endif %}
+                <div class="best-sellers__media">
+                  {{
+                    product.featured_image
+                    | image_url: width: 900
+                    | image_tag: loading: 'lazy', widths: '360, 540, 720, 900', alt: product.title
+                  }}
+                </div>
+                <div class="best-sellers__info">
+                  <h3>{{ product.title }}</h3>
+                  <p class="best-sellers__price">{{ product.price | money }}</p>
+                </div>
+              </article>
+            {% endfor %}
           {% endif %}
-          <div class="best-sellers__media">
-            {% if block.settings.image != blank %}
-              {{
-                block.settings.image
-                | image_url: width: 900
-                | image_tag: loading: 'lazy', widths: '360, 540, 720, 900', alt: block.settings.title
-              }}
-            {% else %}
-              {{ 'product-1' | placeholder_svg_tag: 'placeholder' }}
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="best-sellers__grid" data-grid>
+        {% assign product_blocks = section.blocks | where: 'type', 'product_card' %}
+        {% for block in product_blocks %}
+          {% assign product = block.settings.product %}
+          <article class="best-sellers__card" data-tab="{{ block.settings.tab_id }}" {{ block.shopify_attributes }}>
+            {% if block.settings.badge != blank %}
+              <span class="best-sellers__badge">{{ block.settings.badge }}</span>
             {% endif %}
-          </div>
-          <div class="best-sellers__info">
-            {% if block.settings.title != blank %}
-              <h3>{{ block.settings.title }}</h3>
-            {% endif %}
-            {% if block.settings.price != blank %}
-              <p class="best-sellers__price">{{ block.settings.price }}</p>
-            {% endif %}
-          </div>
-        </article>
-      {% endfor %}
-    </div>
-
-    {% if section.settings.cta_label != blank %}
-      <div class="best-sellers__cta">
-        <a href="{{ section.settings.cta_link }}" class="best-sellers__cta-button">{{ section.settings.cta_label }}</a>
+            <div class="best-sellers__media">
+              {% if product != blank %}
+                {{
+                  product.featured_image
+                  | image_url: width: 900
+                  | image_tag: loading: 'lazy', widths: '360, 540, 720, 900', alt: product.title
+                }}
+              {% else %}
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder' }}
+              {% endif %}
+            </div>
+            <div class="best-sellers__info">
+              {% if product != blank %}
+                <h3>{{ product.title }}</h3>
+                <p class="best-sellers__price">{{ product.price | money }}</p>
+              {% else %}
+                <h3>{{ block.settings.title }}</h3>
+                <p class="best-sellers__price">{{ block.settings.price }}</p>
+              {% endif %}
+            </div>
+          </article>
+        {% endfor %}
       </div>
     {% endif %}
+
+    <div class="best-sellers__cta">
+      <a href="#" class="best-sellers__cta-button" data-cta>{{ section.settings.cta_label }}</a>
+    </div>
   </div>
 </section>
 
@@ -179,9 +217,11 @@
 {% javascript %}
   const bestSellers = document.currentScript.closest('.shopify-section');
   if (bestSellers) {
-    const tabs = bestSellers.querySelectorAll('[data-tab]');
+    const tabs = bestSellers.querySelectorAll('.best-sellers__card');
     const tabButtons = bestSellers.querySelectorAll('.best-sellers__tab');
-    const applyTab = (tab) => {
+    const cta = bestSellers.querySelector('[data-cta]');
+
+    const applyTab = (tab, link, label) => {
       tabButtons.forEach((btn) => {
         const active = btn.dataset.tab === tab;
         btn.classList.toggle('is-active', active);
@@ -191,11 +231,22 @@
         const show = card.dataset.tab === tab;
         card.style.display = show ? '' : 'none';
       });
+      if (cta) {
+        cta.href = link || '#';
+        if (!cta.dataset.locked) {
+          cta.textContent = label ? `All ${label}` : cta.textContent;
+        }
+      }
     };
+
     tabButtons.forEach((btn) => {
-      btn.addEventListener('click', () => applyTab(btn.dataset.tab));
+      btn.addEventListener('click', () => applyTab(btn.dataset.tab, btn.dataset.link, btn.textContent.trim()));
     });
-    applyTab('women');
+
+    if (tabButtons.length) {
+      const first = tabButtons[0];
+      applyTab(first.dataset.tab, first.dataset.link, first.textContent.trim());
+    }
   }
 {% endjavascript %}
 
@@ -222,43 +273,63 @@
       "default": "Women    Men"
     },
     {
-      "type": "text",
-      "id": "tab_label_1",
-      "label": "Tab label 1",
-      "default": "Women"
+      "type": "select",
+      "id": "products_source",
+      "label": "Products source",
+      "options": [
+        { "value": "manual", "label": "Manual" },
+        { "value": "collection", "label": "Collection" }
+      ],
+      "default": "manual"
     },
     {
-      "type": "text",
-      "id": "tab_label_2",
-      "label": "Tab label 2",
-      "default": "Men"
+      "type": "range",
+      "id": "products_limit",
+      "label": "Products per tab",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4
     },
     {
       "type": "text",
       "id": "cta_label",
       "label": "CTA label",
       "default": "All women's bags"
-    },
-    {
-      "type": "url",
-      "id": "cta_link",
-      "label": "CTA link"
     }
   ],
   "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Tab label",
+          "default": "Women"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    },
     {
       "type": "product_card",
       "name": "Product card",
       "settings": [
         {
-          "type": "select",
-          "id": "tab",
-          "label": "Tab",
-          "options": [
-            { "value": "women", "label": "Women" },
-            { "value": "men", "label": "Men" }
-          ],
-          "default": "women"
+          "type": "text",
+          "id": "tab_id",
+          "label": "Tab block id (from theme editor)",
+          "default": ""
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
         },
         {
           "type": "text",
@@ -267,21 +338,14 @@
           "default": "New"
         },
         {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Image"
-        },
-        {
           "type": "text",
           "id": "title",
-          "label": "Title",
-          "default": "Le mini Dalia"
+          "label": "Title (fallback)"
         },
         {
           "type": "text",
           "id": "price",
-          "label": "Price",
-          "default": "€301,95"
+          "label": "Price (fallback)"
         }
       ]
     }
@@ -291,10 +355,8 @@
       "name": "Best sellers",
       "category": "Aurum",
       "blocks": [
-        { "type": "product_card", "settings": { "tab": "women", "badge": "New", "title": "Le mini Dalia Black Liégé", "price": "€301,95" } },
-        { "type": "product_card", "settings": { "tab": "women", "badge": "New", "title": "Le Gina Petrol Liégé", "price": "€327,95" } },
-        { "type": "product_card", "settings": { "tab": "men", "badge": "New", "title": "Le sac elegant brown", "price": "€327,95" } },
-        { "type": "product_card", "settings": { "tab": "men", "badge": "Best seller", "title": "Le Grand Nova Ivory", "price": "€387,95" } }
+        { "type": "tab", "settings": { "label": "Women" } },
+        { "type": "tab", "settings": { "label": "Men" } }
       ]
     }
   ]
