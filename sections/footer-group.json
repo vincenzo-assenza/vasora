@@ -13,8 +13,31 @@
   "sections": {
     "footer": {
       "type": "footer",
+      "blocks": {
+        "trust_badge_AW6DHR": {
+          "type": "trust_badge",
+          "settings": {
+            "label": "Pagamento sicuro"
+          }
+        }
+      },
+      "block_order": [
+        "trust_badge_AW6DHR"
+      ],
       "settings": {
-        "menu": "",
+        "newsletter_heading": "Resta in contatto",
+        "newsletter_copy": "Iscriviti per ricevere novità e promozioni.",
+        "newsletter_cta": "Iscriviti",
+        "social_heading": "Seguici",
+        "social_instagram": "",
+        "social_facebook": "",
+        "social_tiktok": "",
+        "social_pinterest": "",
+        "menu_shop": "footer",
+        "menu_support": "footer",
+        "menu_company": "footer",
+        "menu_legal": "footer",
+        "legal_text": "Tutti i diritti riservati.",
         "show_payment_icons": true
       }
     }
