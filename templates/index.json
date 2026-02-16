@@ -23,6 +23,20 @@
         "secondary_cta_link": ""
       }
     },
+    "best_sellers": {
+      "type": "best-sellers",
+      "settings": {
+        "anchor_id": "best-sellers",
+        "eyebrow": "Our best sellers",
+        "heading": "Women    Men",
+        "tab_label_1": "Women",
+        "tab_label_2": "Men",
+        "cta_label": "All women's bags",
+        "cta_link": ""
+      },
+      "blocks": {},
+      "block_order": []
+    },
     "value_props": {
       "type": "usp-strip",
       "blocks": {
@@ -270,6 +284,7 @@
   },
   "order": [
     "hero_main",
+    "best_sellers",
     "value_props",
     "featured_categories",
     "hero_split",
