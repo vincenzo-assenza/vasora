@@ -28,11 +28,6 @@
             {{ section.settings.primary_cta_label }}
           </a>
         {% endif %}
-        {% if section.settings.secondary_cta_label != blank %}
-          <a class="hero-main__cta hero-main__cta--secondary" href="{{ section.settings.secondary_cta_link }}" data-analytics="hero-cta-secondary">
-            {{ section.settings.secondary_cta_label }}
-          </a>
-        {% endif %}
       </div>
     </div>
   </div>
@@ -58,7 +53,7 @@
   .hero-main__overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(120deg, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.15));
+    background: linear-gradient(120deg, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.05));
   }
   .hero-main__content {
     position: relative;
@@ -66,18 +61,21 @@
     padding-inline: var(--container-padding-inline);
   }
   .hero-main__copy {
-    max-width: 640px;
+    max-width: 720px;
+    text-align: center;
+    margin: 0 auto;
   }
   .hero-main h1 {
-    font-family: var(--font-accent--family);
+    font-family: var(--font-primary--family);
+    text-transform: uppercase;
     font-size: clamp(2.8rem, 6vw, 5rem);
-    line-height: 1.05;
-    letter-spacing: 0.01em;
+    line-height: 1.02;
+    letter-spacing: 0.14em;
   }
   .hero-main__eyebrow {
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: 0.75rem;
+    letter-spacing: 0.28em;
+    font-size: 0.65rem;
   }
   .hero-main__subheading {
     font-size: clamp(1rem, 2vw, 1.25rem);
@@ -88,21 +86,21 @@
     flex-wrap: wrap;
     gap: var(--space-3);
     margin-top: var(--space-5);
+    justify-content: center;
   }
   .hero-main__cta {
     text-decoration: none;
-    padding: 0.85rem 1.6rem;
+    padding: 0.7rem 1.6rem;
     border-radius: 999px;
     font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     transition: transform 150ms ease, box-shadow 150ms ease;
   }
   .hero-main__cta--primary {
-    background: var(--color-accent);
-    color: var(--color-background);
-  }
-  .hero-main__cta--secondary {
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    color: var(--color-background);
+    background: #fff;
+    color: #111;
   }
   .hero-main__cta:hover,
   .hero-main__cta:focus-visible {
@@ -167,17 +165,6 @@
       "type": "url",
       "id": "primary_cta_link",
       "label": "Primary CTA link"
-    },
-    {
-      "type": "text",
-      "id": "secondary_cta_label",
-      "label": "Secondary CTA label",
-      "default": "Esplora collezione"
-    },
-    {
-      "type": "url",
-      "id": "secondary_cta_link",
-      "label": "Secondary CTA link"
     }
   ],
   "presets": [
