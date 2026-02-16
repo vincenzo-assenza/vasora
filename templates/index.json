@@ -230,6 +230,42 @@
         "secondary_cta_label": "Esplora lookbook",
         "secondary_cta_link": ""
       }
+    },
+    "featured_collection_teaser": {
+      "type": "featured-collection-grid",
+      "blocks": {
+        "product_1": {
+          "type": "product_card",
+          "settings": {
+            "title": "Trench Aurum",
+            "price": "€ 249"
+          }
+        },
+        "product_2": {
+          "type": "product_card",
+          "settings": {
+            "title": "Maglia Essential",
+            "price": "€ 129"
+          }
+        },
+        "product_3": {
+          "type": "product_card",
+          "settings": {
+            "title": "Pantalone Tailor",
+            "price": "€ 159"
+          }
+        }
+      },
+      "block_order": [
+        "product_1",
+        "product_2",
+        "product_3"
+      ],
+      "settings": {
+        "anchor_id": "best-seller",
+        "heading": "I più amati",
+        "subheading": "I bestseller Vasora selezionati dalla community."
+      }
     }
   },
   "order": [
@@ -239,6 +275,7 @@
     "hero_split",
     "product_spotlight",
     "hero_testimonials",
-    "hero_final_cta"
+    "hero_final_cta",
+    "featured_collection_teaser"
   ]
 }
