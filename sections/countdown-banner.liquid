@@ -127,10 +127,12 @@
 {% endstylesheet %}
 
 {% javascript %}
-  const countdown = document.currentScript?.closest('.shopify-section')?.querySelector('[data-countdown]');
+  const sectionEl = document.getElementById('shopify-section-{{ section.id }}');
+  const countdown = sectionEl?.querySelector('[data-countdown]');
   if (countdown) {
     const endDate = countdown.dataset.endDate;
-    const endTime = countdown.dataset.endTime || '00:00';
+    let endTime = countdown.dataset.endTime || '00:00';
+    if (endTime && endTime.length === 5) endTime = `${endTime}:00`;
     const target = endDate ? new Date(`${endDate}T${endTime}`).getTime() : null;
     const els = {
       days: countdown.querySelector('[data-days]'),
