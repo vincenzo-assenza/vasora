@@ -28,7 +28,7 @@
   .hero-final-cta {
     background: var(--cta-bg);
     color: var(--cta-fg);
-    padding: var(--space-6) 0;
+    padding: var(--space-5) 0;
   }
   .hero-final-cta__inner {
     width: min(100% - 2 * var(--container-padding-inline), var(--container-max));
@@ -58,13 +58,16 @@
   }
   .hero-final-cta__button {
     text-decoration: none;
-    padding: 0.85rem 1.7rem;
-    border-radius: 999px;
+    padding: 0.6rem 1.4rem;
+    border-radius: 2px;
     font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: transform 150ms ease, box-shadow 150ms ease;
+    transition: transform 150ms ease, box-shadow 150ms ease, opacity 150ms ease;
   }
   .hero-final-cta__button--primary {
     background: var(--cta-fg);
