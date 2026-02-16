@@ -111,6 +111,18 @@
         "subheading": "Collezioni pensate per ogni momento della giornata."
       }
     },
+    "hero_split": {
+      "type": "hero-split",
+      "settings": {
+        "anchor_id": "story",
+        "image_position": "right",
+        "eyebrow": "La nostra storia",
+        "heading": "Minimalismo contemporaneo",
+        "body": "Un racconto di tessuti naturali, artigianalità italiana e linee essenziali.",
+        "primary_cta_label": "Scopri la visione",
+        "secondary_cta_label": "Leggi il manifesto"
+      }
+    },
     "featured_collection_teaser": {
       "type": "custom-section",
       "blocks": {
@@ -206,6 +218,7 @@
     "hero_main",
     "value_props",
     "featured_categories",
+    "hero_split",
     "featured_collection_teaser",
     "brand_story",
     "newsletter_cta"

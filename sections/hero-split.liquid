@@ -1,0 +1,203 @@
+<section class="hero-split"{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | escape }}"{% endif %}>
+  <div class="hero-split__inner hero-split__inner--{{ section.settings.image_position }}">
+    <div class="hero-split__media">
+      {% if section.settings.image != blank %}
+        {{
+          section.settings.image
+          | image_url: width: 1600
+          | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1600', alt: section.settings.heading
+        }}
+      {% else %}
+        {{ 'collection-2' | placeholder_svg_tag: 'placeholder' }}
+      {% endif %}
+    </div>
+
+    <div class="hero-split__content">
+      {% if section.settings.eyebrow != blank %}
+        <p class="hero-split__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+      {% if section.settings.heading != blank %}
+        <h2>{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.body != blank %}
+        <p class="hero-split__body">{{ section.settings.body }}</p>
+      {% endif %}
+      <div class="hero-split__actions">
+        {% if section.settings.primary_cta_label != blank %}
+          <a class="hero-split__cta hero-split__cta--primary" href="{{ section.settings.primary_cta_link }}">
+            {{ section.settings.primary_cta_label }}
+          </a>
+        {% endif %}
+        {% if section.settings.secondary_cta_label != blank %}
+          <a class="hero-split__cta hero-split__cta--secondary" href="{{ section.settings.secondary_cta_link }}">
+            {{ section.settings.secondary_cta_label }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .hero-split {
+    padding: var(--space-6) 0;
+  }
+  .hero-split__inner {
+    width: min(100% - 2 * var(--container-padding-inline), var(--container-max));
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6);
+    align-items: center;
+  }
+  .hero-split__inner--right {
+    grid-template-areas: "content media";
+  }
+  .hero-split__inner--right .hero-split__media {
+    grid-area: media;
+  }
+  .hero-split__inner--right .hero-split__content {
+    grid-area: content;
+  }
+  .hero-split__media {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: color-mix(in srgb, var(--color-muted) 10%, transparent);
+  }
+  .hero-split__media img,
+  .hero-split__media svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+  .hero-split__content {
+    display: grid;
+    gap: var(--space-3);
+  }
+  .hero-split__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.72rem;
+    color: var(--color-muted);
+    margin: 0;
+  }
+  .hero-split__body {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 1rem;
+  }
+  .hero-split__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+  }
+  .hero-split__cta {
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 999px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 150ms ease, box-shadow 150ms ease;
+  }
+  .hero-split__cta--primary {
+    background: var(--color-accent);
+    color: var(--color-background);
+  }
+  .hero-split__cta--secondary {
+    border: 1px solid color-mix(in srgb, var(--color-foreground) 25%, transparent);
+    color: var(--color-foreground);
+  }
+  .hero-split__cta:hover,
+  .hero-split__cta:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  @media (max-width: 768px) {
+    .hero-split__inner {
+      grid-template-columns: 1fr;
+    }
+    .hero-split__inner--right {
+      grid-template-areas: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Hero split",
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Anchor ID",
+      "default": "story"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "La nostra storia"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Minimalismo contemporaneo"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "Un racconto di tessuti naturali, artigianalità italiana e linee essenziali."
+    },
+    {
+      "type": "text",
+      "id": "primary_cta_label",
+      "label": "Primary CTA label",
+      "default": "Scopri la visione"
+    },
+    {
+      "type": "url",
+      "id": "primary_cta_link",
+      "label": "Primary CTA link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_label",
+      "label": "Secondary CTA label",
+      "default": "Leggi il manifesto"
+    },
+    {
+      "type": "url",
+      "id": "secondary_cta_link",
+      "label": "Secondary CTA link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero split",
+      "category": "Aurum"
+    }
+  ]
+}
+{% endschema %}
