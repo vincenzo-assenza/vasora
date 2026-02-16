@@ -1,7 +1,7 @@
-<header class="site-header{% if section.settings.enable_sticky %} site-header--sticky{% endif %}" data-header>
+<header class="site-header{% if section.settings.enable_sticky %} site-header--sticky{% endif %}" data-header style="--logo-width: {{ section.settings.logo_width }}px;">
   {% if section.settings.topbar_text != blank %}
     <div class="site-header__topbar">
-      <div class="u-container">
+      <div class="site-header__container{% unless section.settings.full_width %} u-container{% endunless %}">
         {% if section.settings.topbar_link != blank %}
           <a href="{{ section.settings.topbar_link }}" class="site-header__topbar-link">
             {{ section.settings.topbar_text }}
@@ -13,7 +13,7 @@
     </div>
   {% endif %}
 
-  <div class="site-header__main u-container">
+  <div class="site-header__main site-header__container{% unless section.settings.full_width %} u-container{% endunless %}">
     <div class="site-header__brand">
       <a href="{{ routes.root_url }}" class="site-header__logo" aria-label="{{ shop.name }}">
         {% if section.settings.logo_image != blank %}
@@ -44,7 +44,7 @@
               </button>
 
               <div class="site-header__mega" id="MegaMenu-{{ forloop.index }}" data-mega-panel hidden>
-                <div class="site-header__mega-inner u-container">
+                <div class="site-header__mega-inner site-header__container{% unless section.settings.full_width %} u-container{% endunless %}">
                   <div class="site-header__mega-columns">
                     <div>
                       <p class="site-header__mega-title">{{ link.title }}</p>
@@ -169,6 +169,7 @@
   .site-header--sticky {
     position: sticky;
     top: 0;
+    z-index: 100;
   }
   .site-header[data-scrolled='true'] {
     box-shadow: var(--shadow-sm);
@@ -183,6 +184,11 @@
     color: inherit;
     text-decoration: none;
   }
+  .site-header__container {
+    width: 100%;
+    margin: 0 auto;
+    padding-inline: var(--container-padding-inline);
+  }
   .site-header__main {
     display: flex;
     align-items: center;
@@ -192,7 +198,8 @@
   }
   .site-header__logo img {
     height: auto;
-    width: clamp(120px, 20vw, {{ section.settings.logo_width }}px);
+    width: min(100%, var(--logo-width));
+    max-width: var(--logo-width);
   }
   .site-header__logo-text {
     font-family: var(--font-accent--family);
@@ -524,6 +531,12 @@
       "id": "enable_sticky",
       "label": "Sticky header",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width header",
+      "default": false
     },
     {
       "type": "text",
