@@ -134,8 +134,15 @@
     const endTime = countdown.dataset.endTime || '00:00';
     let target = null;
     if (endDate) {
-      const [y, m, d] = endDate.split('-').map(Number);
-      const [hh, mm] = endTime.split(':').map(Number);
+      let datePart = endDate;
+      let timePart = endTime;
+      if (endDate.includes(' ')) {
+        const parts = endDate.split(' ');
+        datePart = parts[0];
+        timePart = parts[1] || endTime;
+      }
+      const [y, m, d] = datePart.split('-').map(Number);
+      const [hh, mm] = (timePart || '00:00').split(':').map(Number);
       target = Date.UTC(y, (m || 1) - 1, d || 1, hh || 0, mm || 0, 0);
     }
     const els = {
