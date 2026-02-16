@@ -1,7 +1,7 @@
 <footer class="footer" aria-labelledby="footer-heading">
   <h2 id="footer-heading" class="sr-only">Footer</h2>
 
-  <div class="footer__top">
+  <div class="footer__grid">
     <div class="footer__newsletter">
       {% if section.settings.newsletter_heading != blank %}
         <h3>{{ section.settings.newsletter_heading }}</h3>
@@ -12,94 +12,72 @@
       {% form 'customer', class: 'footer__newsletter-form' %}
         <input type="hidden" name="contact[tags]" value="newsletter">
         <label class="sr-only" for="FooterNewsletterEmail">Email</label>
-        <div class="footer__newsletter-row">
-          <input
-            id="FooterNewsletterEmail"
-            type="email"
-            name="contact[email]"
-            required
-            autocomplete="email"
-            placeholder="Email address"
-            aria-required="true"
-          >
-          <button type="submit" class="footer__button" data-analytics="footer-newsletter-submit">{{ section.settings.newsletter_cta | default: 'Iscriviti' }}</button>
-        </div>
+        <input
+          id="FooterNewsletterEmail"
+          type="email"
+          name="contact[email]"
+          required
+          autocomplete="email"
+          placeholder="E-mail"
+          aria-required="true"
+        >
+        <button type="submit" class="footer__button" data-analytics="footer-newsletter-submit">{{ section.settings.newsletter_cta | default: 'Subscribe' }}</button>
         {% if form.errors %}
           <p class="footer__form-error" role="alert">{{ form.errors | default_errors }}</p>
         {% elsif form.posted_successfully? %}
           <p class="footer__form-success" role="status">Grazie! Sei iscritto.</p>
         {% endif %}
       {% endform %}
-    </div>
-
-    <div class="footer__social">
-      <h3>{{ section.settings.social_heading | default: 'Seguici' }}</h3>
-      <div class="footer__social-links">
+      <div class="footer__social">
         {% if section.settings.social_instagram != blank %}
-          <a href="{{ section.settings.social_instagram }}" aria-label="Instagram">Instagram</a>
+          <a href="{{ section.settings.social_instagram }}" aria-label="Instagram">IG</a>
         {% endif %}
         {% if section.settings.social_facebook != blank %}
-          <a href="{{ section.settings.social_facebook }}" aria-label="Facebook">Facebook</a>
-        {% endif %}
-        {% if section.settings.social_tiktok != blank %}
-          <a href="{{ section.settings.social_tiktok }}" aria-label="TikTok">TikTok</a>
+          <a href="{{ section.settings.social_facebook }}" aria-label="Facebook">FB</a>
         {% endif %}
         {% if section.settings.social_pinterest != blank %}
-          <a href="{{ section.settings.social_pinterest }}" aria-label="Pinterest">Pinterest</a>
+          <a href="{{ section.settings.social_pinterest }}" aria-label="Pinterest">PI</a>
+        {% endif %}
+        {% if section.settings.social_tiktok != blank %}
+          <a href="{{ section.settings.social_tiktok }}" aria-label="TikTok">TT</a>
         {% endif %}
       </div>
     </div>
-  </div>
 
-  <div class="footer__mid">
     <div class="footer__column" data-accordion>
-      <button class="footer__column-title" type="button">Shop</button>
+      <button class="footer__column-title" type="button">{{ section.settings.shop_heading | default: 'Shop' }}</button>
       <div class="footer__column-links">
         {% for link in section.settings.menu_shop.links %}
           {{ link.title | link_to: link.url }}
         {% endfor %}
       </div>
     </div>
+
     <div class="footer__column" data-accordion>
-      <button class="footer__column-title" type="button">Support</button>
+      <button class="footer__column-title" type="button">{{ section.settings.info_heading | default: 'Information' }}</button>
       <div class="footer__column-links">
         {% for link in section.settings.menu_support.links %}
           {{ link.title | link_to: link.url }}
         {% endfor %}
       </div>
     </div>
-    <div class="footer__column" data-accordion>
-      <button class="footer__column-title" type="button">Company</button>
-      <div class="footer__column-links">
-        {% for link in section.settings.menu_company.links %}
-          {{ link.title | link_to: link.url }}
-        {% endfor %}
-      </div>
-    </div>
-    <div class="footer__column" data-accordion>
-      <button class="footer__column-title" type="button">Legal</button>
-      <div class="footer__column-links">
-        {% for link in section.settings.menu_legal.links %}
-          {{ link.title | link_to: link.url }}
-        {% endfor %}
-      </div>
+
+    <div class="footer__about">
+      {% if section.settings.about_heading != blank %}
+        <h3>{{ section.settings.about_heading }}</h3>
+      {% endif %}
+      {% if section.settings.about_text != blank %}
+        <p>{{ section.settings.about_text }}</p>
+      {% endif %}
+      {% if section.settings.menu_company.links.size > 0 %}
+        <div class="footer__column-links">
+          {% for link in section.settings.menu_company.links %}
+            {{ link.title | link_to: link.url }}
+          {% endfor %}
+        </div>
+      {% endif %}
     </div>
   </div>
-
-  {% if section.blocks.size > 0 %}
-    <div class="footer__trust">
-      {% for block in section.blocks %}
-        <div class="footer__trust-item" {{ block.shopify_attributes }}>
-          {% if block.settings.badge != blank %}
-            {{ block.settings.badge | image_url: width: 120 | image_tag: loading: 'lazy', alt: block.settings.label }}
-          {% endif %}
-          {% if block.settings.label != blank %}
-            <span>{{ block.settings.label }}</span>
-          {% endif %}
-        </div>
-      {% endfor %}
-    </div>
-  {% endif %}
 
   <div class="footer__bottom">
     <div class="footer__legal">
@@ -120,100 +98,74 @@
 
 {% stylesheet %}
   .footer {
-    padding: var(--space-6) 0;
+    padding: var(--space-6) 0 var(--space-5);
     border-top: 1px solid var(--color-border);
     display: grid;
     gap: var(--space-5);
   }
-  .footer h3 {
-    font-size: 0.95rem;
-    letter-spacing: 0.08em;
+  .footer h3,
+  .footer__column-title {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
+    font-weight: 500;
   }
-  .footer__newsletter-row input {
-    border: none;
-    border-bottom: 1px solid var(--color-border);
-    border-radius: 0;
-    background: transparent;
+  .footer p {
+    color: var(--color-muted);
+    font-size: 0.9rem;
   }
-  .footer__button {
-    background: #111;
-    color: #fff;
-  }
-  .footer a {
-    text-decoration: none;
-    color: inherit;
-  }
-  .footer a:focus-visible,
-  .footer button:focus-visible,
-  .footer input:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 2px;
-  }
-  .footer__top {
+  .footer__grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-5);
+    grid-template-columns: 1.2fr 1fr 1fr 1.2fr;
+    gap: var(--space-6);
+    width: min(100% - 2 * var(--container-padding-inline), var(--container-max));
+    margin: 0 auto;
   }
   .footer__newsletter-form {
     display: grid;
-    gap: var(--space-2);
-  }
-  .footer__newsletter-row {
-    display: flex;
-    gap: var(--space-2);
-  }
-  .footer__newsletter-row input {
-    flex: 1;
-    padding: 0.75rem 1rem;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--color-border);
-  }
-  .footer__button {
-    padding: 0.75rem 1.4rem;
-    border-radius: 999px;
-    border: none;
-    background: var(--color-accent);
-    color: var(--color-background);
-    font-weight: 600;
-  }
-  .footer__social-links {
-    display: flex;
-    flex-wrap: wrap;
     gap: var(--space-3);
   }
-  .footer__mid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: var(--space-4);
+  .footer__newsletter-form input {
+    border: 1px solid var(--color-border);
+    border-radius: 0;
+    padding: 0.7rem 0.8rem;
+    background: transparent;
+  }
+  .footer__button {
+    width: fit-content;
+    padding: 0.6rem 1.4rem;
+    background: #111;
+    color: #fff;
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.7rem;
+  }
+  .footer__social {
+    display: flex;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+  }
+  .footer__social a {
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
   }
   .footer__column-title {
     background: none;
     border: none;
-    font: inherit;
-    font-weight: 600;
     padding: 0;
-    margin-bottom: var(--space-2);
+    margin-bottom: var(--space-3);
+    text-align: left;
   }
   .footer__column-links {
     display: grid;
-    gap: var(--space-1);
-  }
-  .footer__trust {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-3);
-    align-items: center;
-  }
-  .footer__trust-item {
-    display: inline-flex;
-    align-items: center;
     gap: var(--space-2);
-    font-size: 0.9rem;
   }
-  .footer__trust-item img {
-    height: 28px;
-    width: auto;
+  .footer__column-links a {
+    text-decoration: none;
+    color: var(--color-muted);
+    font-size: 0.9rem;
   }
   .footer__bottom {
     display: flex;
@@ -221,13 +173,10 @@
     gap: var(--space-3);
     justify-content: space-between;
     align-items: center;
-  }
-  .footer__legal {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-3);
+    width: min(100% - 2 * var(--container-padding-inline), var(--container-max));
+    margin: 0 auto;
     color: var(--color-muted);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
   .footer__payment {
     display: flex;
@@ -236,25 +185,13 @@
   }
 
   @media (max-width: 900px) {
-    .footer__top {
-      grid-template-columns: 1fr;
-    }
-    .footer__mid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    .footer__grid {
+      grid-template-columns: 1fr 1fr;
     }
   }
-
   @media (max-width: 640px) {
-    .footer__newsletter-row {
-      flex-direction: column;
-    }
-    .footer__mid {
+    .footer__grid {
       grid-template-columns: 1fr;
-      gap: var(--space-3);
-    }
-    .footer__column-title {
-      width: 100%;
-      text-align: left;
     }
     .footer__column-links {
       display: none;
@@ -299,107 +236,25 @@
 {
   "name": "Footer",
   "settings": [
-    {
-      "type": "text",
-      "id": "newsletter_heading",
-      "label": "Newsletter heading",
-      "default": "Resta in contatto"
-    },
-    {
-      "type": "text",
-      "id": "newsletter_copy",
-      "label": "Newsletter copy",
-      "default": "Iscriviti per ricevere novità e promozioni."
-    },
-    {
-      "type": "text",
-      "id": "newsletter_cta",
-      "label": "Newsletter CTA",
-      "default": "Iscriviti"
-    },
-    {
-      "type": "text",
-      "id": "social_heading",
-      "label": "Social heading",
-      "default": "Seguici"
-    },
-    {
-      "type": "url",
-      "id": "social_instagram",
-      "label": "Instagram"
-    },
-    {
-      "type": "url",
-      "id": "social_facebook",
-      "label": "Facebook"
-    },
-    {
-      "type": "url",
-      "id": "social_tiktok",
-      "label": "TikTok"
-    },
-    {
-      "type": "url",
-      "id": "social_pinterest",
-      "label": "Pinterest"
-    },
-    {
-      "type": "link_list",
-      "id": "menu_shop",
-      "label": "Shop menu"
-    },
-    {
-      "type": "link_list",
-      "id": "menu_support",
-      "label": "Support menu"
-    },
-    {
-      "type": "link_list",
-      "id": "menu_company",
-      "label": "Company menu"
-    },
-    {
-      "type": "link_list",
-      "id": "menu_legal",
-      "label": "Legal menu"
-    },
-    {
-      "type": "text",
-      "id": "legal_text",
-      "label": "Legal text",
-      "default": "Tutti i diritti riservati."
-    },
-    {
-      "type": "checkbox",
-      "id": "show_payment_icons",
-      "label": "Show payment icons",
-      "default": true
-    }
-  ],
-  "blocks": [
-    {
-      "type": "trust_badge",
-      "name": "Trust badge",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "badge",
-          "label": "Badge image"
-        },
-        {
-          "type": "text",
-          "id": "label",
-          "label": "Label",
-          "default": "Pagamento sicuro"
-        }
-      ]
-    }
+    {"type": "text", "id": "newsletter_heading", "label": "Newsletter heading", "default": "Newsletter"},
+    {"type": "text", "id": "newsletter_copy", "label": "Newsletter copy", "default": "Subscribe to receive updates, access to exclusive deals, and more."},
+    {"type": "text", "id": "newsletter_cta", "label": "Newsletter CTA", "default": "Subscribe"},
+    {"type": "text", "id": "shop_heading", "label": "Shop heading", "default": "Shop"},
+    {"type": "text", "id": "info_heading", "label": "Information heading", "default": "Information"},
+    {"type": "text", "id": "about_heading", "label": "About heading", "default": "About the shop"},
+    {"type": "textarea", "id": "about_text", "label": "About text", "default": "The story of Vasora is about timeless essentials, curated to last."},
+    {"type": "url", "id": "social_instagram", "label": "Instagram"},
+    {"type": "url", "id": "social_facebook", "label": "Facebook"},
+    {"type": "url", "id": "social_tiktok", "label": "TikTok"},
+    {"type": "url", "id": "social_pinterest", "label": "Pinterest"},
+    {"type": "link_list", "id": "menu_shop", "label": "Shop menu"},
+    {"type": "link_list", "id": "menu_support", "label": "Information menu"},
+    {"type": "link_list", "id": "menu_company", "label": "About menu (optional)"},
+    {"type": "text", "id": "legal_text", "label": "Legal text", "default": "All rights reserved."},
+    {"type": "checkbox", "id": "show_payment_icons", "label": "Show payment icons", "default": true}
   ],
   "presets": [
-    {
-      "name": "Footer",
-      "category": "Aurum"
-    }
+    {"name": "Footer", "category": "Aurum"}
   ]
 }
 {% endschema %}
