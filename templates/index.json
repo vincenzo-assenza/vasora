@@ -25,11 +25,12 @@
       "type": "countdown-banner",
       "settings": {
         "anchor_id": "countdown",
+        "background_image": "shopify://shop_images/pexels-the-5th-50003-179909.jpg",
         "eyebrow": "Limited time only",
         "heading": "Super sale up to 40% off",
         "subheading": "Shop our selection of exclusive handbags and backpacks at reduced price during the Super Sale. Hurry up!",
         "cta_label": "Shop now",
-        "cta_link": "",
+        "cta_link": "shopify://policies/privacy-policy",
         "end_date": "2026-12-31",
         "end_time": "23:59"
       }
