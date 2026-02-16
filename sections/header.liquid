@@ -167,6 +167,16 @@
   </div>
 </header>
 
+<style>
+  {% if section.settings.enable_sticky %}
+  #shopify-section-{{ section.id }} {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  {% endif %}
+</style>
+
 {% stylesheet %}
   .site-header {
     position: absolute;
@@ -180,13 +190,6 @@
   .site-header--sticky {
     position: relative;
   }
-  {% if section.settings.enable_sticky %}
-  #shopify-section-{{ section.id }} {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  {% endif %}
   .site-header[data-scrolled='true'] {
     box-shadow: var(--shadow-sm);
   }
