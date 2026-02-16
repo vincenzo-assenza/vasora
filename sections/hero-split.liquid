@@ -24,12 +24,12 @@
       {% endif %}
       <div class="hero-split__actions">
         {% if section.settings.primary_cta_label != blank %}
-          <a class="hero-split__cta hero-split__cta--primary" href="{{ section.settings.primary_cta_link }}">
+          <a class="hero-split__cta hero-split__cta--primary" href="{{ section.settings.primary_cta_link }}" data-analytics="hero-split-cta-primary">
             {{ section.settings.primary_cta_label }}
           </a>
         {% endif %}
         {% if section.settings.secondary_cta_label != blank %}
-          <a class="hero-split__cta hero-split__cta--secondary" href="{{ section.settings.secondary_cta_link }}">
+          <a class="hero-split__cta hero-split__cta--secondary" href="{{ section.settings.secondary_cta_link }}" data-analytics="hero-split-cta-secondary">
             {{ section.settings.secondary_cta_label }}
           </a>
         {% endif %}

@@ -11,12 +11,12 @@
     {% endif %}
     <div class="hero-final-cta__actions">
       {% if section.settings.primary_cta_label != blank %}
-        <a class="hero-final-cta__button hero-final-cta__button--primary" href="{{ section.settings.primary_cta_link }}">
+        <a class="hero-final-cta__button hero-final-cta__button--primary" href="{{ section.settings.primary_cta_link }}" data-analytics="final-cta-primary">
           {{ section.settings.primary_cta_label }}
         </a>
       {% endif %}
       {% if section.settings.secondary_cta_label != blank %}
-        <a class="hero-final-cta__button hero-final-cta__button--secondary" href="{{ section.settings.secondary_cta_link }}">
+        <a class="hero-final-cta__button hero-final-cta__button--secondary" href="{{ section.settings.secondary_cta_link }}" data-analytics="final-cta-secondary">
           {{ section.settings.secondary_cta_label }}
         </a>
       {% endif %}

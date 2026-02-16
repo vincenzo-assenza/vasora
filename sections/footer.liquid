@@ -22,7 +22,7 @@
             placeholder="Email address"
             aria-required="true"
           >
-          <button type="submit" class="footer__button">{{ section.settings.newsletter_cta | default: 'Iscriviti' }}</button>
+          <button type="submit" class="footer__button" data-analytics="footer-newsletter-submit">{{ section.settings.newsletter_cta | default: 'Iscriviti' }}</button>
         </div>
         {% if form.errors %}
           <p class="footer__form-error" role="alert">{{ form.errors | default_errors }}</p>

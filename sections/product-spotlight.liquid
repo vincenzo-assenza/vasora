@@ -43,12 +43,12 @@
 
       <div class="product-spotlight__actions">
         {% if section.settings.primary_cta_label != blank %}
-          <a class="product-spotlight__cta product-spotlight__cta--primary" href="{{ section.settings.primary_cta_link }}">
+          <a class="product-spotlight__cta product-spotlight__cta--primary" href="{{ section.settings.primary_cta_link }}" data-analytics="product-spotlight-cta-primary">
             {{ section.settings.primary_cta_label }}
           </a>
         {% endif %}
         {% if section.settings.secondary_cta_label != blank %}
-          <a class="product-spotlight__cta product-spotlight__cta--secondary" href="{{ section.settings.secondary_cta_link }}">
+          <a class="product-spotlight__cta product-spotlight__cta--secondary" href="{{ section.settings.secondary_cta_link }}" data-analytics="product-spotlight-cta-secondary">
             {{ section.settings.secondary_cta_label }}
           </a>
         {% endif %}
