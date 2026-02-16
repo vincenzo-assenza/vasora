@@ -24,33 +24,50 @@
       }
     },
     "value_props": {
-      "type": "custom-section",
+      "type": "usp-strip",
       "blocks": {
-        "vp_title": {
-          "type": "text",
+        "usp_item_1": {
+          "type": "usp_item",
           "settings": {
-            "text": "Perché Vasora",
-            "text_style": "text--subtitle",
-            "alignment": "left"
+            "icon": "shipping",
+            "title": "Spedizione rapida",
+            "copy": "Consegna 24/48h con tracking in tempo reale."
           },
           "blocks": {}
         },
-        "vp_copy": {
-          "type": "text",
+        "usp_item_2": {
+          "type": "usp_item",
           "settings": {
-            "text": "Materiali curati, palette neutra, comfort quotidiano.",
-            "text_style": "text--normal",
-            "alignment": "left"
+            "icon": "returns",
+            "title": "Reso facile",
+            "copy": "14 giorni per cambiare idea, ritiro incluso."
+          },
+          "blocks": {}
+        },
+        "usp_item_3": {
+          "type": "usp_item",
+          "settings": {
+            "icon": "quality",
+            "title": "Qualità premium",
+            "copy": "Materiali selezionati e finiture curate."
+          },
+          "blocks": {}
+        },
+        "usp_item_4": {
+          "type": "usp_item",
+          "settings": {
+            "icon": "support",
+            "title": "Supporto dedicato",
+            "copy": "Assistenza in chat entro 24h lavorative."
           },
           "blocks": {}
         }
       },
-      "block_order": [
-        "vp_title",
-        "vp_copy"
-      ],
+      "block_order": ["usp_item_1", "usp_item_2", "usp_item_3", "usp_item_4"],
       "settings": {
-        "anchor_id": "value-props"
+        "anchor_id": "value-props",
+        "eyebrow": "Perché Vasora",
+        "heading": "Valore percepito, qualità reale"
       }
     },
     "featured_collection_teaser": {
