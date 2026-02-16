@@ -10,10 +10,11 @@
       <div class="best-sellers__tabs" role="tablist" aria-label="Best sellers tabs">
         {% assign tab_blocks = section.blocks | where: 'type', 'tab' %}
         {% for block in tab_blocks %}
+          {% assign tab_key = block.settings.tab_key | default: block.id %}
           <button
             class="best-sellers__tab{% if forloop.first %} is-active{% endif %}"
             type="button"
-            data-tab="{{ block.id }}"
+            data-tab="{{ tab_key }}"
             data-link="{{ block.settings.collection.url }}"
             role="tab"
             aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
@@ -28,9 +29,10 @@
       <div class="best-sellers__grid" data-grid>
         {% for block in tab_blocks %}
           {% assign col = block.settings.collection %}
+          {% assign tab_key = block.settings.tab_key | default: block.id %}
           {% if col != blank %}
             {% for product in col.products limit: section.settings.products_limit %}
-              <article class="best-sellers__card" data-tab="{{ block.id }}">
+              <article class="best-sellers__card" data-tab="{{ tab_key }}">
                 {% if product.tags contains 'best seller' %}
                   <span class="best-sellers__badge">Best seller</span>
                 {% else %}
@@ -308,6 +310,16 @@
           "id": "label",
           "label": "Tab label",
           "default": "Women"
+        },
+        {
+          "type": "text",
+          "id": "tab_key",
+          "label": "Tab key (use in product cards)",
+          "default": "tab_1"
+        },
+        {
+          "type": "paragraph",
+          "content": "Use the Tab key above in Product card > Tab ID to link cards to this tab."
         },
         {
           "type": "collection",
