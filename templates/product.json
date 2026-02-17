@@ -11,7 +11,15 @@
   "sections": {
     "main": {
       "type": "product",
-      "settings": {}
+      "settings": {
+        "eyebrow_tag": "p",
+        "heading_tag": "h1",
+        "subheading_tag": "div",
+        "padding_top": 240,
+        "padding_bottom": 0,
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
     }
   },
   "order": [
