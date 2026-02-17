@@ -116,11 +116,9 @@ p {
 	align-items: center;
 	justify-content: center;
 	gap: 0.5rem;
-	padding: var(--btn-py) var(--btn-px);
 	border-radius: var(--btn-radius);
 	font-weight: var(--btn-font);
 	text-decoration: none;
-	border: 1px solid currentColor;
 	transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
 }
 
