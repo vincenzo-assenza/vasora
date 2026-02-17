@@ -98,7 +98,15 @@
     {% endif %}
 
     <div class="best-sellers__cta">
-      <a href="#" class="best-sellers__cta-button" data-cta>{{ section.settings.cta_label }}</a>
+      <a
+        href="#"
+        class="best-sellers__cta-button"
+        data-cta
+        data-cta-label="{{ section.settings.cta_label | escape }}"
+        data-cta-dynamic="{% if section.settings.cta_label == blank %}true{% else %}false{% endif %}"
+      >
+        {{ section.settings.cta_label }}
+      </a>
     </div>
   </div>
 </section>
@@ -245,9 +253,13 @@
       card.style.display = show ? '' : 'none';
     });
     if (cta) {
-      cta.href = link || '#';
-      if (!cta.dataset.locked) {
-        cta.textContent = label ? `All ${label}` : cta.textContent;
+      if (link) {
+        cta.href = link;
+      }
+      if (cta.dataset.ctaDynamic === 'true') {
+        cta.textContent = label ? `All ${label}` : (cta.dataset.ctaLabel || cta.textContent);
+      } else if (cta.dataset.ctaLabel) {
+        cta.textContent = cta.dataset.ctaLabel;
       }
     }
   };
@@ -347,7 +359,7 @@
         {
           "type": "text",
           "id": "tab_id",
-          "label": "Tab block id (from theme editor)",
+          "label": "Tab key (match Tab key setting)",
           "default": "tab_1"
         },
         {

@@ -27,19 +27,19 @@
   %}
 {% enddoc %}
 
-{% liquid
-  unless height
-    assign width = width | default: image.width
-  endunless
+{% unless height %}
+  {% assign width = width | default: image.width %}
+{% endunless %}
 
-  assign loading = loading | default: 'lazy'
+{% # theme-check-disable UndefinedObject %}
+{% assign loading = loading | default: 'lazy' %}
+{% # theme-check-enable UndefinedObject %}
 
-  if url
-    assign wrapper = 'a'
-  else
-    assign wrapper = 'div'
-  endif
-%}
+{% if url %}
+  {% assign wrapper = 'a' %}
+{% else %}
+  {% assign wrapper = 'div' %}
+{% endif %}
 
 <{{ wrapper }}
   class="image {{ class }}"

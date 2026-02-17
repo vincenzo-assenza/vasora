@@ -5,15 +5,53 @@
   https://shopify.dev/docs/storefronts/themes/architecture/templates/404
 {% endcomment %}
 
-<h1>{{ '404.title' | t }}</h1>
+<section class="page-404 u-section">
+  <div class="page-404__inner">
+    <p class="page-404__eyebrow">404</p>
+    <h1 class="page-404__title">{{ '404.title' | t }}</h1>
+    <p class="page-404__text">{{ '404.not_found' | t }}</p>
+    <a class="page-404__link" href="{{ routes.all_products_collection_url }}">
+      {{ '404.back_to_shopping' | t }}
+    </a>
+  </div>
+</section>
 
-<p>
-  {{ '404.not_found' | t }}
-</p>
-
-<a href="{{ routes.all_products_collection_url }}">
-  {{ '404.back_to_shopping' | t }}
-</a>
+{% stylesheet %}
+  .page-404__inner {
+    width: min(100% - 2 * var(--container-padding-inline), 700px);
+    margin: 0 auto;
+    text-align: center;
+    display: grid;
+    gap: var(--space-3);
+  }
+  .page-404__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    font-size: 0.7rem;
+    color: var(--color-muted);
+    margin: 0;
+  }
+  .page-404__title {
+    font-family: var(--font-accent--family);
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    margin: 0;
+  }
+  .page-404__text {
+    color: var(--color-muted);
+    margin: 0;
+  }
+  .page-404__link {
+    justify-self: center;
+    padding: 0.85rem 1.8rem;
+    background: #111;
+    color: #fff;
+    border-radius: 999px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.7rem;
+  }
+{% endstylesheet %}
 
 {% schema %}
 {

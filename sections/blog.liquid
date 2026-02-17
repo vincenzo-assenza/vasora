@@ -5,27 +5,137 @@
   https://shopify.dev/docs/storefronts/themes/architecture/templates/blog
 {% endcomment %}
 
-<h1>{{ blog.title }}</h1>
-
-{% paginate blog.articles by 5 %}
-  {% for article in blog.articles %}
-    <div>
-      {% if article.image %}
-        {{ article.image | image_url: width: 1000 | image_tag }}
+<section class="blog-page u-section">
+  <div class="blog-page__inner">
+    <div class="blog-page__heading">
+      <p class="blog-page__eyebrow">Journal</p>
+      <h1 class="blog-page__title">{{ blog.title }}</h1>
+      {% if blog.description != blank %}
+        <p class="blog-page__description">{{ blog.description }}</p>
       {% endif %}
-      <h2>
-        {{ article.title | link_to: article.url }}
-      </h2>
-      {% assign date = article.published_at | time_tag: format: 'date' %}
-      <p>{{ 'blog.article_metadata_html' | t: date: date, author: article.author }}</p>
-      <p>{{ article.excerpt }}</p>
     </div>
-  {% endfor %}
 
-  {%- if paginate.pages > 1 -%}
-    {{- paginate | default_pagination -}}
-  {%- endif -%}
-{% endpaginate %}
+    {% paginate blog.articles by 6 %}
+      <div class="blog-page__grid">
+        {% for article in blog.articles %}
+          <article class="blog-page__card">
+            <a class="blog-page__media" href="{{ article.url }}">
+              {% if article.image %}
+                {% render 'image', class: 'blog-page__image', image: article.image, width: 900 %}
+              {% else %}
+                {{ 'image' | placeholder_svg_tag: 'placeholder' }}
+              {% endif %}
+            </a>
+            <div class="blog-page__info">
+              <h2 class="blog-page__article-title">{{ article.title | link_to: article.url }}</h2>
+              {% assign date = article.published_at | time_tag: format: 'date' %}
+              <p class="blog-page__meta">{{ 'blog.article_metadata_html' | t: date: date, author: article.author }}</p>
+              <p class="blog-page__excerpt">{{ article.excerpt_or_content | strip_html | truncate: 140 }}</p>
+              <a class="blog-page__link" href="{{ article.url }}">Leggi</a>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+
+      {%- if paginate.pages > 1 -%}
+        <div class="blog-page__pagination">
+          {{- paginate | default_pagination -}}
+        </div>
+      {%- endif -%}
+    {% endpaginate %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .blog-page__inner {
+    width: min(100% - 2 * var(--container-padding-inline), var(--container-max));
+    margin: 0 auto;
+    display: grid;
+    gap: var(--space-6);
+  }
+  .blog-page__heading {
+    text-align: center;
+    display: grid;
+    gap: var(--space-2);
+  }
+  .blog-page__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    font-size: 0.65rem;
+    color: var(--color-muted);
+    margin: 0;
+  }
+  .blog-page__title {
+    font-family: var(--font-accent--family);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    margin: 0;
+  }
+  .blog-page__description {
+    color: var(--color-muted);
+    max-width: 60ch;
+    margin: 0 auto;
+  }
+  .blog-page__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.5rem, 2.5vw, 2.5rem);
+  }
+  .blog-page__card {
+    display: grid;
+    gap: var(--space-3);
+  }
+  .blog-page__media {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: block;
+    background: color-mix(in srgb, var(--color-muted) 8%, transparent);
+  }
+  .blog-page__image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .blog-page__info {
+    display: grid;
+    gap: var(--space-2);
+  }
+  .blog-page__article-title {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.85rem;
+    margin: 0;
+  }
+  .blog-page__meta {
+    font-size: 0.75rem;
+    color: var(--color-muted);
+    margin: 0;
+  }
+  .blog-page__excerpt {
+    color: var(--color-muted);
+    margin: 0;
+  }
+  .blog-page__link {
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.7rem;
+    color: var(--color-foreground);
+  }
+  .blog-page__pagination {
+    text-align: center;
+  }
+
+  @media (max-width: 1024px) {
+    .blog-page__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 640px) {
+    .blog-page__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstylesheet %}
 
 {% schema %}
 {

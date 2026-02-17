@@ -5,9 +5,44 @@
   https://shopify.dev/docs/storefronts/themes/architecture/templates/page
 {% endcomment %}
 
-<h1>{{ page.title }}</h1>
+<section class="page-simple u-section">
+  <div class="page-simple__inner">
+    <div class="page-simple__header">
+      <p class="page-simple__eyebrow">Studio</p>
+      <h1 class="page-simple__title">{{ page.title }}</h1>
+    </div>
 
-{{ page.content }}
+    <div class="page-simple__content rte">
+      {{ page.content }}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .page-simple__inner {
+    width: min(100% - 2 * var(--container-padding-inline), 900px);
+    margin: 0 auto;
+    display: grid;
+    gap: var(--space-6);
+  }
+  .page-simple__header {
+    text-align: center;
+    display: grid;
+    gap: var(--space-2);
+  }
+  .page-simple__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    font-size: 0.65rem;
+    color: var(--color-muted);
+    margin: 0;
+  }
+  .page-simple__title {
+    font-family: var(--font-accent--family);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    margin: 0;
+  }
+{% endstylesheet %}
 
 {% schema %}
 {
