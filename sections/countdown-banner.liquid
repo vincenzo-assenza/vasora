@@ -1,4 +1,11 @@
-<section class="countdown-banner"{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | escape }}"{% endif %}>
+{%- assign eyebrow_tag = section.settings.eyebrow_tag | default: 'p' -%}
+{%- assign heading_tag = section.settings.heading_tag | default: 'h2' -%}
+{%- assign subheading_tag = section.settings.subheading_tag | default: 'p' -%}
+<section
+  class="countdown-banner"
+  {% if section.settings.anchor_id != blank %}id="{{ section.settings.anchor_id | escape }}"{% endif %}
+  style="padding-top: {{ section.settings.padding_top | default: 0 }}px; padding-bottom: {{ section.settings.padding_bottom | default: 0 }}px; margin-top: {{ section.settings.margin_top | default: 0 }}px; margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px;"
+>
   <div class="countdown-banner__media" aria-hidden="true">
     {% if section.settings.background_image != blank %}
       {{
@@ -14,16 +21,16 @@
   <div class="countdown-banner__inner">
     <div class="countdown-banner__content">
       {% if section.settings.eyebrow != blank %}
-        <p class="countdown-banner__eyebrow">{{ section.settings.eyebrow }}</p>
+        <{{ eyebrow_tag }} class="countdown-banner__eyebrow">{{ section.settings.eyebrow }}</{{ eyebrow_tag }}>
       {% endif %}
       {% if section.settings.heading != blank %}
-        <h2 class="countdown-banner__heading">{{ section.settings.heading }}</h2>
+        <{{ heading_tag }} class="countdown-banner__heading">{{ section.settings.heading }}</{{ heading_tag }}>
       {% endif %}
       {% if section.settings.subheading != blank %}
-        <p class="countdown-banner__subheading">{{ section.settings.subheading }}</p>
+        <{{ subheading_tag }} class="countdown-banner__subheading">{{ section.settings.subheading }}</{{ subheading_tag }}>
       {% endif %}
       {% if section.settings.cta_label != blank %}
-        <a class="countdown-banner__cta" href="{{ section.settings.cta_link }}">{{ section.settings.cta_label }}</a>
+        <a class="countdown-banner__cta" href="{{ section.settings.cta_link }}" title="{{ section.settings.cta_title | default: section.settings.cta_label | escape }}" aria-label="{{ section.settings.cta_title | default: section.settings.cta_label | escape }}">{{ section.settings.cta_label }}</a>
       {% endif %}
     </div>
     <div class="countdown-banner__timer" data-countdown data-end-date="{{ section.settings.end_date }}" data-end-time="{{ section.settings.end_time }}">
@@ -65,7 +72,7 @@
     grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
     align-items: center;
     gap: var(--space-6);
-    padding-block: var(--space-6);
+    padding-block: 0;
   }
   .countdown-banner__eyebrow {
     text-transform: uppercase;
@@ -178,10 +185,98 @@
     {"type": "text", "id": "anchor_id", "label": "Anchor ID", "default": "countdown"},
     {"type": "image_picker", "id": "background_image", "label": "Background image"},
     {"type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Limited time only"},
+    {
+      "type": "select",
+      "id": "eyebrow_tag",
+      "label": "Eyebrow tag",
+      "default": "p",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
     {"type": "text", "id": "heading", "label": "Heading", "default": "Super sale up to 40% off"},
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "default": "h2",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
     {"type": "text", "id": "subheading", "label": "Subheading", "default": "Shop our selection of exclusive handbags and backpacks at reduced price during the Super Sale. Hurry up!"},
+    {
+      "type": "select",
+      "id": "subheading_tag",
+      "label": "Subheading tag",
+      "default": "p",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
     {"type": "text", "id": "cta_label", "label": "CTA label", "default": "Shop now"},
+    {"type": "text", "id": "cta_title", "label": "CTA a11y title"},
     {"type": "url", "id": "cta_link", "label": "CTA link"},
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    },
     {"type": "text", "id": "end_date", "label": "End date (YYYY-MM-DD)", "default": "2026-12-31"},
     {"type": "text", "id": "end_time", "label": "End time (HH:MM)", "default": "23:59"}
   ],

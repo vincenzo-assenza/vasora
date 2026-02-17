@@ -5,10 +5,16 @@
   https://shopify.dev/docs/storefronts/themes/architecture/templates/404
 {% endcomment %}
 
-<section class="page-404 u-section">
+{%- assign eyebrow_tag = section.settings.eyebrow_tag | default: 'p' -%}
+{%- assign heading_tag = section.settings.heading_tag | default: 'h1' -%}
+
+<section
+  class="page-404 u-section"
+  style="padding-top: {{ section.settings.padding_top | default: 0 }}px; padding-bottom: {{ section.settings.padding_bottom | default: 0 }}px; margin-top: {{ section.settings.margin_top | default: 0 }}px; margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px;"
+>
   <div class="page-404__inner">
-    <p class="page-404__eyebrow">404</p>
-    <h1 class="page-404__title">{{ '404.title' | t }}</h1>
+    <{{ eyebrow_tag }} class="page-404__eyebrow">404</{{ eyebrow_tag }}>
+    <{{ heading_tag }} class="page-404__title">{{ '404.title' | t }}</{{ heading_tag }}>
     <p class="page-404__text">{{ '404.not_found' | t }}</p>
     <a class="page-404__link" href="{{ routes.all_products_collection_url }}">
       {{ '404.back_to_shopping' | t }}
@@ -56,6 +62,77 @@
 {% schema %}
 {
   "name": "t:general.404",
-  "settings": []
+  "settings": [
+    {
+      "type": "select",
+      "id": "eyebrow_tag",
+      "label": "Eyebrow tag",
+      "default": "p",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "default": "h1",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    }
+  ]
 }
 {% endschema %}

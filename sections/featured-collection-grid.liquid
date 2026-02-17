@@ -1,17 +1,30 @@
-<section class="featured-collection-grid"{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | escape }}"{% endif %}>
+{%- assign heading_tag = section.settings.heading_tag | default: 'h2' -%}
+{%- assign subheading_tag = section.settings.subheading_tag | default: 'p' -%}
+<section
+  class="featured-collection-grid"
+  {% if section.settings.anchor_id != blank %}id="{{ section.settings.anchor_id | escape }}"{% endif %}
+  style="padding-top: {{ section.settings.padding_top | default: 0 }}px; padding-bottom: {{ section.settings.padding_bottom | default: 0 }}px; margin-top: {{ section.settings.margin_top | default: 0 }}px; margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px;"
+>
   <div class="featured-collection-grid__inner">
     <div class="featured-collection-grid__heading">
       {% if section.settings.heading != blank %}
-        <h2>{{ section.settings.heading }}</h2>
+        <{{ heading_tag }}>{{ section.settings.heading }}</{{ heading_tag }}>
       {% endif %}
       {% if section.settings.subheading != blank %}
-        <p class="featured-collection-grid__subheading">{{ section.settings.subheading }}</p>
+        <{{ subheading_tag }} class="featured-collection-grid__subheading">{{ section.settings.subheading }}</{{ subheading_tag }}>
       {% endif %}
     </div>
 
     <div class="featured-collection-grid__grid" role="list">
       {% for block in section.blocks %}
-        <a class="featured-collection-grid__card" href="{{ block.settings.link }}" role="listitem" {{ block.shopify_attributes }}>
+        <a
+          class="featured-collection-grid__card"
+          href="{{ block.settings.link }}"
+          role="listitem"
+          title="{{ block.settings.title | default: 'Scopri' | escape }}"
+          aria-label="{{ block.settings.title | default: 'Scopri' | escape }}"
+          {{ block.shopify_attributes }}
+        >
           <div class="featured-collection-grid__media">
             {% if block.settings.image != blank %}
               {{
@@ -140,10 +153,80 @@
       "default": "I più amati"
     },
     {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "default": "h2",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {
       "type": "text",
       "id": "subheading",
       "label": "Subheading",
       "default": "I bestseller Vasora selezionati dalla community."
+    },
+    {
+      "type": "select",
+      "id": "subheading_tag",
+      "label": "Subheading tag",
+      "default": "p",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
     }
   ],
   "blocks": [

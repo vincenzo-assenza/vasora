@@ -1,4 +1,11 @@
-<section class="product-spotlight"{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | escape }}"{% endif %}>
+{%- assign eyebrow_tag = section.settings.eyebrow_tag | default: 'p' -%}
+{%- assign heading_tag = section.settings.heading_tag | default: 'h2' -%}
+{%- assign body_tag = section.settings.body_tag | default: 'p' -%}
+<section
+  class="product-spotlight"
+  {% if section.settings.anchor_id != blank %}id="{{ section.settings.anchor_id | escape }}"{% endif %}
+  style="padding-top: {{ section.settings.padding_top | default: 0 }}px; padding-bottom: {{ section.settings.padding_bottom | default: 0 }}px; margin-top: {{ section.settings.margin_top | default: 0 }}px; margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px;"
+>
   <div class="product-spotlight__inner">
     <div class="product-spotlight__media">
       {% if section.settings.image != blank %}
@@ -17,13 +24,13 @@
 
     <div class="product-spotlight__content">
       {% if section.settings.eyebrow != blank %}
-        <p class="product-spotlight__eyebrow">{{ section.settings.eyebrow }}</p>
+        <{{ eyebrow_tag }} class="product-spotlight__eyebrow">{{ section.settings.eyebrow }}</{{ eyebrow_tag }}>
       {% endif %}
       {% if section.settings.heading != blank %}
-        <h2>{{ section.settings.heading }}</h2>
+        <{{ heading_tag }} class="product-spotlight__heading">{{ section.settings.heading }}</{{ heading_tag }}>
       {% endif %}
       {% if section.settings.body != blank %}
-        <p class="product-spotlight__body">{{ section.settings.body }}</p>
+        <{{ body_tag }} class="product-spotlight__body">{{ section.settings.body }}</{{ body_tag }}>
       {% endif %}
 
       {% if section.blocks.size > 0 %}
@@ -43,12 +50,24 @@
 
       <div class="product-spotlight__actions">
         {% if section.settings.primary_cta_label != blank %}
-          <a class="product-spotlight__cta product-spotlight__cta--primary" href="{{ section.settings.primary_cta_link }}" data-analytics="product-spotlight-cta-primary">
+          <a
+            class="product-spotlight__cta product-spotlight__cta--primary"
+            href="{{ section.settings.primary_cta_link }}"
+            data-analytics="product-spotlight-cta-primary"
+            title="{{ section.settings.primary_cta_label | escape }}"
+            aria-label="{{ section.settings.primary_cta_label | escape }}"
+          >
             {{ section.settings.primary_cta_label }}
           </a>
         {% endif %}
         {% if section.settings.secondary_cta_label != blank %}
-          <a class="product-spotlight__cta product-spotlight__cta--secondary" href="{{ section.settings.secondary_cta_link }}" data-analytics="product-spotlight-cta-secondary">
+          <a
+            class="product-spotlight__cta product-spotlight__cta--secondary"
+            href="{{ section.settings.secondary_cta_link }}"
+            data-analytics="product-spotlight-cta-secondary"
+            title="{{ section.settings.secondary_cta_label | escape }}"
+            aria-label="{{ section.settings.secondary_cta_label | escape }}"
+          >
             {{ section.settings.secondary_cta_label }}
           </a>
         {% endif %}
@@ -203,16 +222,67 @@
       "default": "In evidenza"
     },
     {
+      "type": "select",
+      "id": "eyebrow_tag",
+      "label": "Eyebrow tag",
+      "default": "p",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {
       "type": "text",
       "id": "heading",
       "label": "Heading",
       "default": "Giacca Modular"
     },
     {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "default": "h2",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {
       "type": "textarea",
       "id": "body",
       "label": "Body",
       "default": "Tecnica, leggera e pronta per la città."
+    },
+    {
+      "type": "select",
+      "id": "body_tag",
+      "label": "Body tag",
+      "default": "p",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
     },
     {
       "type": "text",
@@ -241,6 +311,42 @@
       "type": "url",
       "id": "secondary_cta_link",
       "label": "Secondary CTA link"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
     }
   ],
   "blocks": [

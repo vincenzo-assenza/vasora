@@ -1,7 +1,10 @@
-<section class="instagram-gallery"{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | escape }}"{% endif %}>
+{%- assign eyebrow_tag = section.settings.eyebrow_tag | default: 'p' -%}
+{%- assign handle_tag = section.settings.handle_tag | default: 'h2' -%}
+
+<section class="instagram-gallery"{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | escape }}"{% endif %} style="padding-top: {{ section.settings.padding_top | default: 0 }}px; padding-bottom: {{ section.settings.padding_bottom | default: 0 }}px; margin-top: {{ section.settings.margin_top | default: 0 }}px; margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px;">
   <div class="instagram-gallery__inner">
-    <p class="instagram-gallery__eyebrow">{{ section.settings.eyebrow }}</p>
-    <h2 class="instagram-gallery__handle">{{ section.settings.handle }}</h2>
+    <{{ eyebrow_tag }} class="instagram-gallery__eyebrow">{{ section.settings.eyebrow }}</{{ eyebrow_tag }}>
+    <{{ handle_tag }} class="instagram-gallery__handle">{{ section.settings.handle }}</{{ handle_tag }}>
   </div>
   <div class="instagram-gallery__grid">
     {% for block in section.blocks %}
@@ -82,7 +85,77 @@
   "settings": [
     {"type": "text", "id": "anchor_id", "label": "Anchor ID", "default": "instagram"},
     {"type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Join us"},
-    {"type": "text", "id": "handle", "label": "Handle", "default": "@leoetviolette"}
+    {
+      "type": "select",
+      "id": "eyebrow_tag",
+      "label": "Eyebrow tag",
+      "default": "p",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {"type": "text", "id": "handle", "label": "Handle", "default": "@leoetviolette"},
+    {
+      "type": "select",
+      "id": "handle_tag",
+      "label": "Handle tag",
+      "default": "h2",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    }
   ],
   "blocks": [
     {

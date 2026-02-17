@@ -1,10 +1,10 @@
-<footer class="footer" aria-labelledby="footer-heading">
+<footer class="footer" aria-labelledby="footer-heading" style="padding-top: {{ section.settings.padding_top | default: 0 }}px; padding-bottom: {{ section.settings.padding_bottom | default: 0 }}px; margin-top: {{ section.settings.margin_top | default: 0 }}px; margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px;">
   <h2 id="footer-heading" class="sr-only">Footer</h2>
 
   <div class="footer__grid">
     <div class="footer__newsletter">
       {% if section.settings.newsletter_heading != blank %}
-        <h3>{{ section.settings.newsletter_heading }}</h3>
+        <{{ section.settings.newsletter_heading_tag | default: "h3" }}>{{ section.settings.newsletter_heading }}</{{ section.settings.newsletter_heading_tag | default: "h3" }}>
       {% endif %}
       {% if section.settings.newsletter_copy != blank %}
         <p>{{ section.settings.newsletter_copy }}</p>
@@ -21,7 +21,7 @@
           placeholder="E-mail"
           aria-required="true"
         >
-        <button type="submit" class="footer__button" data-analytics="footer-newsletter-submit">{{ section.settings.newsletter_cta | default: 'Subscribe' }}</button>
+        <button type="submit" class="footer__button" data-analytics="footer-newsletter-submit" title="{{ section.settings.newsletter_cta_title | default: section.settings.newsletter_cta | default: 'Subscribe' | escape }}" aria-label="{{ section.settings.newsletter_cta_title | default: section.settings.newsletter_cta | default: 'Subscribe' | escape }}">{{ section.settings.newsletter_cta | default: 'Subscribe' }}</button>
         {% if form.errors %}
           <p class="footer__form-error" role="alert">{{ form.errors | default_errors }}</p>
         {% elsif form.posted_successfully? %}
@@ -64,7 +64,7 @@
 
     <div class="footer__about">
       {% if section.settings.about_heading != blank %}
-        <h3>{{ section.settings.about_heading }}</h3>
+        <{{ section.settings.about_heading_tag | default: "h3" }}>{{ section.settings.about_heading }}</{{ section.settings.about_heading_tag | default: "h3" }}>
       {% endif %}
       {% if section.settings.about_text != blank %}
         <p>{{ section.settings.about_text }}</p>
@@ -239,11 +239,46 @@
   "name": "Footer",
   "settings": [
     {"type": "text", "id": "newsletter_heading", "label": "Newsletter heading", "default": "Newsletter"},
+    {
+      "type": "select",
+      "id": "newsletter_heading_tag",
+      "label": "Newsletter heading tag",
+      "default": "h3",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
     {"type": "text", "id": "newsletter_copy", "label": "Newsletter copy", "default": "Subscribe to receive updates, access to exclusive deals, and more."},
     {"type": "text", "id": "newsletter_cta", "label": "Newsletter CTA", "default": "Subscribe"},
+    {"type": "text", "id": "newsletter_cta_title", "label": "Newsletter CTA a11y title"},
     {"type": "text", "id": "shop_heading", "label": "Shop heading", "default": "Shop"},
     {"type": "text", "id": "info_heading", "label": "Information heading", "default": "Information"},
     {"type": "text", "id": "about_heading", "label": "About heading", "default": "About the shop"},
+    {
+      "type": "select",
+      "id": "about_heading_tag",
+      "label": "About heading tag",
+      "default": "h3",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
     {"type": "textarea", "id": "about_text", "label": "About text", "default": "The story of Vasora is about timeless essentials, curated to last."},
     {"type": "url", "id": "social_instagram", "label": "Instagram"},
     {"type": "url", "id": "social_facebook", "label": "Facebook"},
@@ -253,7 +288,43 @@
     {"type": "link_list", "id": "menu_support", "label": "Information menu"},
     {"type": "link_list", "id": "menu_company", "label": "About menu (optional)"},
     {"type": "text", "id": "legal_text", "label": "Legal text", "default": "All rights reserved."},
-    {"type": "checkbox", "id": "show_payment_icons", "label": "Show payment icons", "default": true}
+    {"type": "checkbox", "id": "show_payment_icons", "label": "Show payment icons", "default": true},
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    }
   ],
   "presets": [
     {"name": "Footer", "category": "Aurum"}
