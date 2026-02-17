@@ -15,10 +15,18 @@
         "anchor_id": "hero",
         "background_image": "shopify://shop_images/pexels-yuliya-galceva-373676135-14584376.jpg",
         "eyebrow": "New Collection",
+        "eyebrow_tag": "p",
         "heading": "Aurum — Essentials quotidiani",
+        "heading_tag": "h1",
         "subheading": "Linee pulite, materiali premium e una palette senza tempo.",
+        "subheading_tag": "p",
         "primary_cta_label": "Acquista ora",
-        "primary_cta_link": ""
+        "primary_cta_link": "",
+        "primary_cta_title": "",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "margin_top": 0,
+        "margin_bottom": 0
       }
     },
     "countdown_banner": {
@@ -27,10 +35,18 @@
         "anchor_id": "countdown",
         "background_image": "shopify://shop_images/pexels-the-5th-50003-179909.jpg",
         "eyebrow": "Limited time only",
+        "eyebrow_tag": "p",
         "heading": "Super sale up to 40% off",
+        "heading_tag": "h2",
         "subheading": "Shop our selection of exclusive handbags and backpacks at reduced price during the Super Sale. Hurry up!",
+        "subheading_tag": "p",
         "cta_label": "Shop now",
+        "cta_title": "",
         "cta_link": "shopify://policies/privacy-policy",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "margin_top": 32,
+        "margin_bottom": 32,
         "end_date": "2026-12-31",
         "end_time": "23:59"
       }
@@ -71,10 +87,16 @@
       "settings": {
         "anchor_id": "best-sellers",
         "eyebrow": "Our best sellers",
-        "heading": "",
+        "eyebrow_tag": "p",
+        "heading": "dasdasda",
+        "heading_tag": "h2",
         "products_source": "collection",
         "products_limit": 4,
-        "cta_label": "All women's bags"
+        "cta_label": "All women's bags",
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "margin_top": 0,
+        "margin_bottom": 0
       }
     },
     "value_props": {
@@ -123,7 +145,15 @@
         "anchor_id": "value-props",
         "eyebrow": "Perché Vasora",
         "heading": "Valore percepito, qualità reale",
-        "background_color": "#f7f5f2",
+        "eyebrow_tag": "p",
+        "heading_tag": "h2",
+        "title_tag": "h3",
+        "copy_tag": "p",
+        "padding_top": 116,
+        "padding_bottom": 120,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "background_color": "#FFFFFF",
         "text_color": "#151515",
         "muted_text_color": "#5b5b5b"
       }
@@ -171,7 +201,15 @@
         "anchor_id": "featured-categories",
         "eyebrow": "Shop per mood",
         "heading": "Categorie in evidenza",
-        "subheading": "Collezioni pensate per ogni momento della giornata."
+        "subheading": "Collezioni pensate per ogni momento della giornata.",
+        "eyebrow_tag": "p",
+        "heading_tag": "h2",
+        "subheading_tag": "p",
+        "title_tag": "h3",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "margin_top": 0,
+        "margin_bottom": 0
       }
     },
     "hero_split": {
@@ -181,12 +219,19 @@
         "image": "shopify://shop_images/ChatGPTImageFeb2_2026_11_08_00AM.png",
         "image_position": "right",
         "eyebrow": "La nostra storia",
+        "eyebrow_tag": "p",
         "heading": "Minimalismo contemporaneo",
+        "heading_tag": "h2",
         "body": "Un racconto di tessuti naturali, artigianalità italiana e linee essenziali.",
+        "body_tag": "p",
         "primary_cta_label": "Scopri la visione",
         "primary_cta_link": "",
         "secondary_cta_label": "Leggi il manifesto",
-        "secondary_cta_link": ""
+        "secondary_cta_link": "",
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "margin_top": 0,
+        "margin_bottom": 0
       }
     },
     "product_spotlight": {
@@ -221,13 +266,20 @@
         "image": "shopify://shop_images/ChatGPTImageApr12_2025_03_39_45PM.png",
         "badge": "Nuovo arrivo",
         "eyebrow": "In evidenza",
+        "eyebrow_tag": "p",
         "heading": "Giacca Modular",
+        "heading_tag": "h2",
         "body": "Tecnica, leggera e pronta per la città.",
+        "body_tag": "p",
         "price": "€ 189",
         "primary_cta_label": "Acquista ora",
         "primary_cta_link": "",
         "secondary_cta_label": "Dettagli prodotto",
-        "secondary_cta_link": ""
+        "secondary_cta_link": "",
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "margin_top": 0,
+        "margin_bottom": 0
       }
     },
     "hero_testimonials": {
@@ -269,9 +321,16 @@
       "settings": {
         "anchor_id": "testimonials",
         "eyebrow": "Social proof",
+        "eyebrow_tag": "p",
         "heading": "Amato da chi lo indossa",
+        "heading_tag": "h2",
         "subheading": "Recensioni reali su comfort e qualità percepita.",
-        "background_color": "#f7f5f2"
+        "subheading_tag": "p",
+        "background_color": "#ffffff",
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "margin_top": 0,
+        "margin_bottom": 0
       }
     },
     "hero_final_cta": {
@@ -279,14 +338,21 @@
       "settings": {
         "anchor_id": "final-cta",
         "eyebrow": "Pronto a partire?",
+        "eyebrow_tag": "p",
         "heading": "Scopri la collezione Aurum",
+        "heading_tag": "h2",
         "subheading": "Scegli il tuo prossimo essenziale.",
+        "subheading_tag": "p",
         "background_color": "#1a1a1a",
         "text_color": "#ffffff",
         "primary_cta_label": "Acquista ora",
         "primary_cta_link": "",
         "secondary_cta_label": "Esplora lookbook",
-        "secondary_cta_link": ""
+        "secondary_cta_link": "",
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "margin_top": 72,
+        "margin_bottom": 80
       }
     },
     "featured_collection_teaser": {
@@ -325,7 +391,13 @@
       "settings": {
         "anchor_id": "best-seller",
         "heading": "I più amati",
-        "subheading": "I bestseller Vasora selezionati dalla community."
+        "heading_tag": "h2",
+        "subheading": "I bestseller Vasora selezionati dalla community.",
+        "subheading_tag": "p",
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "margin_top": 0,
+        "margin_bottom": 0
       }
     },
     "instagram_gallery": {
@@ -333,7 +405,13 @@
       "settings": {
         "anchor_id": "instagram",
         "eyebrow": "Join us",
-        "handle": "@leoetviolette"
+        "eyebrow_tag": "p",
+        "handle": "@leoetviolette",
+        "handle_tag": "h2",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "margin_top": 0,
+        "margin_bottom": 0
       }
     },
     "newsletter_hero": {
@@ -341,9 +419,17 @@
       "settings": {
         "anchor_id": "newsletter",
         "eyebrow": "Keep me updated",
+        "eyebrow_tag": "p",
         "heading": "Newsletter",
+        "heading_tag": "h2",
         "subheading": "Subscribe to get notified about product launches, special offers and company news.",
-        "cta_label": "Subscribe"
+        "subheading_tag": "p",
+        "cta_label": "Subscribe",
+        "cta_title": "",
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "margin_top": 0,
+        "margin_bottom": 0
       }
     }
   },
