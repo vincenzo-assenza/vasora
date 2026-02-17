@@ -130,6 +130,30 @@ p {
 	transform: translateY(0);
 }
 
+:where(
+	.hero-main__cta,
+	.hero-split__cta,
+	.product-spotlight__cta,
+	.hero-final-cta__button,
+	.best-sellers__cta-button,
+	.countdown-banner__cta,
+	.product-page__cta,
+	.cart-page__checkout,
+	.cart-page__update,
+	.footer__button,
+	.newsletter-hero__form button,
+	.site-header__mega-cta
+) {
+	background: #111;
+	color: #fff;
+	border: 1px solid #111;
+	border-radius: 0;
+	font-weight: 400;
+	text-transform: uppercase;
+	letter-spacing: 0.2em;
+	padding: 0.85rem 1.8rem;
+}
+
 /** Section layout utilities */
 
 /**
