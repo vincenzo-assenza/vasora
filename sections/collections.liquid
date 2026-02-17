@@ -5,7 +5,9 @@
   https://shopify.dev/docs/storefronts/themes/architecture/templates/collection
 {% endcomment %}
 
-<h1>{{ 'collections.title' | t }}</h1>
+{%- assign heading_tag = section.settings.heading_tag | default: 'h1' -%}
+<section class="collections-section" style="padding-top: {{ section.settings.padding_top | default: 0 }}px; padding-bottom: {{ section.settings.padding_bottom | default: 0 }}px; margin-top: {{ section.settings.margin_top | default: 0 }}px; margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px;">
+  <{{ heading_tag }}>{{ 'collections.title' | t }}</{{ heading_tag }}>
 
 <div
   class="collections {{ section.settings.grid_item_width }}"
@@ -33,6 +35,7 @@
     </a>
   {% endfor %}
 </div>
+</section>
 
 {% stylesheet %}
   .collections {
@@ -76,6 +79,59 @@
       "step": 5,
       "unit": "px",
       "default": 10
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "default": "h1",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
     }
   ],
   "presets": [{ "name": "t:general.collections_grid" }]

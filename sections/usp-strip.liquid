@@ -1,9 +1,13 @@
-<section class="usp-strip"{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | escape }}"{% endif %} style="--usp-bg: {{ section.settings.background_color | default: 'var(--color-background)' }}; --usp-fg: {{ section.settings.text_color | default: 'var(--color-foreground)' }}; --usp-muted: {{ section.settings.muted_text_color | default: 'var(--color-muted)' }};">
+{%- assign eyebrow_tag = section.settings.eyebrow_tag | default: 'p' -%}
+{%- assign heading_tag = section.settings.heading_tag | default: 'h2' -%}
+{%- assign title_tag = section.settings.title_tag | default: 'h3' -%}
+{%- assign copy_tag = section.settings.copy_tag | default: 'p' -%}
+<section class="usp-strip" {% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | escape }}"{% endif %} style="--usp-bg: {{ section.settings.background_color | default: 'var(--color-background)' }}; --usp-fg: {{ section.settings.text_color | default: 'var(--color-foreground)' }}; --usp-muted: {{ section.settings.muted_text_color | default: 'var(--color-muted)' }}; padding-top: {{ section.settings.padding_top | default: 0 }}px; padding-bottom: {{ section.settings.padding_bottom | default: 0 }}px; margin-top: {{ section.settings.margin_top | default: 0 }}px; margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px;">
   <div class="usp-strip__inner">
     {% if section.settings.heading != blank %}
       <div class="usp-strip__heading">
-        <p class="usp-strip__eyebrow">{{ section.settings.eyebrow }}</p>
-        <h2>{{ section.settings.heading }}</h2>
+        <{{ eyebrow_tag }} class="usp-strip__eyebrow">{{ section.settings.eyebrow }}</{{ eyebrow_tag }}>
+        <{{ heading_tag }}>{{ section.settings.heading }}</{{ heading_tag }}>
       </div>
     {% endif %}
 
@@ -45,10 +49,10 @@
           </div>
           <div class="usp-strip__text">
             {% if block.settings.title != blank %}
-              <h3 class="usp-strip__title">{{ block.settings.title }}</h3>
+              <{{ title_tag }} class="usp-strip__title">{{ block.settings.title }}</{{ title_tag }}>
             {% endif %}
             {% if block.settings.copy != blank %}
-              <p class="usp-strip__copy">{{ block.settings.copy }}</p>
+              <{{ copy_tag }} class="usp-strip__copy">{{ block.settings.copy }}</{{ copy_tag }}>
             {% endif %}
           </div>
         </div>
@@ -157,6 +161,110 @@
       "id": "heading",
       "label": "Heading",
       "default": "Valore percepito, qualità reale"
+    },
+    {
+      "type": "select",
+      "id": "eyebrow_tag",
+      "label": "Eyebrow tag",
+      "default": "p",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "default": "h2",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "title_tag",
+      "label": "Item title tag",
+      "default": "h3",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "copy_tag",
+      "label": "Item copy tag",
+      "default": "p",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
     },
     {
       "type": "color",

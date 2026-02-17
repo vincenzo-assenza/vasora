@@ -272,3 +272,23 @@ p {
 		display: none;
 	}
 }
+
+@media (max-width: 600px) {
+  :where(
+    .hero-main__cta,
+    .hero-split__cta,
+    .product-spotlight__cta,
+    .hero-final-cta__button,
+    .best-sellers__cta-button,
+    .countdown-banner__cta,
+    .product-page__cta,
+    .cart-page__checkout,
+    .cart-page__update,
+    .footer__button,
+    .newsletter-hero__form button,
+    .site-header__mega-cta
+  ) {
+    letter-spacing: 0.12em;
+    padding: 0.75rem 1.4rem;
+  }
+}
