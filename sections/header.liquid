@@ -126,7 +126,7 @@
         </a>
       {% endif %}
 
-      <a class="site-header__icon-button" href="{{ routes.cart_url }}" aria-label="Carrello">
+      <a class="site-header__icon-button" href="{{ routes.cart_url }}" aria-label="{{ 'sections.cart.aria_label' | t }}">
         {% if cart.item_count > 0 %}
           <span class="site-header__badge" aria-hidden="true">{{ cart.item_count }}</span>
         {% endif %}
