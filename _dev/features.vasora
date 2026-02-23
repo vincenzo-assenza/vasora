@@ -1,18 +1,19 @@
-<!-- Features section for Vasora — Week 3 design artifact -->
-<section class="vasora-features container">
-  <h2>Features</h2>
-  <div class="grid">
+<section class="vasora-features">
+  <div class="vasora-container vasora-features-grid">
     <div class="feature">
-      <h3>Easy setup</h3>
-      <p>Get your store running in minutes with our step-by-step onboarding.</p>
+      <img src="/assets/vasora/icon-check.svg" alt="Quality" />
+      <h3>Quality products</h3>
+      <p>Curated selection with attention to detail.</p>
     </div>
     <div class="feature">
-      <h3>Customizable themes</h3>
-      <p>Pick a style that fits your brand with simple theme controls.</p>
+      <img src="/assets/vasora/icon-cart.svg" alt="Fast shipping" />
+      <h3>Fast shipping</h3>
+      <p>Reliable delivery across regions.</p>
     </div>
     <div class="feature">
+      <img src="/assets/vasora/icon-check.svg" alt="Secure payments" />
       <h3>Secure payments</h3>
-      <p>Integrations with leading payment providers and PCI compliance guidance.</p>
+      <p>Encrypted checkout and trusted providers.</p>
     </div>
   </div>
 </section>

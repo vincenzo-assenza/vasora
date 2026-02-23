@@ -16,3 +16,15 @@ Notes:
 Commit metadata:
 - author: vasora-designer-week2-onboarding
 - date: 2026-02-23T10:35:00+01:00
+
+Coder additions (vasora-coder-week3):
+
+- Implemented components:
+  - _dev/header.vasora
+  - _dev/footer.vasora
+  - _dev/features.vasora
+- Updated styles: assets/vasora.css (header/footer/features layout and basic tokens).
+
+Commit metadata:
+- author: vasora-coder-week3
+- date: 2026-02-23T10:37:00+01:00
