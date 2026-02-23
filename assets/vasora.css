@@ -1,15 +1,14 @@
-/* Vasora component styles (header, footer, features) */
-.vasora-container{max-width:1100px;margin:0 auto;padding:0 16px}
-.vasora-header{background:#fff;border-bottom:1px solid #eee}
-.vasora-header .vasora-container{display:flex;align-items:center;justify-content:space-between;height:64px}
-.vasora-logo img{height:36px}
-.vasora-nav a{margin:0 12px;color:#333;text-decoration:none}
-.vasora-actions .vasora-cart{background:#111;color:#fff;padding:8px 12px;border-radius:6px;text-decoration:none}
-.vasora-footer{background:#fafafa;border-top:1px solid #eee;padding:20px 0;margin-top:40px}
-.vasora-foot-links a{margin-right:12px;color:#555;text-decoration:none}
-.vasora-foot-copy{color:#777;margin-top:8px}
-.vasora-features{padding:40px 0}
-.vasora-features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;text-align:center}
-.vasora-features .feature img{height:48px;margin-bottom:12px}
-.vasora-features .feature h3{margin:8px 0;color:#222}
-.vasora-features .feature p{color:#555;font-size:0.95rem}
+/* Vasora component styles (global hooks) */
+.vasora-pricing { font-weight:600; color: #111 }
+.vasora-pricing slot[name="compare"] { text-decoration: line-through; color: #888 }
+
+.vasora-faq .vasora-faq-list { list-style:none; padding:0; margin:0 }
+.vasora-faq .vasora-faq-item { border-bottom:1px solid #eee; padding:12px 0 }
+.vasora-faq .vasora-faq-question { cursor:pointer }
+.vasora-faq .vasora-faq-answer { display:none; margin-top:8px }
+.vasora-faq .open .vasora-faq-answer { display:block }
+
+.vasora-cart-modal { position:fixed; inset:0; display:flex; align-items:flex-end; justify-content:center; z-index:1000 }
+.vasora-cart-backdrop { position:absolute; inset:0; background:rgba(0,0,0,0.4) }
+.vasora-cart-panel { position:relative; background:#fff; width:100%; max-width:480px; border-radius:12px 12px 0 0; box-shadow:0 -8px 30px rgba(0,0,0,0.2) }
+.vasora-cart-close { background:transparent; border:0; font-size:20px }

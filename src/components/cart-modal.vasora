@@ -1,0 +1,34 @@
+<component name="cart-modal">
+  <template>
+    <div class="vasora-cart-modal" hidden>
+      <div class="vasora-cart-backdrop" data-action="close"/>
+      <div class="vasora-cart-panel">
+        <header>
+          <h3>Cart</h3>
+          <button class="vasora-cart-close" data-action="close">×</button>
+        </header>
+        <div class="vasora-cart-body">
+          <slot name="items">Your cart is empty.</slot>
+        </div>
+        <footer>
+          <slot name="footer"/>
+        </footer>
+      </div>
+    </div>
+  </template>
+  <script>
+    export default {
+      mounted(){
+        // simple JS hook: toggle attribute hidden
+        this.el = this.$el
+        this.el.querySelectorAll('[data-action="close"]').forEach(btn=>{
+          btn.addEventListener('click', ()=> this.close())
+        })
+      },
+      methods:{
+        open(){ this.$el.removeAttribute('hidden') },
+        close(){ this.$el.setAttribute('hidden','') }
+      }
+    }
+  </script>
+</component>

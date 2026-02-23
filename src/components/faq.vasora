@@ -1,0 +1,20 @@
+<component name="faq">
+  <template>
+    <div class="vasora-faq">
+      <slot name="intro"/>
+      <ul class="vasora-faq-list">
+        <slot/>
+      </ul>
+    </div>
+  </template>
+  <script>
+    export default {
+      data(){
+        return {openIndex: null}
+      },
+      methods: {
+        toggle(i){ this.openIndex = this.openIndex === i ? null : i }
+      }
+    }
+  </script>
+</component>

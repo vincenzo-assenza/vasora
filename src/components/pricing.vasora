@@ -1,0 +1,17 @@
+<component name="pricing">
+  <template>
+    <div class="vasora-pricing">
+      <slot name="price">$0.00</slot>
+      <slot name="compare"/>
+      <slot name="badge"/>
+    </div>
+  </template>
+  <script>
+    export default {
+      props: {
+        amount: {type: String, default: '$0.00'},
+        compareAt: {type: String, default: ''}
+      }
+    }
+  </script>
+</component>
