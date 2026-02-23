@@ -1,0 +1,294 @@
+/** Critical CSS for the theme. This file is included on every page. */
+
+/* Reset styles inspired by https://www.joshwcomeau.com/css/custom-css-reset/ */
+* {
+	box-sizing: border-box;
+	margin: 0;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+	min-height: 100svh;
+}
+
+html[data-scroll-locked="true"] {
+	overflow: hidden;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+input,
+textarea,
+select {
+	font: inherit;
+	border-radius: var(--style-border-radius-inputs);
+}
+
+select {
+	background-color: var(--color-background);
+	color: currentcolor;
+}
+
+dialog {
+	background-color: var(--color-background);
+	color: var(--color-foreground);
+}
+
+p {
+	text-wrap: pretty;
+	line-height: 1.6;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	overflow-wrap: break-word;
+}
+
+p:empty {
+	display: none;
+}
+
+:is(p, h1, h2, h3, h4, h5, h6):first-child,
+:empty:first-child + :where(p, h1, h2, h3, h4, h5, h6) {
+	margin-block-start: 0;
+}
+
+:is(p, h1, h2, h3, h4, h5, h6):last-child,
+:where(p, h1, h2, h3, h4, h5, h6) + :has(+ :empty:last-child) {
+	margin-block-end: 0;
+}
+
+/** Theme styles below */
+body {
+	font-family: var(--font-primary--family);
+	background-color: var(--color-background);
+	color: var(--color-foreground);
+}
+
+:root {
+	--section-pad-y: clamp(2.5rem, 6vw, 5rem);
+	--section-pad-x: clamp(1rem, 4vw, 2.5rem);
+	--text-max: 65ch;
+	--heading-max: 28ch;
+	--btn-radius: 999px;
+	--btn-py: 0.75rem;
+	--btn-px: 1.5rem;
+	--btn-font: 600;
+}
+
+h1 {
+	font-size: clamp(2rem, 4.5vw, 3.5rem);
+	line-height: 1.1;
+	max-width: var(--heading-max);
+}
+
+h2 {
+	font-size: clamp(1.5rem, 3vw, 2.5rem);
+	line-height: 1.15;
+	max-width: var(--heading-max);
+}
+
+h3 {
+	font-size: clamp(1.25rem, 2.4vw, 1.75rem);
+	line-height: 1.2;
+}
+
+p {
+	max-width: var(--text-max);
+}
+
+:is(a.button, button, .button, input[type="submit"]) {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	border-radius: var(--btn-radius);
+	font-weight: var(--btn-font);
+	text-decoration: none;
+	transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+:is(a.button, button, .button, input[type="submit"]):hover {
+	transform: translateY(-1px);
+}
+
+:is(a.button, button, .button, input[type="submit"]):active {
+	transform: translateY(0);
+}
+
+:where(
+	.hero-main__cta,
+	.hero-split__cta,
+	.product-spotlight__cta,
+	.hero-final-cta__button,
+	.best-sellers__cta-button,
+	.countdown-banner__cta,
+	.product-page__cta,
+	.cart-page__checkout,
+	.cart-page__update,
+	.footer__button,
+	.newsletter-hero__form button,
+	.site-header__mega-cta
+) {
+	background: #111;
+	color: #fff;
+	border: 1px solid #111;
+	border-radius: 0;
+	font-weight: 400;
+	text-transform: uppercase;
+	letter-spacing: 0.2em;
+	padding: 0.85rem 1.8rem;
+}
+
+/** Section layout utilities */
+
+/**
+ * Setup a grid that enables both full-width and constrained layouts
+ * depending on the class of the child elements.
+ *
+ * By default, a minimum content margin is set on the left and right
+ * sides of the section and the content is centered in the viewport to
+ * not exceed the maximum page width.
+ *
+ * When a child element is given the `full-width` class, it will span
+ * the entire viewport.
+ */
+.shopify-section {
+	--content-width: min(
+		calc(var(--page-width) - var(--page-margin) * 2),
+		calc(100% - var(--page-margin) * 2)
+	);
+	--content-margin: minmax(var(--page-margin), 1fr);
+	--content-grid: var(--content-margin) var(--content-width)
+		var(--content-margin);
+
+	/* This is required to make <img> elements work as background images */
+	position: relative;
+	grid-template-columns: var(--content-grid);
+	display: grid;
+	width: 100%;
+}
+
+/* Child elements, by default, are constrained to the central column of the grid. */
+.shopify-section > * {
+	grid-column: 2;
+}
+
+/* Child elements that use the full-width utility class span the entire viewport. */
+.shopify-section > .full-width {
+	grid-column: 1 / -1;
+}
+
+/** Foundation utilities */
+.u-container {
+	width: min(
+		calc(var(--container-max) - var(--container-padding-inline) * 2),
+		calc(100% - var(--container-padding-inline) * 2)
+	);
+	margin-inline: auto;
+}
+
+.u-section {
+	padding-block: var(--space-8);
+}
+
+.u-flow > * + * {
+	margin-block-start: var(--space-4);
+}
+
+.u-stack {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-4);
+}
+
+.u-text-center {
+	text-align: center;
+}
+
+.u-sr-only {
+	position: absolute !important;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+.u-sr-only.focus-visible:focus {
+	position: fixed !important;
+	top: var(--space-4);
+	left: var(--space-4);
+	width: auto;
+	height: auto;
+	padding: var(--space-3) var(--space-5);
+	background: var(--color-background);
+	color: var(--color-foreground);
+	border: 2px solid var(--color-accent);
+	border-radius: var(--radius-md);
+	z-index: 1000;
+	clip: auto;
+	white-space: normal;
+}
+
+.u-muted {
+	color: var(--dark-gray, var(--color-foreground));
+}
+
+.u-card {
+	background: var(--color-background);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+	box-shadow: var(--shadow-xs);
+}
+
+.u-hide-mobile {
+	display: none;
+}
+
+@media (min-width: 768px) {
+	.u-hide-mobile {
+		display: initial;
+	}
+
+	.u-hide-desktop {
+		display: none;
+	}
+}
+
+@media (max-width: 600px) {
+  :where(
+    .hero-main__cta,
+    .hero-split__cta,
+    .product-spotlight__cta,
+    .hero-final-cta__button,
+    .best-sellers__cta-button,
+    .countdown-banner__cta,
+    .product-page__cta,
+    .cart-page__checkout,
+    .cart-page__update,
+    .footer__button,
+    .newsletter-hero__form button,
+    .site-header__mega-cta
+  ) {
+    letter-spacing: 0.12em;
+    padding: 0.75rem 1.4rem;
+  }
+}

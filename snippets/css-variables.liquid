@@ -1,0 +1,114 @@
+{% style %}
+  {% # Loads all font variantions with display: swap %}
+  {{ settings.type_primary_font | font_face: font_display: 'swap' }}
+  {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
+  {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
+  {{ settings.type_primary_font | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
+  {{ settings.type_accent_font | font_face: font_display: 'swap' }}
+
+  {% liquid
+    assign spacing_multiplier = 1
+    case settings.spacing_scale
+      when 'compact'
+        assign spacing_multiplier = 0.875
+      when 'airy'
+        assign spacing_multiplier = 1.125
+    endcase
+  %}
+
+  :root {
+    --font-system-fallback: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --font-primary--family: {{ settings.type_primary_font.family }}, var(--font-system-fallback);
+    --font-primary--style: {{ settings.type_primary_font.style }};
+    --font-primary--weight: {{ settings.type_primary_font.weight }};
+    --font-accent--family: {{ settings.type_accent_font.family }}, cursive;
+
+    --page-width: {{ settings.max_page_width }};
+    --page-margin: {{ settings.min_page_margin }}px;
+
+    /* Foundation: containers */
+    --container-max: var(--page-width);
+    --container-padding-inline: var(--page-margin);
+
+    /* Foundation: spacing scale */
+    --spacing-multiplier: {{ spacing_multiplier }};
+    --space-1: calc(0.25rem * var(--spacing-multiplier));
+    --space-2: calc(0.5rem * var(--spacing-multiplier));
+    --space-3: calc(0.75rem * var(--spacing-multiplier));
+    --space-4: calc(1rem * var(--spacing-multiplier));
+    --space-5: calc(1.5rem * var(--spacing-multiplier));
+    --space-6: calc(2rem * var(--spacing-multiplier));
+    --space-8: calc(3rem * var(--spacing-multiplier));
+
+    /* Foundation: radius */
+    --style-border-radius-inputs: {{ settings.input_corner_radius }}px;
+    --radius-xs: max(calc(var(--style-border-radius-inputs) - 4px), 0px);
+    --radius-sm: max(calc(var(--style-border-radius-inputs) - 2px), 0px);
+    --radius-md: var(--style-border-radius-inputs);
+    --radius-lg: calc(var(--style-border-radius-inputs) + 4px);
+
+    /* Foundation: elevation */
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.06);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+    /* Foundation: breakpoints */
+    --bp-sm: 480px;
+    --bp-md: 768px;
+    --bp-lg: 1024px;
+    --bp-xl: 1280px;
+
+    --color-background: {{ settings.background_color }};
+    --color-foreground: {{ settings.foreground_color }};
+    --color-accent: {{ settings.accent_color }};
+    --color-muted: {{ settings.muted_color }};
+    --color-border: {{ settings.border_color }};
+
+    /* Foundation: brand tokens */
+    --brand-color-bg: var(--color-background);
+    --brand-color-fg: var(--color-foreground);
+    --brand-color-accent: var(--color-accent);
+    --brand-color-muted: var(--color-muted);
+    --brand-color-border: var(--color-border);
+
+    --brand-font-primary: var(--font-primary--family);
+    --brand-font-accent: var(--font-accent--family);
+
+    --brand-space-1: var(--space-1);
+    --brand-space-2: var(--space-2);
+    --brand-space-3: var(--space-3);
+    --brand-space-4: var(--space-4);
+    --brand-space-5: var(--space-5);
+    --brand-space-6: var(--space-6);
+    --brand-space-8: var(--space-8);
+
+    --brand-radius-xs: var(--radius-xs);
+    --brand-radius-sm: var(--radius-sm);
+    --brand-radius-md: var(--radius-md);
+    --brand-radius-lg: var(--radius-lg);
+
+    --brand-shadow-xs: var(--shadow-xs);
+    --brand-shadow-sm: var(--shadow-sm);
+    --brand-shadow-md: var(--shadow-md);
+
+    --brand-container-max: var(--container-max);
+    --brand-container-padding: var(--container-padding-inline);
+
+    --body-background: {{ settings.background_color }};
+    --theme-color: {{ settings.foreground_color }};
+    --gray: {{ settings.muted_color }};
+    --dark-gray: {{ settings.dark_gray_color }};
+    --green: {{ settings.green_color }};
+    --red: {{ settings.red_color }};
+    --colorTextBody: {{ settings.foreground_color }};
+    --colorLightTextBody: {{ settings.light_text_color }};
+    --colorBtnPrimary: {{ settings.button_primary_color }};
+    --colorBtnPrimaryText: {{ settings.button_primary_text_color }};
+    --colorBtnPrimaryBorder: {{ settings.button_primary_border_color }};
+    --colorBtnSecondary: {{ settings.button_secondary_color }};
+    --colorBtnSecondaryText: {{ settings.button_secondary_text_color }};
+    --colorBtnSecondaryBorder: {{ settings.button_secondary_border_color }};
+    --cartDotColor: {{ settings.cart_dot_color }};
+    --cartDotColorLight: {{ settings.cart_dot_color_light }};
+  }
+{% endstyle %}

@@ -1,0 +1,46 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "name": "t:general.header",
+  "sections": {
+    "header": {
+      "type": "header",
+      "blocks": {
+        "mega_feature_HkzD7x": {
+          "type": "mega_feature",
+          "settings": {
+            "parent_link": "Catalog",
+            "image": "shopify://shop_images/ChatGPTImageFeb2_2026_11_08_00AM_66fe3667-0533-4635-8f3c-3ecf80c656d6.png",
+            "title": "fsdfsd",
+            "copy": "fdsfsf",
+            "link": "shopify://pages/contact"
+          }
+        }
+      },
+      "block_order": [
+        "mega_feature_HkzD7x"
+      ],
+      "settings": {
+        "menu": "main-menu",
+        "topbar_countdown": "10.10.10",
+        "logo_image": "shopify://shop_images/vasora-logo.svg",
+        "logo_width": 120,
+        "enable_sticky": true,
+        "full_width": true,
+        "topbar_text": "Free Shipping",
+        "topbar_link": "shopify://pages/contact"
+      }
+    }
+  },
+  "order": [
+    "header"
+  ]
+}

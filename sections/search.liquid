@@ -1,0 +1,244 @@
+{% comment %}
+  This section is used in the search template to render search results for
+  products, articles, and pages.
+
+  https://shopify.dev/docs/storefronts/themes/architecture/templates/search
+{% endcomment %}
+
+{%- assign eyebrow_tag = section.settings.eyebrow_tag | default: 'p' -%}
+{%- assign heading_tag = section.settings.heading_tag | default: 'h1' -%}
+
+<section
+  class="search-page u-section"
+  style="padding-top: {{ section.settings.padding_top | default: 0 }}px; padding-bottom: {{ section.settings.padding_bottom | default: 0 }}px; margin-top: {{ section.settings.margin_top | default: 0 }}px; margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px;"
+>
+  <div class="search-page__inner">
+    <div class="search-page__header">
+      <{{ eyebrow_tag }} class="search-page__eyebrow">{{ section.settings.eyebrow | default: "Cerca" }}</{{ eyebrow_tag }}>
+      <{{ heading_tag }} class="search-page__title">{{ 'search.title' | t }}</{{ heading_tag }}>
+    </div>
+
+    <form class="search-page__form" action="{{ routes.search_url }}" method="get" role="search">
+      <input
+        type="search"
+        name="q"
+        value="{{ search.terms | escape }}"
+        placeholder="{{ 'search.placeholder' | t }}"
+      >
+      <button type="submit">{{ 'search.submit' | t }}</button>
+    </form>
+
+    {% if search.performed %}
+      {% if search.results_count == 0 %}
+        <p class="search-page__empty">{{ 'search.no_results_html' | t: terms: search.terms }}</p>
+      {% else %}
+        <p class="search-page__summary">{{ 'search.results_for_html' | t: terms: search.terms, count: search.results_count }}</p>
+
+        <div class="search-page__results">
+          {% paginate search.results by 20 %}
+            {% for result in search.results %}
+              <div class="search-page__result">
+                {% assign featured_image = result.featured_image | default: result.image %}
+                {% if featured_image %}
+                  <a class="search-page__media" href="{{ result.url }}">
+                    {% render 'image', class: 'search-page__image', image: featured_image, width: 500 %}
+                  </a>
+                {% endif %}
+                <div class="search-page__content">
+                  <p class="search-page__result-title">{{ result.title | link_to: result.url }}</p>
+                  {% if result.price %}
+                    <p class="search-page__price">{{ result.price | money_with_currency }}</p>
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+
+            <div class="search-page__pagination">
+              {{ paginate | default_pagination }}
+            </div>
+          {% endpaginate %}
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .search-page__inner {
+    width: min(100% - 2 * var(--container-padding-inline), var(--container-max));
+    margin: 0 auto;
+    display: grid;
+    gap: var(--space-5);
+  }
+  .search-page__header {
+    text-align: center;
+    display: grid;
+    gap: var(--space-2);
+  }
+  .search-page__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    font-size: 0.65rem;
+    color: var(--color-muted);
+    margin: 0;
+  }
+  .search-page__title {
+    font-family: var(--font-accent--family);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    margin: 0;
+  }
+  .search-page__form {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .search-page__form input[type="search"] {
+    flex: 1 1 240px;
+    min-width: 0;
+    padding: 0.65rem 1rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--color-foreground) 18%, transparent);
+    background: transparent;
+  }
+  .search-page__form button {
+    padding: 0.7rem 1.4rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--color-foreground) 18%, transparent);
+    background: #111;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.7rem;
+  }
+  .search-page__summary,
+  .search-page__empty {
+    text-align: center;
+    color: var(--color-muted);
+  }
+  .search-page__results {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.5rem, 2.5vw, 2.5rem);
+  }
+  .search-page__result {
+    display: grid;
+    gap: var(--space-2);
+  }
+  .search-page__media {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: block;
+    background: color-mix(in srgb, var(--color-muted) 8%, transparent);
+  }
+  .search-page__image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .search-page__result-title {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.8rem;
+    margin: 0;
+  }
+  .search-page__price {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.85rem;
+  }
+  .search-page__pagination {
+    grid-column: 1 / -1;
+    text-align: center;
+  }
+
+  @media (max-width: 1024px) {
+    .search-page__results {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 640px) {
+    .search-page__results {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:general.search",
+  "settings": [
+    {"type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Cerca"},
+    {
+      "type": "select",
+      "id": "eyebrow_tag",
+      "label": "Eyebrow tag",
+      "default": "p",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "default": "h1",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,274 @@
+{%- assign heading_tag = section.settings.heading_tag | default: 'h2' -%}
+{%- assign subheading_tag = section.settings.subheading_tag | default: 'p' -%}
+<section
+  class="featured-collection-grid"
+  {% if section.settings.anchor_id != blank %}id="{{ section.settings.anchor_id | escape }}"{% endif %}
+  style="padding-top: {{ section.settings.padding_top | default: 0 }}px; padding-bottom: {{ section.settings.padding_bottom | default: 0 }}px; margin-top: {{ section.settings.margin_top | default: 0 }}px; margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px;"
+>
+  <div class="featured-collection-grid__inner">
+    <div class="featured-collection-grid__heading">
+      {% if section.settings.heading != blank %}
+        <{{ heading_tag }}>{{ section.settings.heading }}</{{ heading_tag }}>
+      {% endif %}
+      {% if section.settings.subheading != blank %}
+        <{{ subheading_tag }} class="featured-collection-grid__subheading">{{ section.settings.subheading }}</{{ subheading_tag }}>
+      {% endif %}
+    </div>
+
+    <div class="featured-collection-grid__grid" role="list">
+      {% for block in section.blocks %}
+        <a
+          class="featured-collection-grid__card"
+          href="{{ block.settings.link }}"
+          role="listitem"
+          title="{{ block.settings.title | default: 'Scopri' | escape }}"
+          aria-label="{{ block.settings.title | default: 'Scopri' | escape }}"
+          {{ block.shopify_attributes }}
+        >
+          <div class="featured-collection-grid__media">
+            {% if block.settings.image != blank %}
+              {{
+                block.settings.image
+                | image_url: width: 1200
+                | image_tag: loading: 'lazy', widths: '480, 720, 960, 1200', alt: block.settings.title
+              }}
+            {% else %}
+              {{ 'product-1' | placeholder_svg_tag: 'placeholder' }}
+            {% endif %}
+          </div>
+          <div class="featured-collection-grid__content">
+            {% if block.settings.title != blank %}
+              <h3 class="featured-collection-grid__title">{{ block.settings.title }}</h3>
+            {% endif %}
+            {% if block.settings.price != blank %}
+              <p class="featured-collection-grid__price">{{ block.settings.price }}</p>
+            {% endif %}
+            <span class="featured-collection-grid__cta">Scopri</span>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .featured-collection-grid {
+    padding: var(--space-6) 0;
+  }
+  .featured-collection-grid__inner {
+    width: min(100% - 2 * var(--container-padding-inline), var(--container-max));
+    margin: 0 auto;
+    display: grid;
+    gap: var(--space-5);
+  }
+  .featured-collection-grid__heading {
+    max-width: 560px;
+    display: grid;
+    gap: var(--space-2);
+  }
+  .featured-collection-grid__subheading {
+    margin: 0;
+    color: var(--color-muted);
+  }
+  .featured-collection-grid__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-5);
+  }
+  .featured-collection-grid__card {
+    text-decoration: none;
+    color: inherit;
+    display: grid;
+    gap: var(--space-3);
+  }
+  .featured-collection-grid__media {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: color-mix(in srgb, var(--color-muted) 8%, transparent);
+    aspect-ratio: 4 / 5;
+  }
+  .featured-collection-grid__media img,
+  .featured-collection-grid__media svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .featured-collection-grid__content {
+    display: grid;
+    gap: var(--space-1);
+  }
+  .featured-collection-grid__title {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+  .featured-collection-grid__price {
+    margin: 0;
+    color: var(--color-muted);
+  }
+  .featured-collection-grid__cta {
+    margin-top: var(--space-2);
+    align-self: start;
+    background: #111;
+    color: #fff;
+    padding: 0.85rem 1.8rem;
+    border: 1px solid #111;
+    border-radius: 0;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    font-weight: 400;
+    text-transform: uppercase;
+    display: inline-flex;
+    width: fit-content;
+  }
+
+  @media (max-width: 1024px) {
+    .featured-collection-grid__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 640px) {
+    .featured-collection-grid__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Featured collection grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Anchor ID",
+      "default": "best-seller"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "I più amati"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "default": "h2",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "I bestseller Vasora selezionati dalla community."
+    },
+    {
+      "type": "select",
+      "id": "subheading_tag",
+      "label": "Subheading tag",
+      "default": "p",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_card",
+      "name": "Product card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Trench Aurum"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price",
+          "default": "€ 249"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured collection grid",
+      "category": "Aurum",
+      "blocks": [
+        { "type": "product_card", "settings": { "title": "Trench Aurum", "price": "€ 249" } },
+        { "type": "product_card", "settings": { "title": "Maglia Essential", "price": "€ 129" } },
+        { "type": "product_card", "settings": { "title": "Pantalone Tailor", "price": "€ 159" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

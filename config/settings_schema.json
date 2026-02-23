@@ -1,0 +1,190 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Skeleton",
+    "theme_version": "0.1.0",
+    "theme_author": "Shopify",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_url": "https://support.shopify.com/"
+  },
+  {
+    "name": "t:general.typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "t:general.fonts"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_primary_font",
+        "default": "poppins_n4",
+        "label": "t:general.primary"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_accent_font",
+        "default": "pinyon_script_n4",
+        "label": "Accent font"
+      }
+    ]
+  },
+  {
+    "name": "t:general.layout",
+    "settings": [
+      {
+        "type": "select",
+        "id": "max_page_width",
+        "label": "t:labels.page_width",
+        "options": [
+          {
+            "value": "90rem",
+            "label": "t:options.page_width.narrow"
+          },
+          {
+            "value": "110rem",
+            "label": "t:options.page_width.wide"
+          }
+        ],
+        "default": "90rem"
+      },
+      {
+        "type": "range",
+        "id": "min_page_margin",
+        "min": 10,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "t:labels.page_margin",
+        "default": 20
+      },
+      {
+        "type": "select",
+        "id": "spacing_scale",
+        "label": "Spacing scale",
+        "options": [
+          { "value": "compact", "label": "Compact" },
+          { "value": "medium", "label": "Medium" },
+          { "value": "airy", "label": "Airy" }
+        ],
+        "default": "medium"
+      }
+    ]
+  },
+  {
+    "name": "t:general.colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "default": "#FFFFFF",
+        "label": "t:labels.background"
+      },
+      {
+        "type": "color",
+        "id": "foreground_color",
+        "default": "#181818",
+        "label": "t:labels.foreground"
+      },
+      {
+        "type": "color",
+        "id": "accent_color",
+        "default": "#9D6348",
+        "label": "Accent"
+      },
+      {
+        "type": "color",
+        "id": "muted_color",
+        "default": "#CFCBCB",
+        "label": "Muted"
+      },
+      {
+        "type": "color",
+        "id": "border_color",
+        "default": "#CFCBCB",
+        "label": "Border"
+      },
+      {
+        "type": "color",
+        "id": "dark_gray_color",
+        "default": "#747474",
+        "label": "Dark gray"
+      },
+      {
+        "type": "color",
+        "id": "green_color",
+        "default": "#6CAD61",
+        "label": "Green"
+      },
+      {
+        "type": "color",
+        "id": "red_color",
+        "default": "#EC7C7C",
+        "label": "Red"
+      },
+      {
+        "type": "color",
+        "id": "light_text_color",
+        "default": "rgba(24,24,24,0.5)",
+        "label": "Light text"
+      },
+      {
+        "type": "color",
+        "id": "button_primary_color",
+        "default": "#000000",
+        "label": "Primary button background"
+      },
+      {
+        "type": "color",
+        "id": "button_primary_text_color",
+        "default": "#FFFFFF",
+        "label": "Primary button text"
+      },
+      {
+        "type": "color",
+        "id": "button_primary_border_color",
+        "default": "#000000",
+        "label": "Primary button border"
+      },
+      {
+        "type": "color",
+        "id": "button_secondary_color",
+        "default": "#454545",
+        "label": "Secondary button background"
+      },
+      {
+        "type": "color",
+        "id": "button_secondary_text_color",
+        "default": "#FFFFFF",
+        "label": "Secondary button text"
+      },
+      {
+        "type": "color",
+        "id": "button_secondary_border_color",
+        "default": "#454545",
+        "label": "Secondary button border"
+      },
+      {
+        "type": "color",
+        "id": "cart_dot_color",
+        "default": "#9D6348",
+        "label": "Cart dot"
+      },
+      {
+        "type": "color",
+        "id": "cart_dot_color_light",
+        "default": "rgba(157,99,72,0.3)",
+        "label": "Cart dot light"
+      },
+      {
+        "type": "range",
+        "id": "input_corner_radius",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "unit": "px",
+        "label": "t:labels.input_corner_radius",
+        "default": 6
+      }
+    ]
+  }
+]

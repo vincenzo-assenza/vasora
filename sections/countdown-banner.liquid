@@ -1,0 +1,287 @@
+{%- assign eyebrow_tag = section.settings.eyebrow_tag | default: 'p' -%}
+{%- assign heading_tag = section.settings.heading_tag | default: 'h2' -%}
+{%- assign subheading_tag = section.settings.subheading_tag | default: 'p' -%}
+<section
+  class="countdown-banner"
+  {% if section.settings.anchor_id != blank %}id="{{ section.settings.anchor_id | escape }}"{% endif %}
+  style="padding-top: {{ section.settings.padding_top | default: 0 }}px; padding-bottom: {{ section.settings.padding_bottom | default: 0 }}px; margin-top: {{ section.settings.margin_top | default: 0 }}px; margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px;"
+>
+  <div class="countdown-banner__media" aria-hidden="true">
+    {% if section.settings.background_image != blank %}
+      {{
+        section.settings.background_image
+        | image_url: width: 2000
+        | image_tag: loading: 'lazy', widths: '800, 1200, 1600, 2000', alt: section.settings.heading
+      }}
+    {% else %}
+      {{ 'image' | placeholder_svg_tag: 'placeholder' }}
+    {% endif %}
+  </div>
+  <div class="countdown-banner__overlay"></div>
+  <div class="countdown-banner__inner">
+    <div class="countdown-banner__content">
+      {% if section.settings.eyebrow != blank %}
+        <{{ eyebrow_tag }} class="countdown-banner__eyebrow">{{ section.settings.eyebrow }}</{{ eyebrow_tag }}>
+      {% endif %}
+      {% if section.settings.heading != blank %}
+        <{{ heading_tag }} class="countdown-banner__heading">{{ section.settings.heading }}</{{ heading_tag }}>
+      {% endif %}
+      {% if section.settings.subheading != blank %}
+        <{{ subheading_tag }} class="countdown-banner__subheading">{{ section.settings.subheading }}</{{ subheading_tag }}>
+      {% endif %}
+      {% if section.settings.cta_label != blank %}
+        <a class="countdown-banner__cta" href="{{ section.settings.cta_link }}" title="{{ section.settings.cta_title | default: section.settings.cta_label | escape }}" aria-label="{{ section.settings.cta_title | default: section.settings.cta_label | escape }}">{{ section.settings.cta_label }}</a>
+      {% endif %}
+    </div>
+    <div class="countdown-banner__timer" data-countdown data-end-date="{{ section.settings.end_date }}" data-end-time="{{ section.settings.end_time }}">
+      <div class="countdown-banner__unit"><span data-days>00</span><small>DAY</small></div>
+      <div class="countdown-banner__unit"><span data-hours>00</span><small>HRS</small></div>
+      <div class="countdown-banner__unit"><span data-minutes>00</span><small>MIN</small></div>
+      <div class="countdown-banner__unit"><span data-seconds>00</span><small>SEC</small></div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .countdown-banner {
+    position: relative;
+    min-height: clamp(320px, 60vh, 520px);
+    color: #fff;
+    overflow: hidden;
+  }
+  .countdown-banner__media,
+  .countdown-banner__media img,
+  .countdown-banner__media svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .countdown-banner__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(0,0,0,0.45), rgba(0,0,0,0.15));
+  }
+  .countdown-banner__inner {
+    position: relative;
+    width: min(100% - 2 * var(--container-padding-inline), var(--container-max));
+    margin: 0 auto;
+    min-height: inherit;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    align-items: center;
+    gap: var(--space-6);
+    padding-block: 0;
+  }
+  .countdown-banner__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 0.7rem;
+    margin-bottom: var(--space-2);
+  }
+  .countdown-banner__heading {
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    margin: 0 0 var(--space-3);
+  }
+  .countdown-banner__subheading {
+    color: rgba(255,255,255,0.85);
+    max-width: 520px;
+  }
+  .countdown-banner__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: var(--space-4);
+    padding: 0.6rem 1.4rem;
+    background: #fff;
+    color: #111;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.72rem;
+    text-decoration: none;
+  }
+  .countdown-banner__timer {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-4);
+    text-align: center;
+  }
+  .countdown-banner__unit span {
+    font-size: clamp(1.4rem, 3vw, 2.4rem);
+    letter-spacing: 0.08em;
+  }
+  .countdown-banner__unit small {
+    display: block;
+    margin-top: 0.35rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.6rem;
+  }
+
+  @media (max-width: 900px) {
+    .countdown-banner__inner {
+      grid-template-columns: 1fr;
+      text-align: left;
+    }
+    .countdown-banner__timer {
+      justify-items: start;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+{% endstylesheet %}
+
+<script>
+  (function() {
+    const sectionEl = document.getElementById('shopify-section-{{ section.id }}');
+    const countdown = sectionEl?.querySelector('[data-countdown]');
+    if (countdown) {
+      const endDate = countdown.dataset.endDate;
+      const endTime = countdown.dataset.endTime || '00:00';
+      let target = null;
+      if (endDate) {
+        let datePart = endDate;
+        let timePart = endTime;
+        if (endDate.includes(' ')) {
+          const parts = endDate.split(' ');
+          datePart = parts[0];
+          timePart = parts[1] || endTime;
+        }
+        const [y, m, d] = datePart.split('-').map(Number);
+        const [hh, mm] = (timePart || '00:00').split(':').map(Number);
+        target = Date.UTC(y, (m || 1) - 1, d || 1, hh || 0, mm || 0, 0);
+      }
+      const els = {
+        days: countdown.querySelector('[data-days]'),
+        hours: countdown.querySelector('[data-hours]'),
+        minutes: countdown.querySelector('[data-minutes]'),
+        seconds: countdown.querySelector('[data-seconds]')
+      };
+      const update = () => {
+        if (!target || Number.isNaN(target)) return;
+        const now = Date.now();
+        const diff = Math.max(0, target - now);
+        const d = Math.floor(diff / 86400000);
+        const h = Math.floor((diff % 86400000) / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        els.days.textContent = String(d).padStart(2, '0');
+        els.hours.textContent = String(h).padStart(2, '0');
+        els.minutes.textContent = String(m).padStart(2, '0');
+        els.seconds.textContent = String(s).padStart(2, '0');
+      };
+      update();
+      setInterval(update, 1000);
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Countdown banner",
+  "settings": [
+    {"type": "text", "id": "anchor_id", "label": "Anchor ID", "default": "countdown"},
+    {"type": "image_picker", "id": "background_image", "label": "Background image"},
+    {"type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Limited time only"},
+    {
+      "type": "select",
+      "id": "eyebrow_tag",
+      "label": "Eyebrow tag",
+      "default": "p",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {"type": "text", "id": "heading", "label": "Heading", "default": "Super sale up to 40% off"},
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "default": "h2",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {"type": "text", "id": "subheading", "label": "Subheading", "default": "Shop our selection of exclusive handbags and backpacks at reduced price during the Super Sale. Hurry up!"},
+    {
+      "type": "select",
+      "id": "subheading_tag",
+      "label": "Subheading tag",
+      "default": "p",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {"type": "text", "id": "cta_label", "label": "CTA label", "default": "Shop now"},
+    {"type": "text", "id": "cta_title", "label": "CTA a11y title"},
+    {"type": "url", "id": "cta_link", "label": "CTA link"},
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    },
+    {"type": "text", "id": "end_date", "label": "End date (YYYY-MM-DD)", "default": "2026-12-31"},
+    {"type": "text", "id": "end_time", "label": "End time (HH:MM)", "default": "23:59"}
+  ],
+  "presets": [
+    {"name": "Countdown banner", "category": "Aurum"}
+  ]
+}
+{% endschema %}

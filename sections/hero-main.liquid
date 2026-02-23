@@ -1,0 +1,282 @@
+{%- assign eyebrow_tag = section.settings.eyebrow_tag | default: 'p' -%}
+{%- assign heading_tag = section.settings.heading_tag | default: 'h1' -%}
+{%- assign subheading_tag = section.settings.subheading_tag | default: 'p' -%}
+<section
+  class="hero-main full-width"
+  {% if section.settings.anchor_id != blank %}id="{{ section.settings.anchor_id | escape }}"{% endif %}
+  style="padding-top: {{ section.settings.padding_top | default: 0 }}px; padding-bottom: {{ section.settings.padding_bottom | default: 0 }}px; margin-top: {{ section.settings.margin_top | default: 0 }}px; margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px;"
+>
+  {% if section.settings.background_image != blank %}
+    <div class="hero-main__media" aria-hidden="true">
+      {{
+        section.settings.background_image
+        | image_url: width: 2200
+        | image_tag: loading: 'eager', fetchpriority: 'high', widths: '800, 1200, 1600, 2000', alt: ''
+      }}
+    </div>
+  {% endif %}
+
+  <div class="hero-main__overlay"></div>
+
+  <div class="hero-main__content">
+    <div class="hero-main__copy u-flow">
+      {% if section.settings.eyebrow != blank %}
+        <{{ eyebrow_tag }} class="hero-main__eyebrow">{{ section.settings.eyebrow }}</{{ eyebrow_tag }}>
+      {% endif %}
+      {% if section.settings.heading != blank %}
+        <{{ heading_tag }} class="hero-main__heading">{{ section.settings.heading }}</{{ heading_tag }}>
+      {% endif %}
+      {% if section.settings.subheading != blank %}
+        <{{ subheading_tag }} class="hero-main__subheading">{{ section.settings.subheading }}</{{ subheading_tag }}>
+      {% endif %}
+      <div class="hero-main__actions">
+        {% if section.settings.primary_cta_label != blank %}
+          <a
+            class="hero-main__cta hero-main__cta--primary"
+            href="{{ section.settings.primary_cta_link }}"
+            data-analytics="hero-cta-primary"
+            title="{{ section.settings.primary_cta_title | default: section.settings.primary_cta_label | escape }}"
+            aria-label="{{ section.settings.primary_cta_title | default: section.settings.primary_cta_label | escape }}"
+          >
+            {{ section.settings.primary_cta_label }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .hero-main {
+    position: relative;
+    min-height: clamp(520px, 85vh, 900px);
+    display: grid;
+    place-items: center;
+    color: var(--color-background);
+    overflow: hidden;
+  }
+  .hero-main__media,
+  .hero-main__media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero-main__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.1));
+  }
+  .hero-main__content {
+    position: relative;
+    width: 100%;
+    padding-inline: var(--container-padding-inline);
+  }
+  .hero-main__copy {
+    max-width: 720px;
+    text-align: center;
+    margin: 0 auto;
+  }
+  .hero-main__heading {
+    font-family: var(--font-primary--family);
+    text-transform: uppercase;
+    font-size: clamp(2.4rem, 5vw, 4.2rem);
+    line-height: 1.05;
+    letter-spacing: 0.22em;
+  }
+  .hero-main__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    font-size: 0.65rem;
+  }
+  .hero-main__subheading {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .hero-main__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-5);
+    justify-content: center;
+  }
+  .hero-main__cta {
+    text-decoration: none;
+    padding: 0.6rem 1.4rem;
+    border-radius: 2px;
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    transition: transform 150ms ease, box-shadow 150ms ease, opacity 150ms ease;
+  }
+  .hero-main__cta--primary {
+    background: #fff;
+    color: #111;
+  }
+  .hero-main__cta:hover,
+  .hero-main__cta:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  @media (max-width: 768px) {
+    .hero-main {
+      min-height: 70svh;
+      text-align: center;
+    }
+    .hero-main__copy {
+      margin: 0 auto;
+    }
+    .hero-main__actions {
+      justify-content: center;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Hero main",
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Anchor ID",
+      "default": "hero"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "New Collection"
+    },
+    {
+      "type": "select",
+      "id": "eyebrow_tag",
+      "label": "Eyebrow tag",
+      "default": "p",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Aurum — Essentials quotidiani"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "default": "h1",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Linee pulite, materiali premium e una palette senza tempo."
+    },
+    {
+      "type": "select",
+      "id": "subheading_tag",
+      "label": "Subheading tag",
+      "default": "p",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "primary_cta_label",
+      "label": "Primary CTA label",
+      "default": "Acquista ora"
+    },
+    {
+      "type": "url",
+      "id": "primary_cta_link",
+      "label": "Primary CTA link"
+    },
+    {
+      "type": "text",
+      "id": "primary_cta_title",
+      "label": "Primary CTA a11y title"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero main",
+      "category": "Aurum"
+    }
+  ]
+}
+{% endschema %}

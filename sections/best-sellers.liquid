@@ -1,0 +1,478 @@
+{%- assign eyebrow_tag = section.settings.eyebrow_tag | default: 'p' -%}
+{%- assign heading_tag = section.settings.heading_tag | default: 'h2' -%}
+<section
+  class="best-sellers"
+  {% if section.settings.anchor_id != blank %}id="{{ section.settings.anchor_id | escape }}"{% endif %}
+  style="padding-top: {{ section.settings.padding_top | default: 0 }}px; padding-bottom: {{ section.settings.padding_bottom | default: 0 }}px; margin-top: {{ section.settings.margin_top | default: 0 }}px; margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px;"
+>
+  <div class="best-sellers__inner">
+    <div class="best-sellers__heading">
+      {% if section.settings.eyebrow != blank %}
+        <{{ eyebrow_tag }} class="best-sellers__eyebrow">{{ section.settings.eyebrow }}</{{ eyebrow_tag }}>
+      {% endif %}
+      {% if section.settings.heading != blank %}
+        <{{ heading_tag }} class="best-sellers__title">{{ section.settings.heading }}</{{ heading_tag }}>
+      {% endif %}
+      <div class="best-sellers__tabs" role="tablist" aria-label="Best sellers tabs">
+        {% assign tab_blocks = section.blocks | where: 'type', 'tab' %}
+        {% for block in tab_blocks %}
+          {% assign tab_key = block.settings.tab_key | default: block.id %}
+          <button
+            class="best-sellers__tab{% if forloop.first %} is-active{% endif %}"
+            type="button"
+            data-tab="{{ tab_key }}"
+            data-link="{{ block.settings.collection.url }}"
+            role="tab"
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+          >
+            {{ block.settings.label }}
+          </button>
+        {% endfor %}
+      </div>
+    </div>
+
+    {% if section.settings.products_source == 'collection' %}
+      <div class="best-sellers__grid" data-grid>
+        {% for block in tab_blocks %}
+          {% assign col = block.settings.collection %}
+          {% assign tab_key = block.settings.tab_key | default: block.id %}
+          {% if col != blank %}
+            {% for product in col.products limit: section.settings.products_limit %}
+              <article class="best-sellers__card" data-tab="{{ tab_key }}">
+                {% if product.tags contains 'best seller' %}
+                  <span class="best-sellers__badge">Best seller</span>
+                {% else %}
+                  <span class="best-sellers__badge">New</span>
+                {% endif %}
+                <div class="best-sellers__media">
+                  {{
+                    product.featured_image
+                    | image_url: width: 900
+                    | image_tag: loading: 'lazy', widths: '360, 540, 720, 900', alt: product.title
+                  }}
+                </div>
+                <div class="best-sellers__info">
+                  <h3>{{ product.title }}</h3>
+                  <p class="best-sellers__price">{{ product.price | money }}</p>
+                </div>
+              </article>
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="best-sellers__grid" data-grid>
+        {% assign product_blocks = section.blocks | where: 'type', 'product_card' %}
+        {% for tab in tab_blocks %}
+          {% assign tab_key = tab.settings.tab_key | default: tab.id %}
+          {% assign count = 0 %}
+          {% for block in product_blocks %}
+            {% if block.settings.tab_id == tab_key %}
+              {% if count < section.settings.products_limit %}
+                {% assign product = block.settings.product %}
+                <article class="best-sellers__card" data-tab="{{ tab_key }}" {{ block.shopify_attributes }}>
+                  {% if block.settings.badge != blank %}
+                    <span class="best-sellers__badge">{{ block.settings.badge }}</span>
+                  {% endif %}
+                  <div class="best-sellers__media">
+                    {% if product != blank %}
+                      {{
+                        product.featured_image
+                        | image_url: width: 900
+                        | image_tag: loading: 'lazy', widths: '360, 540, 720, 900', alt: product.title
+                      }}
+                    {% else %}
+                      {{ 'product-1' | placeholder_svg_tag: 'placeholder' }}
+                    {% endif %}
+                  </div>
+                  <div class="best-sellers__info">
+                    {% if product != blank %}
+                      <h3>{{ product.title }}</h3>
+                      <p class="best-sellers__price">{{ product.price | money }}</p>
+                    {% else %}
+                      <h3>{{ block.settings.title }}</h3>
+                      <p class="best-sellers__price">{{ block.settings.price }}</p>
+                    {% endif %}
+                  </div>
+                </article>
+                {% assign count = count | plus: 1 %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="best-sellers__cta">
+      <a
+        href="#"
+        class="best-sellers__cta-button"
+        data-cta
+        data-cta-label="{{ section.settings.cta_label | escape }}"
+        data-cta-dynamic="{% if section.settings.cta_label == blank %}true{% else %}false{% endif %}"
+        title="{{ section.settings.cta_label | escape }}"
+        aria-label="{{ section.settings.cta_label | escape }}"
+      >
+        {{ section.settings.cta_label }}
+      </a>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .best-sellers {
+    background: #f4f4f2;
+    padding: clamp(3rem, 6vw, 6rem) 0;
+  }
+  .best-sellers__inner {
+    width: min(100% - 2 * var(--container-padding-inline), var(--container-max));
+    margin: 0 auto;
+    display: grid;
+    gap: var(--space-6);
+    text-align: center;
+  }
+  .best-sellers__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    font-size: 0.7rem;
+    color: var(--color-muted);
+    margin: 0 0 var(--space-2);
+  }
+  .best-sellers__title {
+    margin: 0 0 var(--space-4);
+    font-size: clamp(1.4rem, 2.4vw, 2rem);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .best-sellers__tabs {
+    display: inline-flex;
+    gap: var(--space-5);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-foreground) 12%, transparent);
+    padding-bottom: var(--space-2);
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    pointer-events: auto;
+  }
+  .best-sellers__tab {
+    background: none;
+    border: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.75rem;
+    padding: 0;
+    cursor: pointer;
+    color: var(--color-foreground);
+  }
+  .best-sellers__tab.is-active {
+    font-weight: 600;
+    position: relative;
+  }
+  .best-sellers__tab.is-active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -10px;
+    height: 1px;
+    background: var(--color-foreground);
+  }
+  .best-sellers__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1.5rem, 2vw, 2.5rem);
+  }
+  .best-sellers__card {
+    display: grid;
+    gap: var(--space-3);
+    align-items: end;
+  }
+  .best-sellers__badge {
+    text-transform: uppercase;
+    font-size: 0.65rem;
+    letter-spacing: 0.24em;
+    color: var(--color-muted);
+  }
+  .best-sellers__media {
+    background: #f4f4f2;
+    min-height: 200px;
+    display: grid;
+    place-items: center;
+  }
+  .best-sellers__media img,
+  .best-sellers__media svg {
+    width: 100%;
+    height: auto;
+    max-width: 220px;
+  }
+  .best-sellers__info h3 {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.75rem;
+  }
+  .best-sellers__price {
+    margin: var(--space-1) 0 0;
+    color: var(--color-muted);
+    font-size: 0.8rem;
+  }
+  .best-sellers__cta {
+    margin-top: var(--space-4);
+  }
+  .best-sellers__cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 2.2rem;
+    background: #111;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.7rem;
+    text-decoration: none;
+  }
+
+  @media (max-width: 1024px) {
+    .best-sellers__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 640px) {
+    .best-sellers__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  const scope = document.currentScript?.closest('.shopify-section') || document;
+  const tabs = scope.querySelectorAll('.best-sellers__card');
+  const tabButtons = scope.querySelectorAll('.best-sellers__tab');
+  const cta = scope.querySelector('[data-cta]');
+
+  const applyTab = (tab, link, label) => {
+    tabButtons.forEach((btn) => {
+      const active = btn.dataset.tab === tab;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    tabs.forEach((card) => {
+      const show = card.dataset.tab === tab;
+      card.style.display = show ? '' : 'none';
+    });
+    if (cta) {
+      if (link) {
+        cta.href = link;
+      }
+      if (cta.dataset.ctaDynamic === 'true') {
+        cta.textContent = label ? `All ${label}` : (cta.dataset.ctaLabel || cta.textContent);
+      } else if (cta.dataset.ctaLabel) {
+        cta.textContent = cta.dataset.ctaLabel;
+      }
+    }
+  };
+
+  if (tabButtons.length) {
+    tabButtons.forEach((btn) => {
+      btn.addEventListener('click', (event) => {
+        event.preventDefault();
+        applyTab(btn.dataset.tab, btn.dataset.link, btn.textContent.trim());
+      });
+    });
+    const first = tabButtons[0];
+    applyTab(first.dataset.tab, first.dataset.link, first.textContent.trim());
+  }
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Best sellers",
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Anchor ID",
+      "default": "best-sellers"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Our best sellers"
+    },
+    {
+      "type": "select",
+      "id": "eyebrow_tag",
+      "label": "Eyebrow tag",
+      "default": "p",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Women    Men"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "default": "h2",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "products_source",
+      "label": "Products source",
+      "options": [
+        { "value": "manual", "label": "Manual" },
+        { "value": "collection", "label": "Collection" }
+      ],
+      "default": "manual"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Products per tab",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA label",
+      "default": "All women's bags"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Tab label",
+          "default": "Women"
+        },
+        {
+          "type": "text",
+          "id": "tab_key",
+          "label": "Tab key (use in product cards)",
+          "default": "tab_1"
+        },
+        {
+          "type": "paragraph",
+          "content": "Use the Tab key above in Product card > Tab ID to link cards to this tab."
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    },
+    {
+      "type": "product_card",
+      "name": "Product card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_id",
+          "label": "Tab key (match Tab key setting)",
+          "default": "tab_1"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge",
+          "default": "New"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title (fallback)"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price (fallback)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Best sellers",
+      "category": "Aurum",
+      "blocks": [
+        { "type": "tab", "settings": { "label": "Women" } },
+        { "type": "tab", "settings": { "label": "Men" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

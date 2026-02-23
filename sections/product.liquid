@@ -1,0 +1,249 @@
+{% comment %}
+  This section is used in the product template to render product page with
+  media, content, and add-to-cart form.
+
+  https://shopify.dev/docs/storefronts/themes/architecture/templates/product
+{% endcomment %}
+
+{%- assign eyebrow_tag = section.settings.eyebrow_tag | default: 'p' -%}
+{%- assign heading_tag = section.settings.heading_tag | default: 'h1' -%}
+{%- assign subheading_tag = section.settings.subheading_tag | default: 'div' -%}
+
+<section
+  class="product-page u-section"
+  style="padding-top: {{ section.settings.padding_top | default: 0 }}px; padding-bottom: {{ section.settings.padding_bottom | default: 0 }}px; margin-top: {{ section.settings.margin_top | default: 0 }}px; margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px;"
+>
+  <div class="product-page__inner">
+    <div class="product-page__gallery">
+      {% for image in product.images %}
+        <div class="product-page__media">
+          {% render 'image', class: 'product-page__image', image: image %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="product-page__info u-flow">
+      <{{ eyebrow_tag }} class="product-page__eyebrow">{{ product.vendor }}</{{ eyebrow_tag }}>
+      <{{ heading_tag }} class="product-page__title">{{ product.title }}</{{ heading_tag }}>
+      <p class="product-page__price">{{ product.price | money }}</p>
+      <{{ subheading_tag }} class="product-page__description rte">
+        {{ product.description }}
+      </{{ subheading_tag }}>
+
+      <div class="product-page__form">
+        {% form 'product', product %}
+          {% assign current_variant = product.selected_or_first_available_variant %}
+
+          <label class="product-page__label" for="ProductVariants">Variante</label>
+          <select id="ProductVariants" name="id" class="product-page__select">
+            {% for variant in product.variants %}
+              <option
+                value="{{ variant.id }}"
+                {% if variant == current_variant %}
+                  selected="selected"
+                {% endif %}
+              >
+                {{ variant.title }} — {{ variant.price | money }}
+              </option>
+            {% endfor %}
+          </select>
+
+          <label class="product-page__label" for="Quantity">Quantità</label>
+          <div class="product-page__quantity">
+            <input id="Quantity" type="number" name="quantity" min="1" value="1" class="product-page__input">
+          </div>
+
+          <button type="submit" class="product-page__cta">Aggiungi al carrello</button>
+          <div class="product-page__payment">{{ form | payment_button }}</div>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .product-page {
+    background: var(--color-background);
+  }
+  .product-page__inner {
+    width: min(100% - 2 * var(--container-padding-inline), var(--container-max));
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+  .product-page__gallery {
+    display: grid;
+    gap: var(--space-4);
+  }
+  .product-page__media {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: color-mix(in srgb, var(--color-muted) 8%, transparent);
+  }
+  .product-page__image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .product-page__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    font-size: 0.65rem;
+    color: var(--color-muted);
+    margin: 0;
+  }
+  .product-page__title {
+    font-family: var(--font-accent--family);
+    font-size: clamp(2rem, 3.5vw, 3.2rem);
+    line-height: 1.1;
+    margin: 0;
+  }
+  .product-page__price {
+    font-size: 1.2rem;
+    color: var(--color-foreground);
+    margin: 0;
+  }
+  .product-page__description {
+    color: var(--color-muted);
+    font-size: 1rem;
+  }
+  .product-page__form {
+    display: grid;
+    gap: var(--space-3);
+  }
+  .product-page__label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-muted);
+  }
+  .product-page__select,
+  .product-page__input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--color-foreground) 18%, transparent);
+    background: transparent;
+  }
+  .product-page__cta {
+    padding: 0.9rem 1.6rem;
+    background: #111;
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.72rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .product-page__payment {
+    margin-top: var(--space-2);
+  }
+
+  @media (max-width: 960px) {
+    .product-page__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:general.product",
+  "settings": [
+    {
+      "type": "select",
+      "id": "eyebrow_tag",
+      "label": "Eyebrow tag",
+      "default": "p",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "default": "h1",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "subheading_tag",
+      "label": "Subheading tag",
+      "default": "div",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}

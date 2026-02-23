@@ -1,0 +1,239 @@
+{% comment %}
+  This section is used in the collection template to render collection page
+  listing all products within a collection.
+
+  https://shopify.dev/docs/storefronts/themes/architecture/templates/collection
+{% endcomment %}
+
+{%- assign eyebrow_tag = section.settings.eyebrow_tag | default: 'p' -%}
+{%- assign heading_tag = section.settings.heading_tag | default: 'h1' -%}
+{%- assign subheading_tag = section.settings.subheading_tag | default: 'div' -%}
+
+<section
+  class="collection-page u-section"
+  style="padding-top: {{ section.settings.padding_top | default: 0 }}px; padding-bottom: {{ section.settings.padding_bottom | default: 0 }}px; margin-top: {{ section.settings.margin_top | default: 0 }}px; margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px;"
+>
+  <div class="collection-page__inner">
+    <div class="collection-page__heading">
+      <{{ eyebrow_tag }} class="collection-page__eyebrow">Collezione</{{ eyebrow_tag }}>
+      <{{ heading_tag }} class="collection-page__title">{{ collection.title }}</{{ heading_tag }}>
+      {% if collection.description != blank %}
+        <{{ subheading_tag }} class="collection-page__description rte">{{ collection.description }}</{{ subheading_tag }}>
+      {% endif %}
+    </div>
+
+    <div class="collection-page__grid">
+      {% paginate collection.products by 20 %}
+        {% for product in collection.products %}
+          <article class="collection-page__card">
+            <a class="collection-page__media" href="{{ product.url }}">
+              {% if product.featured_image %}
+                {% render 'image',
+                  class: 'collection-page__image',
+                  image: product.featured_image,
+                  width: 600,
+                  height: 720,
+                  crop: 'center'
+                %}
+              {% else %}
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder' }}
+              {% endif %}
+            </a>
+            <div class="collection-page__info">
+              <h2 class="collection-page__product-title">{{ product.title | escape }}</h2>
+              <p class="collection-page__price">{{ product.price | money }}</p>
+              <a class="collection-page__link" href="{{ product.url }}">Scopri</a>
+            </div>
+          </article>
+        {% endfor %}
+
+        <div class="collection-page__pagination">
+          {{ paginate | default_pagination }}
+        </div>
+      {% endpaginate %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .collection-page__inner {
+    width: min(100% - 2 * var(--container-padding-inline), var(--container-max));
+    margin: 0 auto;
+    display: grid;
+    gap: var(--space-6);
+  }
+  .collection-page__heading {
+    text-align: center;
+    display: grid;
+    gap: var(--space-2);
+  }
+  .collection-page__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    font-size: 0.65rem;
+    color: var(--color-muted);
+  }
+  .collection-page__title {
+    font-family: var(--font-accent--family);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    margin: 0;
+  }
+  .collection-page__description {
+    color: var(--color-muted);
+    max-width: 60ch;
+    margin: 0 auto;
+  }
+  .collection-page__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1.5rem, 2.5vw, 2.5rem);
+  }
+  .collection-page__card {
+    display: grid;
+    gap: var(--space-3);
+  }
+  .collection-page__media {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: color-mix(in srgb, var(--color-muted) 8%, transparent);
+    display: block;
+  }
+  .collection-page__image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .collection-page__info {
+    display: grid;
+    gap: var(--space-1);
+  }
+  .collection-page__product-title {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.8rem;
+    margin: 0;
+  }
+  .collection-page__price {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.85rem;
+  }
+  .collection-page__link {
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.7rem;
+    color: var(--color-foreground);
+  }
+  .collection-page__pagination {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-top: var(--space-6);
+  }
+
+  @media (max-width: 1024px) {
+    .collection-page__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 640px) {
+    .collection-page__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:general.collection",
+  "settings": [
+    {
+      "type": "select",
+      "id": "eyebrow_tag",
+      "label": "Eyebrow tag",
+      "default": "p",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "default": "h1",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "subheading_tag",
+      "label": "Subheading tag",
+      "default": "div",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" },
+        { "value": "h4", "label": "h4" },
+        { "value": "h5", "label": "h5" },
+        { "value": "h6", "label": "h6" },
+        { "value": "p", "label": "p" },
+        { "value": "span", "label": "span" },
+        { "value": "div", "label": "div" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin top",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin bottom",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 0
+    }
+  ]
+}
+{% endschema %}
