@@ -1,0 +1,50 @@
+# Onboarding Flow - vasora (3 steps)
+
+version: 1
+
+steps:
+  - id: welcome
+    title: Welcome to Vasora
+    description: "Short intro and brand promise. Ask user to pick a store name and preferred currency."
+    fields:
+      - name: store_name
+        type: text
+        required: true
+        label: "Store name"
+      - name: currency
+        type: select
+        options: ["USD", "EUR", "GBP"]
+        required: true
+  - id: products
+    title: Add your first products
+    description: "Upload product images (or use placeholders), set title, price, and short description."
+    repeatable: true
+    fields:
+      - name: product_title
+        type: text
+        required: true
+        label: "Product title"
+      - name: product_price
+        type: number
+        required: true
+        label: "Price"
+      - name: product_image
+        type: image
+        required: false
+        label: "Product image"
+  - id: checkout
+    title: Configure checkout
+    description: "Choose payment and shipping options. Preview store and launch."
+    fields:
+      - name: payment_provider
+        type: select
+        options: ["Stripe", "PayPal", "Manual"]
+        required: true
+      - name: shipping_default
+        type: select
+        options: ["Free", "Flat rate", "Calculated"]
+        required: true
+
+metadata:
+  created_by: vasora-designer-week2-onboarding
+  created_at: 2026-02-23T10:35:00+01:00
