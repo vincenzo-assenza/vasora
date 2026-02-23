@@ -1,0 +1,18 @@
+{% schema %}
+{
+  "name": "Main page (Vasora)",
+  "settings": [
+    {"type":"select","id":"width","label":"Layout width","options":[{"value":"narrow","label":"Narrow"},{"value":"wide","label":"Wide"}],"default":"narrow"},
+    {"type":"richtext","id":"sidebar_info","label":"Sidebar info (optional)","default":""}
+  ],
+  "presets": [{"name":"Page"}]
+}
+{% endschema %}
+<div class="page vasora {{ section.settings.width }}">
+  <h1>{{ page.title }}</h1>
+  <div class="page-content">{{ page.content }}</div>
+  {% if section.settings.sidebar_info != blank %}
+    <aside class="page-sidebar">{{ section.settings.sidebar_info }}</aside>
+  {% endif %}
+</div>
+<link rel="stylesheet" href="/assets/vasora.css">

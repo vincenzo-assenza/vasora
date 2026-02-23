@@ -1,0 +1,26 @@
+{% schema %}
+{
+  "name": "Main product",
+  "settings": [],
+  "blocks": [
+    {"type":"title","name":"Title"},
+    {"type":"price","name":"Price"},
+    {"type":"buy_button","name":"Buy button"}
+  ],
+  "presets": [
+    {"name":"Default"}
+  ]
+}
+{% endschema %}
+<div class="product-main">
+  {% for block in section.blocks %}
+    {% case block.type %}
+      {% when 'title' %}
+        <h1>{{ product.title }}</h1>
+      {% when 'price' %}
+        <div class="price">{{ product.price | money }}</div>
+      {% when 'buy_button' %}
+        <button data-action="add-to-cart" data-product-id="{{ product.id }}">Add to cart</button>
+    {% endcase %}
+  {% endfor %}
+</div>

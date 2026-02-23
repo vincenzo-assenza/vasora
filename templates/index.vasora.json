@@ -1,0 +1,8 @@
+{
+  "name": "index (Vasora variant)",
+  "sections": {
+    "hero": { "type": "hero" },
+    "featured": { "type": "collection-list" }
+  },
+  "order": ["hero","featured"]
+}

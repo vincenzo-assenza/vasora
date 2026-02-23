@@ -1,0 +1,7 @@
+{
+  "name": "page (Vasora variant)",
+  "sections": {
+    "main": { "type": "main-page.vasora" }
+  },
+  "order": ["main"]
+}

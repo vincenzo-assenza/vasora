@@ -1,0 +1,7 @@
+{
+  "name": "cart (Vasora variant)",
+  "sections": {
+    "main": { "type": "main-cart.vasora" }
+  },
+  "order": ["main"]
+}

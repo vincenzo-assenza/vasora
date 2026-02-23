@@ -1,0 +1,36 @@
+<!-- home.vasora - created by vasora-coder subagent
+     Implements hero + CTA and product grid placeholder per designer handoff
+-->
+<section class="container">
+  <header class="center">
+    <h1>Vasora — Scopri prodotti pensati per te</h1>
+    <p class="meta">Design minimal, esperienza veloce. Disponibile su tutti i dispositivi.</p>
+    <div style="margin-top:16px"><button class="button">Inizia</button></div>
+  </header>
+
+  <section style="margin-top:32px">
+    <h2>Prodotti in evidenza</h2>
+    <div class="vasora-grid products" role="list">
+      <!-- product cards injected or static placeholders -->
+      <article class="vasora-card" role="listitem">
+        <div class="media" aria-hidden="true"></div>
+        <div class="body">
+          <div class="title">Prodotto A</div>
+          <div class="meta">Breve descrizione del prodotto.</div>
+          <div class="row">
+            <div class="price">€29</div>
+            <div class="badge">Novità</div>
+          </div>
+          <div class="actions">
+            <button class="button">Aggiungi</button>
+            <button class="button secondary">Dettagli</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- repeat placeholders -->
+      <article class="vasora-card" role="listitem"><div class="media"></div><div class="body"><div class="title">Prodotto B</div><div class="meta">Placeholder.</div><div class="row"><div class="price">€49</div></div><div class="actions"><button class="button">Aggiungi</button></div></div></article>
+
+    </div>
+  </section>
+</section>

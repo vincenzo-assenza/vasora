@@ -1,0 +1,20 @@
+<!-- product-card.vasora - reusable component
+     Fields: image, title, price, badge, onAdd action
+-->
+<template id="product-card">
+  <article class="vasora-card" role="article" aria-label="{{title}}">
+    <img class="media" src="{{image}}" alt="{{title}}" />
+    <div class="body">
+      <div class="title">{{title}}</div>
+      <div class="meta">{{description}}</div>
+      <div class="row">
+        <div class="price">{{price}}</div>
+        {{#if badge}}<div class="badge">{{badge}}</div>{{/if}}
+      </div>
+      <div class="actions">
+        <button class="button" onclick="onAdd('{{id}}')">Aggiungi</button>
+        <button class="button secondary" onclick="openDetails('{{id}}')">Dettagli</button>
+      </div>
+    </div>
+  </article>
+</template>

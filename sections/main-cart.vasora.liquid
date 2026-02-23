@@ -1,0 +1,22 @@
+{% schema %}
+{
+  "name": "Main cart (Vasora)",
+  "settings": [],
+  "blocks": [],
+  "presets": [{"name":"Cart"}]
+}
+{% endschema %}
+<div class="cart-page vasora">
+  <h1>Cart</h1>
+  <div id="cart-status" aria-live="polite"></div>
+  <form id="cart-form-vasora">
+    <div id="cart-items-list"></div>
+    <div id="cart-empty" style="display:none"><h2>Your cart is empty</h2></div>
+    <div class="cart-actions">
+      <button type="button" id="continue-shopping">Continue shopping</button>
+      <a href="/checkout" id="checkout-button">Checkout</a>
+    </div>
+  </form>
+</div>
+<script src="/assets/cart.vasora.js"></script>
+<script src="/assets/cart-page.vasora.js"></script>

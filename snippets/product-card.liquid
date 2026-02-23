@@ -1,0 +1,23 @@
+{%- comment -%}
+Unified product-card snippet for Vasora
+Usage: {% render 'product-card', product: product %}
+Supports modular blocks for image, title, price, badges.
+{%- endcomment -%}
+<article class="product-card" data-product-id="{{ product.id }}">
+  <a href="{{ product.url }}" class="product-card__link">
+    <div class="product-card__media">
+      {% if product.images.size > 0 %}
+        <img src="{{ product.featured_image | img_url: '600x' }}" alt="{{ product.featured_image.alt | escape }}" loading="lazy" />
+      {% else %}
+        <div class="product-card__placeholder"></div>
+      {% endif %}
+    </div>
+    <div class="product-card__meta">
+      <h3 class="product-card__title">{{ product.title }}</h3>
+      <div class="product-card__price">{% if product.price_varies %}{{ product.price_min | money }} - {{ product.price_max | money }}{% else %}{{ product.price | money }}{% endif %}</div>
+      {% if product.compare_at_price > product.price %}
+        <div class="product-card__badge">Sale</div>
+      {% endif %}
+    </div>
+  </a>
+</article>

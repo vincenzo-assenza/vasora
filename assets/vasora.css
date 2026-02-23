@@ -1,0 +1,39 @@
+/* vasora global styles - created by vasora-coder subagent
+   Policy: only create new files (no legacy edits)
+*/
+:root{
+  --vasora-bg:#ffffff;
+  --vasora-foreground:#0f172a;
+  --vasora-accent:#0066ff;
+  --vasora-muted:#6b7280;
+  --vasora-success:#16a34a;
+  --vasora-radius:10px;
+  --vasora-max-width:1100px;
+  --vasora-gap:16px;
+}
+*{box-sizing:border-box}
+body{font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; color:var(--vasora-foreground); background:var(--vasora-bg); margin:0}
+.container{max-width:var(--vasora-max-width);margin:0 auto;padding:24px}
+.vasora-grid{display:grid;gap:var(--vasora-gap)}
+/* responsive product grid */
+.vasora-grid.products{grid-template-columns:repeat(1,1fr)}
+@media(min-width:640px){.vasora-grid.products{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.vasora-grid.products{grid-template-columns:repeat(4,1fr)}}
+
+.vasora-card{background:#fff;border:1px solid #e6e9ef;border-radius:var(--vasora-radius);overflow:hidden;display:flex;flex-direction:column;align-items:stretch}
+.vasora-card .media{width:100%;aspect-ratio:4/3;object-fit:cover;background:#f3f4f6}
+.vasora-card .body{padding:12px;display:flex;flex-direction:column;gap:8px}
+.vasora-card .title{font-weight:600;font-size:1rem;color:var(--vasora-foreground)}
+.vasora-card .price{font-weight:700;color:var(--vasora-accent)}
+.vasora-card .meta{color:var(--vasora-muted);font-size:0.9rem}
+.vasora-card .actions{margin-top:auto;display:flex;gap:8px}
+.button{background:var(--vasora-accent);color:#fff;padding:8px 12px;border-radius:8px;border:none;cursor:pointer}
+.button.secondary{background:#f3f4f6;color:var(--vasora-foreground)}
+.badge{background:var(--vasora-success);color:#fff;padding:4px 8px;border-radius:999px;font-size:0.75rem}
+
+/* accessibility helpers */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* small utilities */
+.row{display:flex;gap:12px;align-items:center}
+.center{text-align:center}

@@ -1,0 +1,28 @@
+{% schema %}
+{
+  "name": "Cart drawer (Vasora)",
+  "settings": [],
+  "presets": [{"name":"Cart Drawer"}]
+}
+{% endschema %}
+<div id="cart-drawer-vasora" class="cart-drawer" aria-hidden="true">
+  <div class="cart-drawer__content" role="dialog" aria-modal="true">
+    <button id="cart-drawer-close-vasora" class="cart-drawer__close" aria-label="Close cart">×</button>
+    <div id="cart-items-vasora"></div>
+    <a href="/cart" class="cart-drawer__go-to-cart">View cart</a>
+  </div>
+</div>
+<script>
+  (function(){
+    var drawer=document.getElementById('cart-drawer-vasora');
+    var close=document.getElementById('cart-drawer-close-vasora');
+    function openDrawer(){ drawer.setAttribute('aria-hidden','false'); drawer.classList.add('open'); }
+    function closeDrawer(){ drawer.setAttribute('aria-hidden','true'); drawer.classList.remove('open'); }
+    document.addEventListener('click',function(e){
+      if(e.target && e.target.matches('[data-open-cart]')){ openDrawer(); fetch('/cart.js').then(r=>r.json()).then(update);
+      }
+      if(e.target===close) closeDrawer();
+    });
+    function update(cart){ var el=document.getElementById('cart-items-vasora'); el.innerHTML=''; cart.items.forEach(function(i){ el.innerHTML += '<div class="cd-item">'+i.quantity+' x '+i.title+'</div>'; }); }
+  })();
+</script>

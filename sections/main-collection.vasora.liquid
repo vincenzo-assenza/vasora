@@ -1,0 +1,40 @@
+{% schema %}
+{
+  "name": "Main collection (Vasora)",
+  "settings": [],
+  "presets": [{"name":"Collection"}]
+}
+{% endschema %}
+<div class="v-container">
+  <h1 class="v-h1">{{ collection.title }}</h1>
+  <form method="get" id="vasora-collection-controls">
+    <label for="sort_by_vasora">Sort by</label>
+    <select name="sort_by" id="sort_by_vasora" class="v-field">
+      {% for option in collection.sort_options %}
+        <option value="{{ option }}" {% if collection.sort_by == option %}selected{% endif %}>{{ option }}</option>
+      {% endfor %}
+    </select>
+  </form>
+
+  {% if collection.all_products_count == 0 %}
+    <div class="collection-empty v-card"><h2>No products found</h2></div>
+  {% else %}
+    <div class="product-grid v-grid">
+      {% paginate collection.products by 12 %}
+        {% for product in collection.products %}
+          <div class="v-card">
+            {% render 'product-card.vasora', product: product %}
+          </div>
+        {% endfor %}
+        <div class="pagination">
+          {% if paginate.previous %}<a href="{{ paginate.previous.url }}">Previous</a>{% endif %}
+          {% for part in paginate.parts %}
+            {% if part.is_link %}<a href="{{ part.url }}">{{ part.title }}</a>
+            {% else %}<span aria-current="page">{{ part.title }}</span>{% endif %}
+          {% endfor %}
+          {% if paginate.next %}<a href="{{ paginate.next.url }}">Next</a>{% endif %}
+        </div>
+      {% endpaginate %}
+    </div>
+  {% endif %}
+</div>

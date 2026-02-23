@@ -1,0 +1,7 @@
+{
+  "name": "collection (Vasora variant)",
+  "sections": {
+    "main": { "type": "main-collection.vasora" }
+  },
+  "order": ["main"]
+}
