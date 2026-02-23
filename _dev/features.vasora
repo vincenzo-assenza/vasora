@@ -1,0 +1,18 @@
+<!-- Features section for Vasora — Week 3 design artifact -->
+<section class="vasora-features container">
+  <h2>Features</h2>
+  <div class="grid">
+    <div class="feature">
+      <h3>Easy setup</h3>
+      <p>Get your store running in minutes with our step-by-step onboarding.</p>
+    </div>
+    <div class="feature">
+      <h3>Customizable themes</h3>
+      <p>Pick a style that fits your brand with simple theme controls.</p>
+    </div>
+    <div class="feature">
+      <h3>Secure payments</h3>
+      <p>Integrations with leading payment providers and PCI compliance guidance.</p>
+    </div>
+  </div>
+</section>

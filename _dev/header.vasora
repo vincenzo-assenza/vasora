@@ -1,0 +1,15 @@
+<!-- Header component for Vasora — Week 3 design artifact -->
+<header class="vasora-header">
+  <div class="container">
+    <a href="/" class="logo">Vasora</a>
+    <nav class="main-nav">
+      <a href="/products">Products</a>
+      <a href="/features">Features</a>
+      <a href="/about">About</a>
+    </nav>
+    <div class="actions">
+      <a class="btn btn-outline" href="/login">Log in</a>
+      <a class="btn btn-primary" href="/signup">Get started</a>
+    </div>
+  </div>
+</header>
