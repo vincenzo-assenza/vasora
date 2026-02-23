@@ -1,6 +1,6 @@
 # Vasora Theme Rebuild — Status
 
-Last update: 2026-02-23 16:59 (Europe/Rome)
+Last update: 2026-02-23 17:02 (Europe/Rome)
 Owner: vasora-orchestrator
 Branch: `main`
 
@@ -30,6 +30,41 @@ Ripulire e ricostruire il tema Shopify locale (`/var/www/vasora-skeleton`) con b
 ## Rischi / Blocker
 - Possibile debito tecnico nascosto nei componenti legacy e nei backup locali.
 - Rischio regressioni editor UX se il cleanup non è atomico.
+
+## Definition of Done (oggi)
+- Backlog condiviso e ordinato per priorità.
+- Cleanup iniziale completato senza rompere build/theme check.
+- Primo set di componenti/base pronto per rebuild (con naming e struttura coerenti).
+
+## Audit rapido completato (17:02)
+- Branch verificato: `main`.
+- Stato git: presenti modifiche pregresse (deletions/additions legacy già in staging) + nuovo `_dev/status.md`.
+- Tema attuale con doppia pista `standard` + `*.vasora*` (sezioni/template/snippet duplicati): forte rischio incoerenza editor e manutenzione.
+- File operativi moderni presenti in `assets/` (`critical.css`, `cart*.js`, `utils.js`) ma coesistono con artefatti legacy in `_dev/` e backup.
+- `theme-check` non eseguibile in questo host (mancano `theme-check` locale e Docker): **blocker tecnico di quality gate automatico**.
+
+## Backlog prioritizzato (prossime 2–3 ore)
+1. **Decisione architetturale (PM gate)**: scegliere una sola convenzione (baseline `*.vasora*` + fallback minimi, oppure baseline standard) e congelare naming.
+2. **Cleanup tranche A (safe)**: isolare backup in `_dev/backup/`, rimuovere riferimenti runtime a file legacy non usati, mantenendo build/theme preview stabile.
+3. **Editor UX pass**: uniformare schema/settings delle sezioni core (header, hero, product, collection, footer) con label chiare e default sensati.
+4. **Accessibilità base**: checklist rapida su focus visibile, heading order, alt/caption, landmark semantics.
+5. **Quality tooling**: abilitare execution `theme-check` (install locale o container runtime disponibile).
+
+## Assegnazione immediata
+### Designer (ora corrente)
+1. Mappa conflitti UX tra sezioni duplicate (`hero-*`, `main-*`, `product-card*`).
+2. Proposta naming canonico per sezioni/snippet e etichette editor.
+3. Draft checklist AA per componenti core.
+
+### Coder (ora corrente)
+1. Inventario riferimenti a file `*.vasora*` vs standard in `templates/*.json` e `sections/*`.
+2. Rimozione/isolamento dead artifacts non referenziati (step atomici).
+3. Preparazione comando quality gate replicabile (`theme-check`) per CI/local.
+
+## Rischi / Blocker
+- Possibile debito tecnico nascosto nei componenti legacy e nei backup locali.
+- Rischio regressioni editor UX se il cleanup non è atomico.
+- **Blocker attivo:** impossibile lanciare `theme-check` su host attuale (assenza Docker e binario locale).
 
 ## Definition of Done (oggi)
 - Backlog condiviso e ordinato per priorità.
