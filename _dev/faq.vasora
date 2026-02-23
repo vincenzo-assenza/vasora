@@ -1,0 +1,19 @@
+# FAQ Section (.vasora)
+
+components:
+  - name: faq-accordion
+    description: "Collapsible list of frequently asked questions with search/filter input."
+    props:
+      - items: array(title, content)
+
+accessibility:
+  - each accordion header implemented with button element and aria-expanded
+  - content regions with aria-hidden toggled and role="region" plus aria-labelledby
+  - keyboard: support Enter/Space to toggle, Up/Down to navigate between headers
+
+assets-suggestions:
+  - assets/vasora/icon-faq.svg
+
+notes:
+  - include micro-copy for support contact and expected response times
+  - keep answers concise; link to deeper docs when appropriate

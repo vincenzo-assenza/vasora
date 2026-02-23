@@ -1,0 +1,21 @@
+# Pricing Section (.vasora)
+
+components:
+  - name: pricing-grid
+    description: "Responsive pricing tier cards with toggle for monthly/yearly and recommended badge."
+    props:
+      - tiers: array
+      - billingCycle: string # 'monthly' | 'yearly'
+
+accessibility:
+  - ensure tariff cards are keyboard-focusable (tabindex=0)
+  - use aria-pressed for billing toggle and aria-live for price updates
+  - contrast: follow WCAG AA for text and button colors
+
+assets-suggestions:
+  - assets/vasora/icon-recommended.svg
+  - assets/vasora/pricing-illustration-1.svg
+
+notes:
+  - animation: prefer reduced-motion preference respect (prefers-reduced-motion)
+  - pricing copy: include small legal text area for VAT and trial info

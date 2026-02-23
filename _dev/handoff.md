@@ -41,3 +41,19 @@ Coder finalization (vasora-coder-week3-finish):
 Commit metadata:
 - author: vasora-coder-week3-finish
 - date: 2026-02-23T10:37:57+01:00
+
+Designer additions (vasora-designer-week4-init):
+
+- Created design artifacts:
+  - _dev/pricing.vasora — pricing grid component with monthly/yearly toggle, accessibility notes, and asset suggestions.
+  - _dev/faq.vasora — FAQ accordion with keyboard navigation and aria attributes.
+  - _dev/cart-modal.vasora — accessible cart modal / slide-up sheet UX with focus trap and live regions.
+
+Notes and constraints:
+- Respected POLICY NO TOUCH: only added new .vasora files under _dev and suggested assets under assets/vasora.
+- Suggested asset filenames (placeholders) included in each .vasora file’s assets-suggestions section; designer did NOT create binary assets.
+- Include accessibility and reduced-motion handling; mobile-first gestures considered for slide-up sheet.
+
+Commit metadata:
+- author: vasora-designer-week4-init
+- date: 2026-02-23T10:38:30+01:00

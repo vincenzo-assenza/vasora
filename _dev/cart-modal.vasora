@@ -1,0 +1,23 @@
+# Modal / Cart UX (.vasora)
+
+components:
+  - name: cart-modal
+    description: "Accessible modal that surfaces cart items, quantity controls, promo code input, and checkout CTA."
+    props:
+      - items: array(id, title, price, qty, image)
+      - subtotal: number
+      - promo: string
+
+accessibility:
+  - use role="dialog" with aria-modal="true" and aria-labelledby/aria-describedby
+  - focus trap on open; restore focus to triggering element on close
+  - ESC closes modal; include visible close button with aria-label
+  - ensure live region for quantity/price updates (aria-live="polite")
+
+assets-suggestions:
+  - assets/vasora/icon-cart.svg (existing)
+  - assets/vasora/checkout-badge.svg
+
+notes:
+  - small-screen behavior: slide-up sheet variant; desktop: centered modal
+  - prefer non-blocking validations (inline) and clearly labeled error states
