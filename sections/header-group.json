@@ -26,6 +26,11 @@
       ],
       "settings": {
         "full_width": true,
+        "autoplay": true,
+        "autoplay_speed": 4,
+        "background_color": "#111111",
+        "text_color": "#ffffff",
+        "border_color": "#ffffff33",
         "aria_label": "Announcement bar"
       }
     },

@@ -3,23 +3,28 @@
     class="announcement-bar"
     role="region"
     aria-label="{{ section.settings.aria_label | default: 'Announcement bar' }}"
+    aria-live="{% if section.settings.autoplay and section.blocks.size > 1 %}off{% else %}polite{% endif %}"
     data-announcement-bar
     data-autoplay="{{ section.settings.autoplay }}"
+    data-autoplay-speed="{{ section.settings.autoplay_speed | default: 4 }}"
+    style="--announcement-bg: {{ section.settings.background_color }}; --announcement-text: {{ section.settings.text_color }}; --announcement-border: {{ section.settings.border_color }};"
   >
     <div class="announcement-bar__inner{% unless section.settings.full_width %} u-container{% endunless %}">
-      <div class="announcement-bar__track" data-announcement-track>
-        {% for block in section.blocks %}
-          {% assign content = block.settings.content %}
-          {% if content != blank %}
-            <div
-              class="announcement-bar__slide{% if forloop.first %} is-active{% endif %}"
-              data-announcement-slide
-              {{ block.shopify_attributes }}
-            >
-              <div class="announcement-bar__item rte">{{ content }}</div>
-            </div>
-          {% endif %}
-        {% endfor %}
+      <div class="announcement-bar__viewport" data-announcement-viewport>
+        <div class="announcement-bar__track" data-announcement-track>
+          {% for block in section.blocks %}
+            {% assign content = block.settings.content %}
+            {% if content != blank %}
+              <div
+                class="announcement-bar__slide"
+                data-announcement-slide
+                {{ block.shopify_attributes }}
+              >
+                <div class="announcement-bar__item rte">{{ content }}</div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
       </div>
     </div>
   </section>
@@ -27,9 +32,9 @@
 
 {% stylesheet %}
   .announcement-bar {
-    background: var(--color-background);
-    color: var(--color-foreground);
-    border-bottom: 1px solid var(--color-border);
+    background: var(--announcement-bg, var(--color-background));
+    color: var(--announcement-text, var(--color-foreground));
+    border-bottom: 1px solid var(--announcement-border, var(--color-border));
     min-height: 2.2rem;
     display: flex;
     align-items: center;
@@ -41,25 +46,32 @@
     padding: 0.45rem var(--container-padding-inline);
   }
 
-  .announcement-bar__track {
-    position: relative;
-  }
-
-  .announcement-bar__slide {
-    display: none;
+  .announcement-bar__viewport {
+    overflow: hidden;
     width: 100%;
   }
 
-  .announcement-bar__slide.is-active {
-    display: block;
+  .announcement-bar__track {
+    display: flex;
+    width: 100%;
+    transform: translateX(0);
+    transition: transform 360ms ease;
+    will-change: transform;
+  }
+
+  .announcement-bar__slide {
+    flex: 0 0 100%;
+    width: 100%;
   }
 
   .announcement-bar__item {
     margin: 0;
+    padding: 0.2rem 0.4rem;
     text-align: center;
     font-size: 0.8rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+    border: 1px solid var(--announcement-border, var(--color-border));
   }
 
   .announcement-bar__item p {
@@ -72,23 +84,27 @@
     const root = document.querySelector('[data-announcement-bar]');
     if (!root) return;
 
+    const track = root.querySelector('[data-announcement-track]');
     const slides = Array.from(root.querySelectorAll('[data-announcement-slide]'));
-    if (slides.length <= 1) return;
+
+    if (!track || slides.length <= 1) return;
 
     let index = 0;
-    const show = (nextIndex) => {
-      slides[index]?.classList.remove('is-active');
+
+    const goTo = (nextIndex) => {
       index = nextIndex;
-      slides[index]?.classList.add('is-active');
+      track.style.transform = `translateX(-${index * 100}%)`;
     };
 
     const autoplay = root.dataset.autoplay === 'true';
-    if (!autoplay) return;
+    if (!autoplay || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const speedSeconds = Number(root.dataset.autoplaySpeed);
+    const intervalMs = Number.isFinite(speedSeconds) && speedSeconds > 0 ? speedSeconds * 1000 : 4000;
 
     setInterval(() => {
-      const next = (index + 1) % slides.length;
-      show(next);
-    }, 3500);
+      goTo((index + 1) % slides.length);
+    }, intervalMs);
   })();
 {% endjavascript %}
 
@@ -110,6 +126,33 @@
       "id": "autoplay",
       "label": "Autoplay",
       "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Autoplay speed (seconds)",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#ffffff33"
     },
     {
       "type": "text",
