@@ -1,0 +1,116 @@
+{% if section.blocks.size > 0 %}
+  <section
+    class="announcement-bar color-{{ section.settings.color_scheme }}"
+    role="region"
+    aria-label="{{ section.settings.aria_label | default: 'Announcement bar' }}"
+  >
+    <div class="announcement-bar__inner{% unless section.settings.full_width %} u-container{% endunless %}">
+      {% for block in section.blocks %}
+        {% assign text = block.settings.text | strip %}
+        {% if text != blank %}
+          <p class="announcement-bar__item" {{ block.shopify_attributes }}>
+            {% if block.settings.link != blank %}
+              <a href="{{ block.settings.link }}" class="announcement-bar__link">{{ text }}</a>
+            {% else %}
+              {{ text }}
+            {% endif %}
+          </p>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}
+
+{% stylesheet %}
+  .announcement-bar {
+    background: var(--color-background);
+    color: var(--color-foreground);
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    min-height: 2.2rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .announcement-bar__inner {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0.4rem var(--container-padding-inline);
+  }
+
+  .announcement-bar__item {
+    margin: 0;
+    text-align: center;
+  }
+
+  .announcement-bar__link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .announcement-bar__link:hover,
+  .announcement-bar__link:focus-visible {
+    text-decoration: underline;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:general.announcement_bar",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "Aria label",
+      "default": "Announcement bar"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Announcement",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Free shipping on orders over €50"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement bar",
+      "blocks": [
+        {
+          "type": "announcement"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
