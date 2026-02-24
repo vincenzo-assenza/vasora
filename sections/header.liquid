@@ -9,27 +9,6 @@
   endif
 %}
 <header class="site-header{% if section.settings.enable_transparent %} site-header--transparent{% endif %}{% if section.settings.enable_sticky %} site-header--sticky{% endif %}" data-header style="--logo-width: {{ section.settings.logo_width }}px; --header-bg: {{ header_bg }}; --header-text: {{ header_text }}; --header-border: {{ header_border }}; --header-bg-scrolled: {{ section.settings.bg_scrolled }}; --header-text-scrolled: {{ section.settings.text_scrolled }}; --header-border-scrolled: {{ section.settings.border_scrolled }};">
-  {% if section.settings.topbar_text != blank %}
-    <div class="site-header__topbar">
-      <div class="site-header__container{% unless section.settings.full_width %} u-container{% endunless %}">
-        {% if section.settings.topbar_link != blank %}
-          <a href="{{ section.settings.topbar_link }}" class="site-header__topbar-link">
-            {{ section.settings.topbar_text }}
-            {% if section.settings.topbar_countdown != blank %}
-              <span class="site-header__topbar-countdown">{{ section.settings.topbar_countdown }}</span>
-            {% endif %}
-          </a>
-        {% else %}
-          <p class="site-header__topbar-text">
-            {{ section.settings.topbar_text }}
-            {% if section.settings.topbar_countdown != blank %}
-              <span class="site-header__topbar-countdown">{{ section.settings.topbar_countdown }}</span>
-            {% endif %}
-          </p>
-        {% endif %}
-      </div>
-    </div>
-  {% endif %}
 
   <div class="site-header__main site-header__container{% unless section.settings.full_width %} u-container{% endunless %}">
     <div class="site-header__brand">
@@ -214,22 +193,6 @@
     background: var(--header-bg-scrolled);
     border-bottom: 1px solid var(--header-border-scrolled);
     box-shadow: var(--shadow-sm);
-  }
-  .site-header__topbar {
-    background: #111;
-    color: #fff;
-    font-size: 0.8rem;
-    padding-block: var(--space-2);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-  .site-header__topbar-countdown {
-    margin-left: var(--space-2);
-    font-weight: 600;
-  }
-  .site-header__topbar a {
-    color: inherit;
-    text-decoration: none;
   }
   .site-header__container {
     width: 100%;
@@ -606,11 +569,6 @@
       "label": "t:labels.menu"
     },
     {
-      "type": "text",
-      "id": "topbar_countdown",
-      "label": "Topbar countdown"
-    },
-    {
       "type": "image_picker",
       "id": "logo_image",
       "label": "Logo (default)"
@@ -701,16 +659,6 @@
       "id": "full_width",
       "label": "Fullscreen width (off = boxed)",
       "default": false
-    },
-    {
-      "type": "text",
-      "id": "topbar_text",
-      "label": "Top bar text"
-    },
-    {
-      "type": "url",
-      "id": "topbar_link",
-      "label": "Top bar link"
     }
   ],
   "blocks": [
