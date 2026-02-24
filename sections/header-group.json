@@ -26,7 +26,6 @@
         "announcement_1"
       ],
       "settings": {
-        "color_scheme": "scheme-1",
         "full_width": true,
         "aria_label": "Announcement bar"
       }
