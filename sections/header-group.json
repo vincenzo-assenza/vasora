@@ -14,14 +14,21 @@
     "announcement_bar": {
       "type": "announcement-bar",
       "blocks": {
+        "announcement_x7Rezr": {
+          "type": "announcement",
+          "settings": {
+            "content": "<p>Free shipping</p>"
+          }
+        },
         "announcement_1": {
           "type": "announcement",
           "settings": {
-            "content": "<p>Free Shipping</p>"
+            "content": "<p>Free shipping on orders over €50</p>"
           }
         }
       },
       "block_order": [
+        "announcement_x7Rezr",
         "announcement_1"
       ],
       "settings": {
@@ -60,23 +67,14 @@
         "bg_transparent": "rgba(0,0,0,0)",
         "text_transparent": "#ffffff",
         "border_transparent": "#ffffff33",
-        "bg_solid": "#FFFFFF",
+        "bg_solid": "#ffffff",
         "text_solid": "#111111",
         "border_solid": "#e5e5e5",
         "bg_scrolled": "#ffffff",
         "text_scrolled": "#111111",
         "border_scrolled": "#e5e5e5",
         "enable_sticky": true,
-        "full_width": true,
-        "bg_transparent": "#ffffff00",
-        "text_transparent": "#ffffff",
-        "border_transparent": "#ffffff33",
-        "bg_solid": "#ffffff",
-        "text_solid": "#111111",
-        "border_solid": "#e5e5e5",
-        "bg_scrolled": "#ffffff",
-        "text_scrolled": "#111111",
-        "border_scrolled": "#e5e5e5"
+        "full_width": true
       }
     }
   },
