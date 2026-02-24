@@ -11,6 +11,26 @@
   "type": "header",
   "name": "t:general.header",
   "sections": {
+    "announcement_bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement_1": {
+          "type": "announcement",
+          "settings": {
+            "text": "Free Shipping",
+            "link": "shopify://pages/contact"
+          }
+        }
+      },
+      "block_order": [
+        "announcement_1"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "full_width": true,
+        "aria_label": "Announcement bar"
+      }
+    },
     "header": {
       "type": "header",
       "blocks": {
@@ -30,7 +50,6 @@
       ],
       "settings": {
         "menu": "main-menu",
-        "topbar_countdown": "10.10.10",
         "logo_image": "shopify://shop_images/vasora-logo.svg",
         "logo_image_scrolled": "shopify://shop_images/Progetto_senza_titolo_1_-Photoroom.png",
         "logo_width": 120,
@@ -46,12 +65,20 @@
         "border_scrolled": "#e5e5e5",
         "enable_sticky": true,
         "full_width": true,
-        "topbar_text": "Free Shipping",
-        "topbar_link": "shopify://pages/contact"
+        "bg_transparent": "#ffffff00",
+        "text_transparent": "#ffffff",
+        "border_transparent": "#ffffff33",
+        "bg_solid": "#ffffff",
+        "text_solid": "#111111",
+        "border_solid": "#e5e5e5",
+        "bg_scrolled": "#ffffff",
+        "text_scrolled": "#111111",
+        "border_scrolled": "#e5e5e5"
       }
     }
   },
   "order": [
+    "announcement_bar",
     "header"
   ]
 }
