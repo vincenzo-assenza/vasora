@@ -17,8 +17,7 @@
         "announcement_1": {
           "type": "announcement",
           "settings": {
-            "text": "Free Shipping",
-            "link": "shopify://pages/contact"
+            "content": "<p>Free Shipping</p>"
           }
         }
       },
