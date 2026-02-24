@@ -1,6 +1,6 @@
 {% if section.blocks.size > 0 %}
   <section
-    class="announcement-bar color-{{ section.settings.color_scheme }}"
+    class="announcement-bar"
     role="region"
     aria-label="{{ section.settings.aria_label | default: 'Announcement bar' }}"
   >
@@ -63,12 +63,6 @@
     "groups": ["header"]
   },
   "settings": [
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "Color scheme",
-      "default": "scheme-1"
-    },
     {
       "type": "checkbox",
       "id": "full_width",
