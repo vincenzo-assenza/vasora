@@ -1,4 +1,14 @@
-<header class="site-header site-header--transparent{% if section.settings.enable_sticky %} site-header--sticky{% endif %}" data-header style="--logo-width: {{ section.settings.logo_width }}px;">
+{% liquid
+  assign header_bg = section.settings.bg_solid
+  assign header_text = section.settings.text_solid
+  assign header_border = section.settings.border_solid
+  if section.settings.enable_transparent
+    assign header_bg = section.settings.bg_transparent
+    assign header_text = section.settings.text_transparent
+    assign header_border = section.settings.border_transparent
+  endif
+%}
+<header class="site-header{% if section.settings.enable_transparent %} site-header--transparent{% endif %}{% if section.settings.enable_sticky %} site-header--sticky{% endif %}" data-header style="--logo-width: {{ section.settings.logo_width }}px; --header-bg: {{ header_bg }}; --header-text: {{ header_text }}; --header-border: {{ header_border }}; --header-bg-scrolled: {{ section.settings.bg_scrolled }}; --header-text-scrolled: {{ section.settings.text_scrolled }}; --header-border-scrolled: {{ section.settings.border_scrolled }};">
   {% if section.settings.topbar_text != blank %}
     <div class="site-header__topbar">
       <div class="site-header__container{% unless section.settings.full_width %} u-container{% endunless %}">
@@ -28,8 +38,15 @@
           {{
             section.settings.logo_image
             | image_url: width: 400
-            | image_tag: loading: 'eager', widths: '200, 320, 400', alt: shop.name
+            | image_tag: loading: 'eager', widths: '200, 320, 400', alt: shop.name, class: 'site-header__logo-default'
           }}
+          {% if section.settings.logo_image_scrolled != blank %}
+            {{
+              section.settings.logo_image_scrolled
+              | image_url: width: 400
+              | image_tag: loading: 'eager', widths: '200, 320, 400', alt: shop.name, class: 'site-header__logo-scrolled'
+            }}
+          {% endif %}
         {% else %}
           <span class="site-header__logo-text">{{ shop.name }}</span>
         {% endif %}
@@ -179,27 +196,24 @@
 
 {% stylesheet %}
   .site-header {
-    position: absolute;
+    --header-text-active: var(--header-text);
+    position: relative;
     top: 0;
     left: 0;
     right: 0;
     z-index: 40;
-    background: transparent;
-    border-bottom: 1px solid transparent;
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--header-border);
+  }
+  .site-header--transparent {
+    position: absolute;
   }
   /* sticky handled on section wrapper */
-  .site-header[data-scrolled='true'] {
-    background: #fff;
-    border-bottom: 1px solid var(--color-border);
+  .site-header--transparent[data-scrolled='true'] {
+    --header-text-active: var(--header-text-scrolled);
+    background: var(--header-bg-scrolled);
+    border-bottom: 1px solid var(--header-border-scrolled);
     box-shadow: var(--shadow-sm);
-  }
-  .site-header[data-scrolled='true'] .site-header__menu-link,
-  .site-header[data-scrolled='true'] .site-header__logo-text {
-    color: var(--color-foreground);
-  }
-  .site-header[data-scrolled='true'] .site-header__icon-button {
-    color: var(--color-foreground);
-    border-color: color-mix(in srgb, var(--color-foreground) 20%, transparent);
   }
   .site-header__topbar {
     background: #111;
@@ -246,6 +260,20 @@
   .site-header__logo-text {
     font-family: var(--font-accent--family);
     font-size: clamp(1.25rem, 2vw, 1.75rem);
+    color: var(--header-text-active);
+  }
+  .site-header__logo-default,
+  .site-header__logo-scrolled {
+    display: block;
+  }
+  .site-header__logo-scrolled {
+    display: none;
+  }
+  .site-header--transparent[data-scrolled='true'] .site-header__logo-default {
+    display: none;
+  }
+  .site-header--transparent[data-scrolled='true'] .site-header__logo-scrolled {
+    display: block;
   }
   .site-header__menu {
     list-style: none;
@@ -255,7 +283,7 @@
   }
   .site-header__menu-link {
     text-decoration: none;
-    color: var(--color-background);
+    color: var(--header-text-active);
     font-weight: 500;
     font-size: 0.75rem;
     letter-spacing: 0.2em;
@@ -365,9 +393,9 @@
     width: 2.2rem;
     height: 2.2rem;
     border-radius: 999px;
-    border: 1px solid color-mix(in srgb, #fff 30%, transparent);
+    border: 1px solid color-mix(in srgb, var(--header-text-active) 20%, transparent);
     background: transparent;
-    color: #fff;
+    color: var(--header-text-active);
     text-decoration: none;
   }
   .site-header__icon-button svg {
@@ -585,7 +613,12 @@
     {
       "type": "image_picker",
       "id": "logo_image",
-      "label": "Logo"
+      "label": "Logo (default)"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_image_scrolled",
+      "label": "Logo (scrolled, optional)"
     },
     {
       "type": "range",
@@ -599,6 +632,66 @@
     },
     {
       "type": "checkbox",
+      "id": "enable_transparent",
+      "label": "Transparent header",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "bg_transparent",
+      "label": "Transparent: background",
+      "default": "#ffffff00"
+    },
+    {
+      "type": "color",
+      "id": "text_transparent",
+      "label": "Transparent: text/icons",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "border_transparent",
+      "label": "Transparent: border",
+      "default": "#ffffff33"
+    },
+    {
+      "type": "color",
+      "id": "bg_solid",
+      "label": "Solid: background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_solid",
+      "label": "Solid: text/icons",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "border_solid",
+      "label": "Solid: border",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "color",
+      "id": "bg_scrolled",
+      "label": "Scrolled (transparent mode): background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_scrolled",
+      "label": "Scrolled (transparent mode): text/icons",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "border_scrolled",
+      "label": "Scrolled (transparent mode): border",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "checkbox",
       "id": "enable_sticky",
       "label": "Sticky header",
       "default": true
@@ -606,7 +699,7 @@
     {
       "type": "checkbox",
       "id": "full_width",
-      "label": "Full width header",
+      "label": "Fullscreen width (off = boxed)",
       "default": false
     },
     {
