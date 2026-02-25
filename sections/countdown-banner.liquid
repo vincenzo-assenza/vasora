@@ -13,6 +13,7 @@
   style="
     --countdown-overlay-color: {{ section.settings.overlay_color | default: '#000000' }};
     --countdown-overlay-opacity: {{ overlay_opacity }};
+    --countdown-mobile-min-height: {{ section.settings.mobile_min_height | default: 700 }}px;
     padding-top: {{ section.settings.padding_top | default: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | default: 0 }}px;
     margin-top: {{ section.settings.margin_top | default: 0 }}px;
@@ -177,6 +178,9 @@
   }
 
   @media (max-width: 900px) {
+    .countdown-banner {
+      min-height: var(--countdown-mobile-min-height, 700px);
+    }
     .countdown-banner__media-item--desktop {
       display: none;
     }
@@ -334,6 +338,16 @@
     },
 
     {"type": "header", "content": "Layout"},
+    {
+      "type": "range",
+      "id": "mobile_min_height",
+      "label": "Mobile min height",
+      "min": 280,
+      "max": 900,
+      "step": 10,
+      "unit": "px",
+      "default": 700
+    },
     {
       "type": "range",
       "id": "padding_top",
