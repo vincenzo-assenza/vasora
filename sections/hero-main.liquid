@@ -2,6 +2,7 @@
 {%- assign heading_tag = section.settings.heading_tag | default: 'h1' -%}
 {%- assign subheading_tag = section.settings.subheading_tag | default: 'p' -%}
 {%- assign content_alignment = section.settings.content_alignment | default: 'center' -%}
+{%- assign content_alignment_mobile = section.settings.content_alignment_mobile | default: content_alignment -%}
 {%- assign overlay_alpha = section.settings.overlay_opacity | default: 35 | times: 0.01 -%}
 {%- assign desktop_video = section.settings.background_video_desktop -%}
 {%- assign mobile_video = section.settings.background_video_mobile -%}
@@ -29,7 +30,7 @@
   {%- assign mobile_media_type = 'image_desktop_fallback' -%}
 {%- endif -%}
 <section
-  class="hero-main hero-main--align-{{ content_alignment }} full-width"
+  class="hero-main hero-main--align-{{ content_alignment }} hero-main--align-mobile-{{ content_alignment_mobile }} full-width"
   {% if section.settings.anchor_id != blank %}id="{{ section.settings.anchor_id | escape }}"{% endif %}
   style="
     --hero-text-color: {{ section.settings.text_color | default: '#ffffff' }};
@@ -274,16 +275,41 @@
     .hero-main__media-mobile {
       display: block;
     }
-    .hero-main--align-left .hero-main__copy,
-    .hero-main--align-center .hero-main__copy,
-    .hero-main--align-right .hero-main__copy {
+    .hero-main--align-mobile-left .hero-main__copy {
+      margin-inline: 0 auto;
+      text-align: left;
+    }
+    .hero-main--align-mobile-center .hero-main__copy {
       margin: 0 auto;
       text-align: center;
     }
-    .hero-main__actions,
-    .hero-main--align-left .hero-main__actions,
-    .hero-main--align-right .hero-main__actions {
+    .hero-main--align-mobile-right .hero-main__copy {
+      margin-inline: auto 0;
+      text-align: right;
+    }
+    .hero-main--align-mobile-left .hero-main__eyebrow,
+    .hero-main--align-mobile-left .hero-main__heading,
+    .hero-main--align-mobile-left .hero-main__subheading {
+      text-align: left;
+    }
+    .hero-main--align-mobile-center .hero-main__eyebrow,
+    .hero-main--align-mobile-center .hero-main__heading,
+    .hero-main--align-mobile-center .hero-main__subheading {
+      text-align: center;
+    }
+    .hero-main--align-mobile-right .hero-main__eyebrow,
+    .hero-main--align-mobile-right .hero-main__heading,
+    .hero-main--align-mobile-right .hero-main__subheading {
+      text-align: right;
+    }
+    .hero-main--align-mobile-left .hero-main__actions {
+      justify-content: flex-start;
+    }
+    .hero-main--align-mobile-center .hero-main__actions {
       justify-content: center;
+    }
+    .hero-main--align-mobile-right .hero-main__actions {
+      justify-content: flex-end;
     }
   }
 {% endstylesheet %}
@@ -456,6 +482,17 @@
       "type": "select",
       "id": "content_alignment",
       "label": "Content alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "content_alignment_mobile",
+      "label": "Content alignment mobile",
       "default": "center",
       "options": [
         { "value": "left", "label": "Left" },
