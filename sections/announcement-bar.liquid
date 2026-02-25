@@ -33,6 +33,7 @@
 <style>
   #shopify-section-{{ section.id }} {
     display: block;
+    position: relative;
     width: 100%;
     max-width: 100%;
     margin: 0;
@@ -58,8 +59,8 @@
   }
 
   .announcement-bar:not(.full-width) {
-    width: min(100%, var(--announcement-boxed-width, 1440px));
-    max-width: var(--announcement-boxed-width, 1440px);
+    width: min(100%, var(--container-max, 1440px));
+    max-width: var(--container-max, 1440px);
     margin-left: auto;
     margin-right: auto;
   }

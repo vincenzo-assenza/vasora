@@ -1,8 +1,9 @@
 <footer class="footer" aria-labelledby="footer-heading" style="padding-top: {{ section.settings.padding_top | default: 0 }}px; padding-bottom: {{ section.settings.padding_bottom | default: 0 }}px; margin-top: {{ section.settings.margin_top | default: 0 }}px; margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px;">
   <h2 id="footer-heading" class="sr-only">Footer</h2>
 
-  <div class="footer__grid">
-    <div class="footer__newsletter">
+  <div class="footer__container u-container">
+    <div class="footer__grid">
+      <div class="footer__newsletter">
       {% if section.settings.newsletter_heading != blank %}
         <{{ section.settings.newsletter_heading_tag | default: "h3" }}>{{ section.settings.newsletter_heading }}</{{ section.settings.newsletter_heading_tag | default: "h3" }}>
       {% endif %}
@@ -79,20 +80,21 @@
     </div>
   </div>
 
-  <div class="footer__bottom">
-    <div class="footer__legal">
-      <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}</span>
-      {% if section.settings.legal_text != blank %}
-        <span>{{ section.settings.legal_text }}</span>
+    <div class="footer__bottom">
+      <div class="footer__legal">
+        <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}</span>
+        {% if section.settings.legal_text != blank %}
+          <span>{{ section.settings.legal_text }}</span>
+        {% endif %}
+      </div>
+      {% if section.settings.show_payment_icons %}
+        <div class="footer__payment" aria-label="Payment methods">
+          {% for type in shop.enabled_payment_types %}
+            {{ type | payment_type_svg_tag }}
+          {% endfor %}
+        </div>
       {% endif %}
     </div>
-    {% if section.settings.show_payment_icons %}
-      <div class="footer__payment" aria-label="Payment methods">
-        {% for type in shop.enabled_payment_types %}
-          {{ type | payment_type_svg_tag }}
-        {% endfor %}
-      </div>
-    {% endif %}
   </div>
 </footer>
 
@@ -114,12 +116,13 @@
     color: var(--color-muted);
     font-size: 0.9rem;
   }
+  .footer__container {
+    width: 100%;
+  }
   .footer__grid {
     display: grid;
     grid-template-columns: 1.2fr 1fr 1fr 1.2fr;
     gap: var(--space-6);
-    width: min(100% - 2 * var(--container-padding-inline), var(--container-max));
-    margin: 0 auto;
   }
   .footer__newsletter-form {
     display: grid;
@@ -175,8 +178,6 @@
     gap: var(--space-3);
     justify-content: space-between;
     align-items: center;
-    width: min(100% - 2 * var(--container-padding-inline), var(--container-max));
-    margin: 0 auto;
     color: var(--color-muted);
     font-size: 0.85rem;
   }
