@@ -32,7 +32,7 @@
         "announcement_1"
       ],
       "settings": {
-        "full_width": true,
+        "full_width": false,
         "autoplay": true,
         "autoplay_speed": 4,
         "background_color": "#000000",
