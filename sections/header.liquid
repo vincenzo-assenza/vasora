@@ -164,6 +164,12 @@
 </header>
 
 <style>
+  #shopify-section-{{ section.id }} {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+  }
+
   {% if section.settings.enable_sticky %}
   #shopify-section-{{ section.id }} {
     position: sticky;

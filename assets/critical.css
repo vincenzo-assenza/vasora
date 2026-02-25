@@ -179,7 +179,7 @@ p {
 	/* This is required to make <img> elements work as background images */
 	position: relative;
 	grid-template-columns: var(--content-grid);
-	display: grid;
+	display: block;
 	width: 100%;
 }
 
