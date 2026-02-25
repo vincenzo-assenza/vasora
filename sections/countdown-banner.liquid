@@ -1,12 +1,12 @@
 {%- assign eyebrow_tag = section.settings.eyebrow_tag | default: 'p' -%}
 {%- assign heading_tag = section.settings.heading_tag | default: 'h2' -%}
 {%- assign subheading_tag = section.settings.subheading_tag | default: 'p' -%}
+{%- assign overlay_opacity = section.settings.overlay_opacity | default: 35 | divided_by: 100.0 -%}
 {%- assign media_mode = section.settings.media_mode | default: 'auto' -%}
 {%- assign allow_video = true -%}
 {%- if media_mode == 'image_only' -%}
   {%- assign allow_video = false -%}
 {%- endif -%}
-{%- assign overlay_opacity = section.settings.overlay_opacity | default: 35 | divided_by: 100.0 -%}
 <section
   class="countdown-banner"
   {% if section.settings.anchor_id != blank %}id="{{ section.settings.anchor_id | escape }}"{% endif %}
@@ -306,11 +306,17 @@
     {"type": "text", "id": "cta_title", "label": "CTA a11y title"},
 
     {"type": "header", "content": "Media & Branding"},
-    {"type": "select", "id": "media_mode", "label": "Media mode", "default": "auto", "options": [
-      {"value": "auto", "label": "Auto"},
-      {"value": "image_only", "label": "Image only"},
-      {"value": "video_preferred", "label": "Video preferred"}
-    ]},
+    {
+      "type": "select",
+      "id": "media_mode",
+      "label": "Media mode",
+      "default": "auto",
+      "options": [
+        { "value": "auto", "label": "Auto (prefer video)" },
+        { "value": "image_only", "label": "Image only" },
+        { "value": "video_preferred", "label": "Video preferred" }
+      ]
+    },
     {"type": "image_picker", "id": "background_image", "label": "Background image"},
     {"type": "image_picker", "id": "background_image_mobile", "label": "Background image (mobile)"},
     {"type": "video", "id": "background_video_desktop", "label": "Background video (desktop)"},

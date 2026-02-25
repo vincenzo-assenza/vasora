@@ -7,6 +7,27 @@
 {%- assign mobile_video = section.settings.background_video_mobile -%}
 {%- assign desktop_image = section.settings.background_image -%}
 {%- assign mobile_image = section.settings.background_image_mobile | default: desktop_image -%}
+{%- assign media_mode = section.settings.media_mode | default: 'auto' -%}
+{%- assign allow_video = true -%}
+{%- if media_mode == 'image_only' -%}
+  {%- assign allow_video = false -%}
+{%- endif -%}
+
+{%- assign desktop_media_type = 'none' -%}
+{%- if allow_video and desktop_video != blank -%}
+  {%- assign desktop_media_type = 'video' -%}
+{%- elsif desktop_image != blank -%}
+  {%- assign desktop_media_type = 'image' -%}
+{%- endif -%}
+
+{%- assign mobile_media_type = 'none' -%}
+{%- if allow_video and mobile_video != blank -%}
+  {%- assign mobile_media_type = 'video' -%}
+{%- elsif mobile_image != blank -%}
+  {%- assign mobile_media_type = 'image' -%}
+{%- elsif desktop_image != blank -%}
+  {%- assign mobile_media_type = 'image_desktop_fallback' -%}
+{%- endif -%}
 <section
   class="hero-main hero-main--align-{{ content_alignment }} full-width"
   {% if section.settings.anchor_id != blank %}id="{{ section.settings.anchor_id | escape }}"{% endif %}
@@ -19,10 +40,10 @@
     margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px;
   "
 >
-  {% if desktop_video != blank or mobile_video != blank or desktop_image != blank or mobile_image != blank %}
+  {% if desktop_media_type != 'none' or mobile_media_type != 'none' %}
     <div class="hero-main__media" aria-hidden="true">
       <div class="hero-main__media-desktop">
-        {% if desktop_video != blank %}
+        {% if desktop_media_type == 'video' %}
           {{
             desktop_video
             | video_tag:
@@ -34,7 +55,7 @@
               image_size: '2000x',
               class: 'hero-main__video'
           }}
-        {% elsif desktop_image != blank %}
+        {% elsif desktop_media_type == 'image' %}
           {{
             desktop_image
             | image_url: width: 2200
@@ -49,7 +70,7 @@
       </div>
 
       <div class="hero-main__media-mobile">
-        {% if mobile_video != blank %}
+        {% if mobile_media_type == 'video' %}
           {{
             mobile_video
             | video_tag:
@@ -61,9 +82,20 @@
               image_size: '1200x',
               class: 'hero-main__video'
           }}
-        {% elsif mobile_image != blank %}
+        {% elsif mobile_media_type == 'image' %}
           {{
             mobile_image
+            | image_url: width: 1400
+            | image_tag:
+              loading: 'eager',
+              fetchpriority: 'high',
+              widths: '480, 768, 1024, 1400',
+              class: 'hero-main__image',
+              alt: ''
+          }}
+        {% elsif mobile_media_type == 'image_desktop_fallback' %}
+          {{
+            desktop_image
             | image_url: width: 1400
             | image_tag:
               loading: 'eager',
@@ -341,6 +373,17 @@
     {
       "type": "header",
       "content": "Media & Branding"
+    },
+    {
+      "type": "select",
+      "id": "media_mode",
+      "label": "Media mode",
+      "default": "auto",
+      "options": [
+        { "value": "auto", "label": "Auto (prefer video)" },
+        { "value": "image_only", "label": "Image only" },
+        { "value": "video_preferred", "label": "Video preferred" }
+      ]
     },
     {
       "type": "image_picker",
