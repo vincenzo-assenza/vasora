@@ -1,6 +1,6 @@
 {% if section.blocks.size > 0 %}
   <section
-    class="announcement-bar full-width"
+    class="announcement-bar{% if section.settings.full_width %} full-width{% endif %}"
     role="region"
     aria-label="{{ section.settings.aria_label | default: 'Announcement bar' }}"
     aria-live="{% if section.settings.autoplay and section.blocks.size > 1 %}off{% else %}polite{% endif %}"
