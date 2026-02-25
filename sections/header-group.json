@@ -74,7 +74,7 @@
         "text_scrolled": "#111111",
         "border_scrolled": "#e5e5e5",
         "enable_sticky": true,
-        "full_width": true
+        "full_width": false
       }
     }
   },
