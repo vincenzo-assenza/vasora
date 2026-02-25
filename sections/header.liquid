@@ -583,9 +583,17 @@
   "name": "t:general.header",
   "settings": [
     {
+      "type": "header",
+      "content": "Content"
+    },
+    {
       "type": "link_list",
       "id": "menu",
       "label": "t:labels.menu"
+    },
+    {
+      "type": "header",
+      "content": "Branding"
     },
     {
       "type": "image_picker",
@@ -608,10 +616,34 @@
       "default": 200
     },
     {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Fullscreen width (off = boxed)",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky",
+      "label": "Sticky header",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Behavior"
+    },
+    {
       "type": "checkbox",
       "id": "enable_transparent",
       "label": "Transparent header",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colors · Transparent state"
     },
     {
       "type": "color",
@@ -632,6 +664,10 @@
       "default": "#ffffff33"
     },
     {
+      "type": "header",
+      "content": "Colors · Solid state"
+    },
+    {
       "type": "color",
       "id": "bg_solid",
       "label": "Solid: background",
@@ -650,6 +686,10 @@
       "default": "#e5e5e5"
     },
     {
+      "type": "header",
+      "content": "Colors · Scrolled state"
+    },
+    {
       "type": "color",
       "id": "bg_scrolled",
       "label": "Scrolled (transparent mode): background",
@@ -666,18 +706,6 @@
       "id": "border_scrolled",
       "label": "Scrolled (transparent mode): border",
       "default": "#e5e5e5"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_sticky",
-      "label": "Sticky header",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "full_width",
-      "label": "Fullscreen width (off = boxed)",
-      "default": false
     }
   ],
   "blocks": [
