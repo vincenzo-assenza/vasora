@@ -1,10 +1,19 @@
 {%- assign eyebrow_tag = section.settings.eyebrow_tag | default: 'p' -%}
 {%- assign heading_tag = section.settings.heading_tag | default: 'h1' -%}
 {%- assign subheading_tag = section.settings.subheading_tag | default: 'p' -%}
+{%- assign content_alignment = section.settings.content_alignment | default: 'center' -%}
+{%- assign overlay_alpha = section.settings.overlay_opacity | default: 35 | times: 0.01 -%}
 <section
-  class="hero-main full-width"
+  class="hero-main hero-main--align-{{ content_alignment }} full-width"
   {% if section.settings.anchor_id != blank %}id="{{ section.settings.anchor_id | escape }}"{% endif %}
-  style="padding-top: {{ section.settings.padding_top | default: 0 }}px; padding-bottom: {{ section.settings.padding_bottom | default: 0 }}px; margin-top: {{ section.settings.margin_top | default: 0 }}px; margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px;"
+  style="
+    --hero-text-color: {{ section.settings.text_color | default: '#ffffff' }};
+    --hero-mobile-min-height: {{ section.settings.mobile_min_height | default: 70 }}svh;
+    padding-top: {{ section.settings.padding_top | default: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | default: 0 }}px;
+    margin-top: {{ section.settings.margin_top | default: 0 }}px;
+    margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px;
+  "
 >
   {% if section.settings.background_image != blank %}
     <div class="hero-main__media" aria-hidden="true">
@@ -16,7 +25,10 @@
     </div>
   {% endif %}
 
-  <div class="hero-main__overlay"></div>
+  <div
+    class="hero-main__overlay"
+    style="background-color: {{ section.settings.overlay_color | default: '#000000' | color_modify: 'alpha', overlay_alpha }};"
+  ></div>
 
   <div class="hero-main__content">
     <div class="hero-main__copy u-flow">
@@ -52,7 +64,7 @@
     min-height: clamp(520px, 85vh, 900px);
     display: grid;
     place-items: center;
-    color: var(--color-background);
+    color: var(--hero-text-color, var(--color-background));
     overflow: hidden;
   }
   .hero-main__media,
@@ -78,6 +90,14 @@
     text-align: center;
     margin: 0 auto;
   }
+  .hero-main--align-left .hero-main__copy {
+    text-align: left;
+    margin-inline: 0 auto;
+  }
+  .hero-main--align-right .hero-main__copy {
+    text-align: right;
+    margin-inline: auto 0;
+  }
   .hero-main__heading {
     font-family: var(--font-primary--family);
     text-transform: uppercase;
@@ -92,7 +112,7 @@
   }
   .hero-main__subheading {
     font-size: clamp(1rem, 2vw, 1.25rem);
-    color: rgba(255, 255, 255, 0.85);
+    opacity: 0.85;
   }
   .hero-main__actions {
     display: flex;
@@ -100,6 +120,12 @@
     gap: var(--space-3);
     margin-top: var(--space-5);
     justify-content: center;
+  }
+  .hero-main--align-left .hero-main__actions {
+    justify-content: flex-start;
+  }
+  .hero-main--align-right .hero-main__actions {
+    justify-content: flex-end;
   }
   .hero-main__cta {
     text-decoration: none;
@@ -123,13 +149,17 @@
 
   @media (max-width: 768px) {
     .hero-main {
-      min-height: 70svh;
+      min-height: var(--hero-mobile-min-height, 70svh);
+    }
+    .hero-main--align-left .hero-main__copy,
+    .hero-main--align-center .hero-main__copy,
+    .hero-main--align-right .hero-main__copy {
+      margin: 0 auto;
       text-align: center;
     }
-    .hero-main__copy {
-      margin: 0 auto;
-    }
-    .hero-main__actions {
+    .hero-main__actions,
+    .hero-main--align-left .hero-main__actions,
+    .hero-main--align-right .hero-main__actions {
       justify-content: center;
     }
   }
@@ -140,15 +170,14 @@
   "name": "Hero main",
   "settings": [
     {
+      "type": "header",
+      "content": "Content"
+    },
+    {
       "type": "text",
       "id": "anchor_id",
       "label": "Anchor ID",
       "default": "hero"
-    },
-    {
-      "type": "image_picker",
-      "id": "background_image",
-      "label": "Background image"
     },
     {
       "type": "text",
@@ -203,6 +232,21 @@
       "default": "Linee pulite, materiali premium e una palette senza tempo."
     },
     {
+      "type": "text",
+      "id": "primary_cta_label",
+      "label": "Primary CTA label",
+      "default": "Acquista ora"
+    },
+    {
+      "type": "url",
+      "id": "primary_cta_link",
+      "label": "Primary CTA link"
+    },
+    {
+      "type": "header",
+      "content": "Accessibility"
+    },
+    {
       "type": "select",
       "id": "subheading_tag",
       "label": "Subheading tag",
@@ -221,19 +265,64 @@
     },
     {
       "type": "text",
-      "id": "primary_cta_label",
-      "label": "Primary CTA label",
-      "default": "Acquista ora"
-    },
-    {
-      "type": "url",
-      "id": "primary_cta_link",
-      "label": "Primary CTA link"
-    },
-    {
-      "type": "text",
       "id": "primary_cta_title",
       "label": "Primary CTA a11y title"
+    },
+    {
+      "type": "header",
+      "content": "Media & Branding"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 35
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Content alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "mobile_min_height",
+      "label": "Mobile min height",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "vh",
+      "default": 70
     },
     {
       "type": "range",
