@@ -1,6 +1,7 @@
 {%- assign eyebrow_tag = section.settings.eyebrow_tag | default: 'p' -%}
 {%- assign heading_tag = section.settings.heading_tag | default: 'h2' -%}
 {%- assign subheading_tag = section.settings.subheading_tag | default: 'p' -%}
+{%- assign content_alignment = section.settings.content_alignment | default: 'center' -%}
 {%- assign overlay_opacity = section.settings.overlay_opacity | default: 35 | divided_by: 100.0 -%}
 {%- assign media_mode = section.settings.media_mode | default: 'auto' -%}
 {%- assign allow_video = true -%}
@@ -13,7 +14,7 @@
   {%- assign mobile_min_height_unit = 'px' -%}
 {%- endif -%}
 <section
-  class="countdown-banner"
+  class="countdown-banner countdown-banner--align-{{ content_alignment }}"
   {% if section.settings.anchor_id != blank %}id="{{ section.settings.anchor_id | escape }}"{% endif %}
   style="
     --countdown-overlay-color: {{ section.settings.overlay_color | default: '#000000' }};
@@ -135,7 +136,11 @@
     gap: var(--space-6);
     padding-block: 0;
   }
+  .countdown-banner__content {
+    text-align: center;
+  }
   .countdown-banner__eyebrow {
+    display: block;
     text-transform: uppercase;
     letter-spacing: 0.22em;
     font-size: 0.7rem;
@@ -150,6 +155,7 @@
   .countdown-banner__subheading {
     color: rgba(255,255,255,0.85);
     max-width: 520px;
+    margin-inline: auto;
   }
   .countdown-banner__cta {
     display: inline-flex;
@@ -169,6 +175,26 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: var(--space-4);
     text-align: center;
+    justify-self: center;
+    width: min(100%, 460px);
+  }
+  .countdown-banner--align-left .countdown-banner__content {
+    text-align: left;
+  }
+  .countdown-banner--align-left .countdown-banner__subheading {
+    margin-inline: 0;
+  }
+  .countdown-banner--align-left .countdown-banner__timer {
+    justify-self: start;
+  }
+  .countdown-banner--align-right .countdown-banner__content {
+    text-align: right;
+  }
+  .countdown-banner--align-right .countdown-banner__subheading {
+    margin-inline: auto 0;
+  }
+  .countdown-banner--align-right .countdown-banner__timer {
+    justify-self: end;
   }
   .countdown-banner__unit span {
     font-size: clamp(1.4rem, 3vw, 2.4rem);
@@ -194,11 +220,19 @@
     }
     .countdown-banner__inner {
       grid-template-columns: 1fr;
-      text-align: left;
     }
     .countdown-banner__timer {
-      justify-items: start;
       grid-template-columns: repeat(2, minmax(0, 1fr));
+      width: min(100%, 320px);
+    }
+    .countdown-banner--align-left .countdown-banner__timer {
+      justify-self: start;
+    }
+    .countdown-banner--align-center .countdown-banner__timer {
+      justify-self: center;
+    }
+    .countdown-banner--align-right .countdown-banner__timer {
+      justify-self: end;
     }
   }
 {% endstylesheet %}
@@ -343,6 +377,17 @@
     },
 
     {"type": "header", "content": "Layout"},
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Content alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
     {
       "type": "range",
       "id": "mobile_min_height",

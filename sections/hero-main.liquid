@@ -186,6 +186,11 @@
     text-align: center;
     margin: 0 auto;
   }
+  .hero-main__eyebrow,
+  .hero-main__heading,
+  .hero-main__subheading {
+    text-align: inherit;
+  }
   .hero-main--align-left .hero-main__copy {
     text-align: left;
     margin-inline: 0 auto;
@@ -193,6 +198,21 @@
   .hero-main--align-right .hero-main__copy {
     text-align: right;
     margin-inline: auto 0;
+  }
+  .hero-main--align-left .hero-main__eyebrow,
+  .hero-main--align-left .hero-main__heading,
+  .hero-main--align-left .hero-main__subheading {
+    text-align: left;
+  }
+  .hero-main--align-center .hero-main__eyebrow,
+  .hero-main--align-center .hero-main__heading,
+  .hero-main--align-center .hero-main__subheading {
+    text-align: center;
+  }
+  .hero-main--align-right .hero-main__eyebrow,
+  .hero-main--align-right .hero-main__heading,
+  .hero-main--align-right .hero-main__subheading {
+    text-align: right;
   }
   .hero-main__heading {
     font-family: var(--font-primary--family);
@@ -202,6 +222,7 @@
     letter-spacing: 0.22em;
   }
   .hero-main__eyebrow {
+    display: block;
     text-transform: uppercase;
     letter-spacing: 0.28em;
     font-size: 0.65rem;
