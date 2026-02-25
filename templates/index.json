@@ -53,6 +53,7 @@
         "background_image": "shopify://shop_images/pexels-the-5th-50003-179909.jpg",
         "overlay_color": "#000000",
         "overlay_opacity": 75,
+        "content_alignment": "left",
         "mobile_min_height": 60,
         "padding_top": 0,
         "padding_bottom": 0,
