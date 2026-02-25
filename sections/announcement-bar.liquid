@@ -1,6 +1,6 @@
 {% if section.blocks.size > 0 %}
   <section
-    class="announcement-bar"
+    class="announcement-bar full-width"
     role="region"
     aria-label="{{ section.settings.aria_label | default: 'Announcement bar' }}"
     aria-live="{% if section.settings.autoplay and section.blocks.size > 1 %}off{% else %}polite{% endif %}"
@@ -29,6 +29,16 @@
     </div>
   </section>
 {% endif %}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+</style>
 
 {% stylesheet %}
   .announcement-bar {
@@ -90,7 +100,10 @@
 
 {% javascript %}
   (() => {
-    const root = document.querySelector('[data-announcement-bar]');
+    const sectionRoot = document.getElementById('shopify-section-{{ section.id }}');
+    if (!sectionRoot) return;
+
+    const root = sectionRoot.querySelector('[data-announcement-bar]');
     if (!root) return;
 
     const track = root.querySelector('[data-announcement-track]');
