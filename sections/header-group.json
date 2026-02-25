@@ -43,26 +43,13 @@
     },
     "header": {
       "type": "header",
-      "blocks": {
-        "mega_feature_HkzD7x": {
-          "type": "mega_feature",
-          "settings": {
-            "parent_link": "Catalog",
-            "image": "shopify://shop_images/ChatGPTImageFeb2_2026_11_08_00AM_66fe3667-0533-4635-8f3c-3ecf80c656d6.png",
-            "title": "fsdfsd",
-            "copy": "fdsfsf",
-            "link": "shopify://pages/contact"
-          }
-        }
-      },
-      "block_order": [
-        "mega_feature_HkzD7x"
-      ],
       "settings": {
         "menu": "main-menu",
         "logo_image": "shopify://shop_images/vasora-logo.svg",
         "logo_image_scrolled": "shopify://shop_images/Progetto_senza_titolo_1_-Photoroom.png",
         "logo_width": 120,
+        "full_width": true,
+        "enable_sticky": true,
         "enable_transparent": true,
         "bg_transparent": "rgba(0,0,0,0)",
         "text_transparent": "#ffffff",
@@ -72,9 +59,7 @@
         "border_solid": "#e5e5e5",
         "bg_scrolled": "#ffffff",
         "text_scrolled": "#111111",
-        "border_scrolled": "#e5e5e5",
-        "enable_sticky": true,
-        "full_width": true
+        "border_scrolled": "#e5e5e5"
       }
     }
   },
