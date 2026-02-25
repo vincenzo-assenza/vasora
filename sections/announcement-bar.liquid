@@ -62,11 +62,19 @@
   .announcement-bar__slide {
     flex: 0 0 100%;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .announcement-bar__item {
     margin: 0;
     padding: 0.2rem 0.4rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    max-width: 100%;
     text-align: center;
     font-size: 0.8rem;
     letter-spacing: 0.08em;
@@ -76,6 +84,7 @@
 
   .announcement-bar__item p {
     margin: 0;
+    text-align: center;
   }
 {% endstylesheet %}
 
