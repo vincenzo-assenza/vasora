@@ -50,12 +50,12 @@
         "cta_title": "",
         "media_mode": "auto",
         "background_image": "shopify://shop_images/pexels-the-5th-50003-179909.jpg",
-        "overlay_color": "#9d6348",
+        "overlay_color": "#000000",
         "overlay_opacity": 75,
         "padding_top": 0,
         "padding_bottom": 0,
-        "margin_top": 32,
-        "margin_bottom": 32,
+        "margin_top": 64,
+        "margin_bottom": 64,
         "end_date": "2026-12-31",
         "end_time": "23:59"
       }
