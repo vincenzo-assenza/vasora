@@ -118,6 +118,38 @@ h3 {
 	line-height: 1.2;
 }
 
+/* Unified section heading style (minimal luxury) */
+:where(
+	.hero-main__heading,
+	.hero-split__heading,
+	.product-spotlight__heading,
+	.hero-final-cta__heading,
+	.countdown-banner__heading,
+	.newsletter-hero__heading,
+	.hero-testimonials__heading-text,
+	.best-sellers__title,
+	.featured-categories__title,
+	.featured-collection-grid__title,
+	.usp-strip__title
+) {
+	font-family: var(--font-primary--family);
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	line-height: 1.1;
+	max-width: 18ch;
+	margin-inline: auto;
+}
+
+:where(
+	.hero-main--align-left .hero-main__heading,
+	.hero-main--align-right .hero-main__heading,
+	.countdown-banner--align-left .countdown-banner__heading,
+	.countdown-banner--align-right .countdown-banner__heading
+) {
+	margin-inline: 0;
+}
+
 p {
 	max-width: var(--text-max);
 }
