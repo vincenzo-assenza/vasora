@@ -1,7 +1,0 @@
-{
-  "name": "search (Vasora variant)",
-  "sections": {
-    "main": { "type": "main-search.vasora" }
-  },
-  "order": ["main"]
-}
