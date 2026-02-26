@@ -89,7 +89,7 @@
   }
   .product-page__eyebrow {
     text-transform: uppercase;
-    letter-spacing: 0.24em;
+    letter-spacing: 0.14em;
     font-size: 0.65rem;
     color: var(--color-muted);
     margin: 0;
@@ -116,7 +116,7 @@
   .product-page__label {
     font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.12em;
     color: var(--color-muted);
   }
   .product-page__select,
@@ -129,15 +129,24 @@
   }
   .product-page__cta {
     padding: 0.9rem 1.6rem;
-    background: #111;
-    color: #fff;
-    border: none;
+    --cta-bg: #111;
+    --cta-fg: #fff;
+    --cta-border: #111;
+    background: var(--cta-bg);
+    color: var(--cta-fg);
+    border: 1px solid var(--cta-border);
     border-radius: 999px;
     text-transform: uppercase;
-    letter-spacing: 0.2em;
+    letter-spacing: var(--cta-letter-spacing, 0.12em);
     font-size: 0.72rem;
     font-weight: 600;
     cursor: pointer;
+    transition: transform 150ms ease, box-shadow 150ms ease;
+  }
+  .product-page__cta:hover,
+  .product-page__cta:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
   }
   .product-page__payment {
     margin-top: var(--space-2);

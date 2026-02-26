@@ -108,7 +108,7 @@
   .footer h3,
   .footer__column-title {
     font-size: 0.7rem;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     font-weight: 500;
   }
@@ -137,14 +137,23 @@
   .footer__button {
     width: fit-content;
     padding: 0.85rem 1.8rem;
-    background: #111;
-    color: #fff;
-    border: 1px solid #111;
+    --cta-bg: #111;
+    --cta-fg: #fff;
+    --cta-border: #111;
+    background: var(--cta-bg);
+    color: var(--cta-fg);
+    border: 1px solid var(--cta-border);
     border-radius: 0;
     text-transform: uppercase;
-    letter-spacing: 0.2em;
+    letter-spacing: var(--cta-letter-spacing, 0.12em);
     font-size: 0.7rem;
     font-weight: 400;
+    transition: transform 150ms ease, box-shadow 150ms ease;
+  }
+  .footer__button:hover,
+  .footer__button:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
   }
   .footer__social {
     display: flex;
@@ -154,7 +163,7 @@
   .footer__social a {
     text-decoration: none;
     font-size: 0.75rem;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.12em;
   }
   .footer__column-title {
     background: none;
