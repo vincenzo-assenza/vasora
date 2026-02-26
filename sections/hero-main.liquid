@@ -220,13 +220,13 @@
     text-transform: uppercase;
     font-size: clamp(2.4rem, 5vw, 4.2rem);
     line-height: 1.05;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.1em;
   }
   .hero-main__eyebrow {
     display: block;
     text-transform: uppercase;
-    letter-spacing: 0.28em;
-    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    font-size: 0.68rem;
   }
   .hero-main__subheading {
     font-size: clamp(1rem, 2vw, 1.25rem);
@@ -247,17 +247,12 @@
   }
   .hero-main__cta {
     text-decoration: none;
-    padding: 0.6rem 1.4rem;
-    border-radius: 2px;
-    font-weight: 600;
-    font-size: 0.72rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
     transition: transform 150ms ease, box-shadow 150ms ease, opacity 150ms ease;
   }
   .hero-main__cta--primary {
-    background: #fff;
-    color: #111;
+    --cta-bg: #fff;
+    --cta-fg: #111;
+    --cta-border: #fff;
   }
   .hero-main__cta:hover,
   .hero-main__cta:focus-visible {
