@@ -69,7 +69,7 @@
   }
   .collection-page__eyebrow {
     text-transform: uppercase;
-    letter-spacing: 0.24em;
+    letter-spacing: 0.14em;
     font-size: 0.65rem;
     color: var(--color-muted);
   }
@@ -121,9 +121,14 @@
   .collection-page__link {
     text-decoration: none;
     text-transform: uppercase;
-    letter-spacing: 0.18em;
+    letter-spacing: var(--cta-letter-spacing, 0.12em);
     font-size: 0.7rem;
     color: var(--color-foreground);
+    transition: color 150ms ease;
+  }
+  .collection-page__link:hover,
+  .collection-page__link:focus-visible {
+    color: var(--color-accent);
   }
   .collection-page__pagination {
     grid-column: 1 / -1;

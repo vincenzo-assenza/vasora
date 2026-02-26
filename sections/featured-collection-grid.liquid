@@ -111,17 +111,26 @@
   .featured-collection-grid__cta {
     margin-top: var(--space-2);
     align-self: start;
-    background: #111;
-    color: #fff;
+    --cta-bg: #111;
+    --cta-fg: #fff;
+    --cta-border: #111;
+    background: var(--cta-bg);
+    color: var(--cta-fg);
     padding: 0.85rem 1.8rem;
-    border: 1px solid #111;
+    border: 1px solid var(--cta-border);
     border-radius: 0;
     font-size: 0.7rem;
-    letter-spacing: 0.2em;
+    letter-spacing: var(--cta-letter-spacing, 0.12em);
     font-weight: 400;
     text-transform: uppercase;
     display: inline-flex;
     width: fit-content;
+    transition: transform 150ms ease, box-shadow 150ms ease;
+  }
+  .featured-collection-grid__card:hover .featured-collection-grid__cta,
+  .featured-collection-grid__card:focus-visible .featured-collection-grid__cta {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
   }
 
   @media (max-width: 1024px) {

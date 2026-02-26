@@ -59,7 +59,7 @@
   }
   .cart-page__eyebrow {
     text-transform: uppercase;
-    letter-spacing: 0.24em;
+    letter-spacing: 0.14em;
     font-size: 0.65rem;
     color: var(--color-muted);
   }
@@ -95,7 +95,7 @@
   .cart-page__remove {
     text-decoration: none;
     text-transform: uppercase;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.12em;
     font-size: 0.65rem;
     color: var(--color-muted);
   }
@@ -115,7 +115,7 @@
     border-radius: 999px;
     padding: 0.4rem 0.9rem;
     text-transform: uppercase;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.12em;
     font-size: 0.6rem;
   }
   .cart-page__price {
@@ -127,13 +127,22 @@
   }
   .cart-page__checkout {
     padding: 0.9rem 1.8rem;
-    background: #111;
-    color: #fff;
-    border: none;
+    --cta-bg: #111;
+    --cta-fg: #fff;
+    --cta-border: #111;
+    background: var(--cta-bg);
+    color: var(--cta-fg);
+    border: 1px solid var(--cta-border);
     border-radius: 999px;
     text-transform: uppercase;
-    letter-spacing: 0.2em;
+    letter-spacing: var(--cta-letter-spacing, 0.12em);
     font-size: 0.7rem;
+    transition: transform 150ms ease, box-shadow 150ms ease;
+  }
+  .cart-page__checkout:hover,
+  .cart-page__checkout:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
   }
 
   @media (max-width: 900px) {

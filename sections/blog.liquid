@@ -66,7 +66,7 @@
   }
   .blog-page__eyebrow {
     text-transform: uppercase;
-    letter-spacing: 0.24em;
+    letter-spacing: 0.14em;
     font-size: 0.65rem;
     color: var(--color-muted);
     margin: 0;
@@ -123,9 +123,14 @@
   .blog-page__link {
     text-decoration: none;
     text-transform: uppercase;
-    letter-spacing: 0.18em;
+    letter-spacing: var(--cta-letter-spacing, 0.12em);
     font-size: 0.7rem;
     color: var(--color-foreground);
+    transition: color 150ms ease;
+  }
+  .blog-page__link:hover,
+  .blog-page__link:focus-visible {
+    color: var(--color-accent);
   }
   .blog-page__pagination {
     text-align: center;
