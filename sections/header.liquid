@@ -113,7 +113,7 @@
         data-mobile-toggle
       >
         <span class="u-sr-only">Apri menu</span>
-        {{ 'icon-menu.svg' | inline_asset_content }}
+        <span class="site-header__hamburger" aria-hidden="true"></span>
       </button>
 
       {% if shop.customer_accounts_enabled %}
@@ -397,6 +397,29 @@
     height: 1.1rem;
     stroke-width: 1.25;
   }
+  .site-header__hamburger,
+  .site-header__hamburger::before,
+  .site-header__hamburger::after {
+    display: block;
+    width: 1.1rem;
+    height: 2px;
+    background: currentColor;
+    border-radius: 2px;
+    content: '';
+  }
+  .site-header__hamburger {
+    position: relative;
+  }
+  .site-header__hamburger::before {
+    position: absolute;
+    top: -0.34rem;
+    left: 0;
+  }
+  .site-header__hamburger::after {
+    position: absolute;
+    top: 0.34rem;
+    left: 0;
+  }
   .site-header__badge {
     position: absolute;
     top: -4px;
@@ -469,6 +492,9 @@
   }
 
   @media (max-width: 767px) {
+    .site-header__container {
+      padding-inline: 20px;
+    }
     .site-header__main {
       grid-template-columns: auto 1fr auto;
     }
