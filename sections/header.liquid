@@ -105,17 +105,6 @@
     </nav>
 
     <div class="site-header__actions">
-      <button
-        class="site-header__icon-button site-header__mobile-toggle u-hide-desktop"
-        type="button"
-        aria-expanded="false"
-        aria-controls="MobileMenu"
-        data-mobile-toggle
-      >
-        <span class="u-sr-only">Apri menu</span>
-        <span class="site-header__hamburger" aria-hidden="true"></span>
-      </button>
-
       {% if shop.customer_accounts_enabled %}
         <a class="site-header__icon-button" href="{{ routes.account_url }}" aria-label="Account">
           {{ 'icon-account.svg' | inline_asset_content }}
@@ -128,6 +117,17 @@
         {% endif %}
         {{ 'icon-cart.svg' | inline_asset_content }}
       </a>
+
+      <button
+        class="site-header__icon-button site-header__mobile-toggle u-hide-desktop"
+        type="button"
+        aria-expanded="false"
+        aria-controls="MobileMenu"
+        data-mobile-toggle
+      >
+        <span class="u-sr-only">Apri menu</span>
+        <span class="site-header__hamburger" aria-hidden="true"></span>
+      </button>
     </div>
   </div>
 
@@ -188,7 +188,7 @@
     right: 0;
     z-index: 40;
     background: var(--header-bg);
-    border-bottom: 1px solid var(--header-border);
+    border-bottom: 0;
   }
   .site-header__main {
     position: relative;
@@ -225,7 +225,7 @@
   .site-header--transparent[data-scrolled='true'] {
     --header-text-active: var(--header-text-scrolled);
     background: var(--header-bg-scrolled);
-    border-bottom: 1px solid var(--header-border-scrolled);
+    border-bottom: 0;
     box-shadow: var(--shadow-sm);
   }
   .site-header__container {
