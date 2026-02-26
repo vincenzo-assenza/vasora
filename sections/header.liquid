@@ -387,7 +387,7 @@
     width: 2.2rem;
     height: 2.2rem;
     border-radius: 999px;
-    border: 1px solid color-mix(in srgb, var(--header-text-active) 20%, transparent);
+    border: 0;
     background: transparent;
     color: var(--header-text-active);
     text-decoration: none;
@@ -465,6 +465,34 @@
     }
     .site-header__mega-featured {
       grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .site-header__main {
+      grid-template-columns: auto 1fr auto;
+    }
+    .site-header__brand {
+      justify-self: start;
+    }
+    .site-header__actions {
+      justify-self: end;
+      gap: 0.35rem;
+    }
+    .site-header__icon-button {
+      width: 2rem;
+      height: 2rem;
+      border: 0;
+    }
+    .site-header__mobile-toggle {
+      color: var(--header-text-active);
+    }
+    .site-header__mobile-toggle svg,
+    .site-header__mobile-toggle svg * {
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      vector-effect: non-scaling-stroke;
     }
   }
 
