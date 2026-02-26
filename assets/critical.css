@@ -88,7 +88,18 @@ body {
 	--btn-py: 0.75rem;
 	--btn-px: 1.5rem;
 	--btn-font: 600;
+	--cta-bg: #111;
+	--cta-fg: #fff;
+	--cta-border: #111;
+	--cta-radius: 0;
+	--cta-font-weight: 500;
+	--cta-letter-spacing: 0.12em;
+	--cta-text-transform: uppercase;
+	--cta-padding-y: 0.75rem;
+	--cta-padding-x: 1.6rem;
+	--cta-font-size: 0.75rem;
 }
+
 
 h1 {
 	font-size: clamp(2rem, 4.5vw, 3.5rem);
@@ -144,14 +155,16 @@ p {
 	.newsletter-hero__form button,
 	.site-header__mega-cta
 ) {
-	background: #111;
-	color: #fff;
-	border: 1px solid #111;
-	border-radius: 0;
-	font-weight: 400;
-	text-transform: uppercase;
-	letter-spacing: 0.2em;
-	padding: 0.85rem 1.8rem;
+	background: var(--cta-bg);
+	color: var(--cta-fg);
+	border: 1px solid var(--cta-border);
+	border-radius: var(--cta-radius);
+	font-weight: var(--cta-font-weight);
+	text-transform: var(--cta-text-transform);
+	letter-spacing: var(--cta-letter-spacing);
+	font-size: var(--cta-font-size);
+	line-height: 1.1;
+	padding: var(--cta-padding-y) var(--cta-padding-x);
 }
 
 /** Section layout utilities */
@@ -273,7 +286,9 @@ p {
     .newsletter-hero__form button,
     .site-header__mega-cta
   ) {
-    letter-spacing: 0.12em;
-    padding: 0.75rem 1.4rem;
+    --cta-letter-spacing: 0.1em;
+    --cta-padding-y: 0.7rem;
+    --cta-padding-x: 1.3rem;
+    --cta-font-size: 0.72rem;
   }
 }

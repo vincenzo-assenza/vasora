@@ -8,7 +8,7 @@
     assign header_border = section.settings.border_transparent
   endif
 %}
-<header class="site-header{% if section.settings.enable_transparent %} site-header--transparent{% endif %}{% if section.settings.enable_sticky %} site-header--sticky{% endif %}{% if section.settings.full_width %} full-width{% endif %}" data-header style="--logo-width: {{ section.settings.logo_width }}px; --header-bg: {{ header_bg }}; --header-text: {{ header_text }}; --header-border: {{ header_border }}; --header-bg-scrolled: {{ section.settings.bg_scrolled }}; --header-text-scrolled: {{ section.settings.text_scrolled }}; --header-border-scrolled: {{ section.settings.border_scrolled }};">
+<header class="site-header{% if section.settings.enable_transparent %} site-header--transparent{% endif %}{% if section.settings.enable_sticky %} site-header--sticky{% endif %}{% if section.settings.full_width %} full-width{% endif %}" data-header style="--logo-width: {{ section.settings.logo_width }}px; --header-bg: {{ header_bg }}; --header-text: {{ header_text }}; --header-border: {{ header_border }}; --header-bg-scrolled: {{ section.settings.bg_scrolled }}; --header-text-scrolled: {{ section.settings.text_scrolled }}; --header-border-scrolled: {{ section.settings.border_scrolled }}; --header-scrim-start: rgba(12, 12, 12, 0.34); --header-scrim-end: rgba(12, 12, 12, 0.12);">
 
   <div class="site-header__main site-header__container">
     <div class="site-header__brand">
@@ -190,6 +190,22 @@
     background: var(--header-bg);
     border-bottom: 1px solid var(--header-border);
   }
+  .site-header__main {
+    position: relative;
+    isolation: isolate;
+  }
+  .site-header--transparent .site-header__main::before {
+    content: '';
+    position: absolute;
+    inset: -0.35rem -0.5rem;
+    border-radius: var(--radius-md);
+    background: linear-gradient(180deg, var(--header-scrim-start), var(--header-scrim-end));
+    pointer-events: none;
+    z-index: -1;
+  }
+  .site-header--transparent[data-scrolled='true'] .site-header__main::before {
+    opacity: 0;
+  }
   .site-header.full-width {
     width: 100%;
     max-width: 100%;
@@ -268,7 +284,7 @@
     color: var(--header-text-active);
     font-weight: 500;
     font-size: 0.75rem;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     position: relative;
     background: none;
@@ -319,7 +335,7 @@
   .site-header__mega-title {
     font-weight: 600;
     margin-bottom: var(--space-3);
-    letter-spacing: 0.08em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
     font-size: 0.85rem;
   }
@@ -357,10 +373,6 @@
   .site-header__mega-cta {
     text-decoration: none;
     color: var(--color-foreground);
-    font-weight: 600;
-    font-size: 0.85rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
   }
   .site-header__actions {
     display: flex;
