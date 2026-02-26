@@ -1,7 +1,0 @@
-{
-  "name": "product (Vasora variant)",
-  "sections": {
-    "main": { "type": "main-product.vasora" }
-  },
-  "order": ["main"]
-}

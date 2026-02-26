@@ -1,13 +1,23 @@
-# This file contains a list of files that will be excluded from Shopify CLI
-# operations such as push, pull, dev, etc.
-#
-# Examples:
-#
-# Ignore a specific file:
-#   templates/product.json
-#
-# Ignore templates with a wildcard pattern:
-#   templates/*.json
-#
-# Ignore templates and sections with a regular expression:
-#   /(templates|sections)/.*\.json/
+# Local/dev artifacts
+node_modules/
+.openclaw/
+memory/
+_dev/
+
+# Agent/workspace meta files
+AGENTS.md
+SOUL.md
+USER.md
+IDENTITY.md
+HEARTBEAT.md
+BOOTSTRAP.md
+TOOLS.md
+
+# Repository/meta files not needed in theme upload
+.github/
+docs/
+scripts/
+
+# Optional local backups and notes
+*.vasora
+*.md

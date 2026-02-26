@@ -1,7 +1,0 @@
-{
-  "name": "404 (Vasora variant)",
-  "sections": {
-    "main": { "type": "main-404.vasora" }
-  },
-  "order": ["main"]
-}
